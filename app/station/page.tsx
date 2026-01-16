@@ -5,17 +5,46 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { questions } from "@/lib/questions";
 
-export default function StationMode() {
+export default function StationPage() {
+  // --- STATE MANAGEMENT ---
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [streak, setStreak] = useState(0);
+  
+  // Shift Logic: 10 Questions, 15 Minutes (900 seconds)
+  const SHIFT_LENGTH = 10;
+  const [timeLeft, setTimeLeft] = useState(900); 
+  const [score, setScore] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
 
-  const question = questions[currentIndex % questions.length]; // Loop for demo
+  // Load current question safely
+  // We use modulo (%) so if we run out of unique questions, it loops instead of crashing
+  const question = questions[currentIndex % questions.length];
 
-  // KEYBOARD SHORTCUTS (The Pro Feature)
+  // --- TIMER LOGIC ---
+  useEffect(() => {
+    if (isFinished) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setIsFinished(true); // Time's up!
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isFinished]);
+
+  // --- KEYBOARD SHORTCUTS ---
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (isFinished) return;
+      
       if (submitted) {
         if (e.key === "Enter") handleNext();
         return;
@@ -30,50 +59,115 @@ export default function StationMode() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selected, submitted]);
+  }, [selected, submitted, isFinished]);
 
+  // --- HANDLERS ---
   const handleSubmit = () => {
     setSubmitted(true);
     if (selected === question.correctIndex) {
       setStreak((s) => s + 1);
+      setScore((s) => s + 1);
     } else {
       setStreak(0);
     }
   };
 
   const handleNext = () => {
-    setSubmitted(false);
-    setSelected(null);
-    setCurrentIndex((prev) => prev + 1);
+    // Check if Shift is done
+    if (currentIndex + 1 >= SHIFT_LENGTH) {
+      setIsFinished(true);
+    } else {
+      setSubmitted(false);
+      setSelected(null);
+      setCurrentIndex((prev) => prev + 1);
+    }
   };
 
+  // Helper: Format Seconds to MM:SS
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  // --- VIEW: SHIFT REPORT (END SCREEN) ---
+  if (isFinished) {
+    const percentage = Math.round((score / SHIFT_LENGTH) * 100);
+    const passed = percentage >= 70;
+
+    return (
+      <div className="min-h-screen bg-[#0F172A] flex items-center justify-center p-6">
+        <div className="max-w-md w-full bg-slate-900 border border-white/10 rounded-2xl p-8 text-center shadow-2xl">
+          <div className="mb-6 flex justify-center">
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center ${passed ? "bg-green-500/20" : "bg-red-500/20"}`}>
+              <span className={`text-4xl ${passed ? "text-green-500" : "text-red-500"}`}>
+                {passed ? "✓" : "✕"}
+              </span>
+            </div>
+          </div>
+          
+          <h1 className="text-2xl font-black text-white mb-2">SHIFT COMPLETE</h1>
+          <p className="text-gray-400 text-sm mb-8">
+            {passed ? "Excellent work. Competency maintained." : "Review protocols and try again."}
+          </p>
+
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="bg-slate-800 p-4 rounded-xl">
+              <p className="text-gray-500 text-xs font-bold uppercase">Accuracy</p>
+              <p className={`text-2xl font-bold ${passed ? "text-green-400" : "text-red-400"}`}>
+                {percentage}%
+              </p>
+            </div>
+            <div className="bg-slate-800 p-4 rounded-xl">
+              <p className="text-gray-500 text-xs font-bold uppercase">Time Left</p>
+              <p className="text-2xl font-bold text-white">
+                {formatTime(timeLeft)}
+              </p>
+            </div>
+          </div>
+
+          <Link href="/dashboard" className="block w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-colors">
+            RETURN TO STATION
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // --- VIEW: ACTIVE SIMULATOR ---
   return (
     <div className="min-h-screen bg-[#0F172A] text-white font-sans flex flex-col">
       
-      {/* 1. HUD HEADER */}
+      {/* HUD HEADER */}
       <header className="px-6 py-4 border-b border-white/5 bg-[#0F172A] flex justify-between items-center sticky top-0 z-10">
         <div className="flex items-center gap-4">
-          <Link href="/dashboard" className="p-2 hover:bg-white/10 rounded-full transition-colors">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="gray" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <Link href="/dashboard" className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400 hover:text-white">
+            ✕
           </Link>
           <div>
-            <h1 className="text-sm font-bold tracking-widest text-gray-400 uppercase">Station Mode</h1>
-            <div className="flex items-center gap-2">
-              <span className={`w-2 h-2 rounded-full ${streak > 2 ? "bg-green-500 animate-pulse" : "bg-blue-500"}`} />
-              <span className="text-xs font-mono text-blue-400">STREAK: {streak}</span>
+            <h1 className="text-xs font-bold tracking-widest text-blue-400 uppercase">
+              ACTIVE SHIFT • {currentIndex + 1}/{SHIFT_LENGTH}
+            </h1>
+            <div className="h-1 w-24 bg-gray-800 rounded-full mt-1 overflow-hidden">
+              <div 
+                className="h-full bg-blue-500 transition-all duration-500" 
+                style={{ width: `${((currentIndex + 1) / SHIFT_LENGTH) * 100}%` }}
+              />
             </div>
           </div>
         </div>
         
-        <div className="text-right hidden md:block">
-          <p className="text-[10px] text-gray-600 font-mono">KEYBOARD ACTIVE</p>
-          <p className="text-xs font-bold text-gray-500">[1-4] SELECT • [ENTER] SUBMIT</p>
+        <div className="flex items-center gap-4">
+          <div className="text-right">
+            <p className={`text-xl font-mono font-bold ${timeLeft < 60 ? "text-red-500 animate-pulse" : "text-white"}`}>
+              {formatTime(timeLeft)}
+            </p>
+          </div>
         </div>
       </header>
 
-      {/* 2. QUESTION STAGE */}
+      {/* QUESTION STAGE */}
       <main className="flex-1 max-w-3xl mx-auto w-full p-6 flex flex-col justify-center">
-        
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -83,8 +177,8 @@ export default function StationMode() {
             transition={{ duration: 0.2 }}
           >
             {/* Category Tag */}
-            <span className="inline-block px-3 py-1 rounded bg-blue-900/30 text-blue-400 text-xs font-bold tracking-widest mb-6 border border-blue-500/20">
-              {question.category.toUpperCase()} • {question.level}
+            <span className="inline-block px-3 py-1 rounded bg-slate-800 text-gray-300 text-xs font-bold tracking-widest mb-6 border border-white/10">
+              {question.category.toUpperCase()}
             </span>
 
             {/* The Question */}
@@ -95,7 +189,6 @@ export default function StationMode() {
             {/* Options Grid */}
             <div className="grid grid-cols-1 gap-3">
               {question.options.map((option, idx) => {
-                // Logic for coloring options after submit
                 let borderColor = "border-white/10";
                 let bgColor = "bg-white/5";
                 let textColor = "text-gray-300";
@@ -110,7 +203,7 @@ export default function StationMode() {
                     bgColor = "bg-red-500/20";
                     textColor = "text-red-400";
                   } else {
-                    bgColor = "opacity-50";
+                    bgColor = "opacity-20"; // Dim others
                   }
                 } else if (selected === idx) {
                   borderColor = "border-blue-500";
@@ -138,10 +231,9 @@ export default function StationMode() {
             </div>
           </motion.div>
         </AnimatePresence>
-
       </main>
 
-      {/* 3. FEEDBACK DRAWER (Slides up on Submit) */}
+      {/* FEEDBACK DRAWER */}
       <AnimatePresence>
         {submitted && (
           <motion.div
@@ -156,7 +248,12 @@ export default function StationMode() {
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${selected === question.correctIndex ? "bg-green-500" : "bg-red-500"}`}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="3"><path d={selected === question.correctIndex ? "M20 6L9 17l-5-5" : "M18 6L6 18M6 6l12 12"} /></svg>
+                    {/* Icon SVG */}
+                    {selected === question.correctIndex ? (
+                       <svg className="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path d="M5 13l4 4L19 7" /></svg>
+                    ) : (
+                       <svg className="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path d="M6 18L18 6M6 6l12 12" /></svg>
+                    )}
                   </div>
                   <h3 className={`font-bold text-lg ${selected === question.correctIndex ? "text-green-400" : "text-red-400"}`}>
                     {selected === question.correctIndex ? "Correct" : "Incorrect"}
@@ -171,7 +268,7 @@ export default function StationMode() {
                 onClick={handleNext}
                 className="w-full md:w-auto px-8 py-3 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
               >
-                NEXT SCENARIO <span className="text-xs bg-black/10 px-1.5 py-0.5 rounded ml-1 hidden md:inline">ENTER</span>
+                {currentIndex + 1 >= SHIFT_LENGTH ? "FINISH SHIFT" : "NEXT"} <span className="text-xs bg-black/10 px-1.5 py-0.5 rounded ml-1 hidden md:inline">ENTER</span>
               </button>
 
             </div>
