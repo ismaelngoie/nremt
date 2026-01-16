@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { id: "home", href: "/dashboard", icon: "●", label: "Station" },
-  { id: "sim", href: "/station", icon: "▲", label: "Simulator" }, // Points to our new Station Mode
+  { id: "sim", href: "/simulator", icon: "▲", label: "Simulator" }, // Points to our new Station Mode
   { id: "shift", href: "/station", icon: "■", label: "The Shift" }, // Placeholders for now
   { id: "profile", href: "/profile", icon: "◆", label: "Profile" },
 ];
