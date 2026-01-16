@@ -11,97 +11,106 @@ export type Question = {
 };
 
 export const questions: Question[] = [
-  // --- EMT QUESTIONS ---
+  // ================= EMT CATEGORIES =================
+  
+  // 1. Patient Treatment
   {
-    id: 101,
-    level: "EMT",
-    category: "Patient Treatment",
-    text: "You are treating a 24-year-old male with a deep laceration to his arm. Bright red blood is spurting. Direct pressure has failed. What is your immediate next action?",
-    options: ["Apply a tourniquet proximal to the wound", "Elevate the extremity", "Apply a pressure dressing", "Check for a radial pulse"],
-    correctIndex: 0,
-    explanation: "If direct pressure fails to control arterial bleeding (spurting bright red blood), a tourniquet is the immediate next step to prevent exsanguination."
+    id: 101, level: "EMT", category: "Patient Treatment",
+    text: "A 45-year-old male is complaining of chest pain. He has a prescription for nitroglycerin. His BP is 98/60. You should:",
+    options: ["Administer the nitroglycerin", "Contact medical control", "Withhold the medication", "Administer aspirin only"],
+    correctIndex: 2,
+    explanation: "Nitroglycerin is generally contraindicated if the systolic BP is below 100 mmHg due to the risk of severe hypotension."
   },
+  
+  // 2. Primary Assessment
   {
-    id: 102,
-    level: "EMT",
-    category: "Primary Assessment",
-    text: "You arrive on scene to find a 50-year-old male unconscious. You open the airway and hear snoring respirations. You should:",
-    options: ["Perform a head-tilt chin-lift", "Insert an OPA", "Suction the airway", "Administer Oxygen"],
-    correctIndex: 0,
-    explanation: "Snoring indicates a mechanical obstruction by the tongue. The first manual maneuver to open the airway is the head-tilt chin-lift (if no trauma is suspected)."
+    id: 102, level: "EMT", category: "Primary Assessment",
+    text: "You arrive to find a patient unresponsive. Your partner stabilizes the c-spine. Your next action is to:",
+    options: ["Check for a pulse", "Open the airway", "Look for major bleeding", "Assess breathing"],
+    correctIndex: 1,
+    explanation: "According to the CAB (Compressions, Airway, Breathing) sequence for cardiac arrest, you check a pulse. However, for a general primary assessment of a patient with a pulse, Airway is the first priority after safety/spine."
   },
+
+  // 3. Secondary Assessment
   {
-    id: 103,
-    level: "EMT",
-    category: "Secondary Assessment",
-    text: "During your assessment of a trauma patient, you note paradoxical movement of the chest wall. This condition is best described as:",
-    options: ["Flail Chest", "Tension Pneumothorax", "Cardiac Tamponade", "Hemothorax"],
+    id: 103, level: "EMT", category: "Secondary Assessment",
+    text: "During your physical exam, you note a 'crunching' sound when palpating the patient's neck. This is known as:",
+    options: ["Subcutaneous Emphysema", "Tracheal Deviation", "Jugular Vein Distention", "Stridor"],
     correctIndex: 0,
-    explanation: "Paradoxical motion (moving opposite to the rest of the chest) is the hallmark sign of a Flail Chest, usually caused by 3+ ribs broken in 2+ places."
+    explanation: "Subcutaneous emphysema feels like 'Rice Krispies' under the skin and indicates air escaping from the airway or lungs into the soft tissue."
   },
+
+  // 4. Scene Size-Up
   {
-    id: 104,
-    level: "EMT",
-    category: "EMS Operations",
+    id: 104, level: "EMT", category: "Scene Size-Up",
+    text: "You are approaching a vehicle accident. You see a diamond-shaped placard with the number '3' on the tanker. You should:",
+    options: ["Approach from upwind and uphill", "Approach to read the specific ID number", "Begin triage immediately", "Park the ambulance 50 feet away"],
+    correctIndex: 0,
+    explanation: "A placard indicates hazardous materials. You must always stay upwind and uphill until the scene is declared safe by HazMat."
+  },
+
+  // 5. EMS Operations
+  {
+    id: 105, level: "EMT", category: "EMS Operations",
     text: "Which of the following creates the highest risk of legal liability for an EMS provider?",
     options: ["Patient Refusal of Care", "Vehicle accidents", "Medication errors", "HIPAA violations"],
     correctIndex: 0,
-    explanation: "Patient refusals constitute the highest liability risk because you are leaving a potentially sick or injured person on scene."
-  },
-  {
-    id: 105,
-    level: "EMT",
-    category: "Scene Size-Up",
-    text: "You arrive at a chemical plant explosion. Patients are staggering out. Your priority is:",
-    options: ["Isolate the scene and ensure safety", "Begin triage immediately", "Load the most critical patient", "Identify the chemical"],
-    correctIndex: 0,
-    explanation: "Safety is always the first priority. You cannot help if you become a victim. Isolate the scene until HazMat declares it safe."
+    explanation: "Patient refusals constitute the highest liability risk because you are leaving a potentially sick or injured person on scene without care."
   },
 
-  // --- PARAMEDIC QUESTIONS ---
+  // ================= PARAMEDIC CATEGORIES =================
+
+  // 1. Clinical Judgment
   {
-    id: 201,
-    level: "Paramedic",
-    category: "Cardiology",
-    text: "A patient presents with a narrow-complex tachycardia at 180 bpm. They are unstable (BP 80/50). The treatment of choice is:",
-    options: ["Synchronized Cardioversion", "Adenosine 6mg", "Vagal Maneuvers", "Defibrillation"],
+    id: 201, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient with a history of CHF presents with rales and hypertension (210/110). They are hypoxic. First-line respiratory intervention is:",
+    options: ["CPAP", "Intubation", "Nebulized Albuterol", "Bag-Valve Mask"],
     correctIndex: 0,
-    explanation: "Unstable tachycardia requires immediate Synchronized Cardioversion. Medications are for stable patients."
+    explanation: "CPAP is the gold standard for acute pulmonary edema in conscious patients. It pushes fluid out of the alveoli and reduces preload."
   },
+
+  // 2. Airway
   {
-    id: 202,
-    level: "Paramedic",
-    category: "Airway",
-    text: "You are intubating a patient. After passing the tube, you auscultate epigastric sounds and no breath sounds. You should:",
-    options: ["Immediately remove the tube", "Advance the tube deeper", "Inflate the cuff", "Check capnography"],
+    id: 202, level: "Paramedic", category: "Airway",
+    text: "You are preparing to intubate a head-injury patient. Which induction agent helps blunt the ICP spike?",
+    options: ["Lidocaine", "Etomidate", "Succinylcholine", "Ketamine"],
     correctIndex: 0,
-    explanation: "Epigastric sounds with absent breath sounds indicate esophageal intubation. The tube must be removed immediately."
+    explanation: "Lidocaine is often used in RSI premedication for head injuries to blunt the rise in Intracranial Pressure (ICP) during laryngoscopy."
   },
+
+  // 3. Cardiology
   {
-    id: 203,
-    level: "Paramedic",
-    category: "Clinical Judgment",
-    text: "A trauma patient has distended neck veins, muffled heart sounds, and hypotension. You suspect:",
-    options: ["Cardiac Tamponade", "Tension Pneumothorax", "Massive Hemothorax", "Hypovolemic Shock"],
+    id: 203, level: "Paramedic", category: "Cardiology",
+    text: "A patient is in SVT at 190 bpm and is unstable (altered mental status). You should immediately:",
+    options: ["Perform Synchronized Cardioversion", "Administer Adenosine 6mg", "Administer Diltiazem", "Perform Vagal Maneuvers"],
     correctIndex: 0,
-    explanation: "This is Beck's Triad, the classic sign of Cardiac Tamponade."
+    explanation: "Unstable patients with tachyarrhythmias require immediate electrical therapy (Synchronized Cardioversion). Drugs are for stable patients."
   },
+
+  // 4. Trauma
   {
-    id: 204,
-    level: "Paramedic",
-    category: "Medical & OBGYN",
-    text: "A 24-year-old female presents with lower abdominal pain and vaginal spotting. She is hypotensive. You should suspect:",
-    options: ["Ruptured Ectopic Pregnancy", "Pelvic Inflammatory Disease", "Appendicitis", "Ovarian Cyst"],
+    id: 204, level: "Paramedic", category: "Trauma",
+    text: "A patient has a tension pneumothorax. You perform a needle decompression. The rush of air ceases, but the patient remains hypotensive. You should:",
+    options: ["Perform a second decompression or finger thoracostomy", "Switch to the other side", "Administer fluids", "Intubate immediately"],
     correctIndex: 0,
-    explanation: "In a female of childbearing age, hypotension + abdominal pain + spotting is a ruptured ectopic pregnancy until proven otherwise. It is a life threat."
+    explanation: "If the first needle fails or clogs, or if the patient does not improve, you must re-attempt decompression or move to a more definitive airway/procedure depending on protocol."
   },
+
+  // 5. Medical & OBGYN
   {
-    id: 205,
-    level: "Paramedic",
-    category: "Trauma",
-    text: "You are treating a burn patient with 50% BSA burns. They weigh 80kg. Using the Parkland Formula (4ml), what is the fluid rate for the first 8 hours?",
-    options: ["8,000 mL total / 4,000 mL first 8 hrs", "16,000 mL total", "1,000 mL/hr", "500 mL/hr"],
+    id: 205, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A pregnant female (34 weeks) is seizing. You have already administered Versed but she continues to seize. The drug of choice is:",
+    options: ["Magnesium Sulfate", "Calcium Chloride", "More Versed", "Phenobarbital"],
     correctIndex: 0,
-    explanation: "4ml * 80kg * 50% = 16,000mL total. Half (8,000mL) is given in the first 8 hours. Wait... 4 * 80 * 50 = 16000. Half is 8000. So 1000ml/hr."
+    explanation: "Eclamptic seizures are best treated with Magnesium Sulfate (usually 4g IV), not just benzodiazepines."
+  },
+  
+  // 6. EMS Operations (Paramedic)
+  {
+    id: 206, level: "Paramedic", category: "EMS Operations",
+    text: "In the Incident Command System (ICS), who is the only person the Safety Officer reports to?",
+    options: ["The Incident Commander", "The Operations Section Chief", "The Liaison Officer", "The Medical Director"],
+    correctIndex: 0,
+    explanation: "The Safety Officer is part of the Command Staff and reports directly to the Incident Commander."
   }
 ];
