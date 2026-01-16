@@ -3,10 +3,9 @@
 import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation"; // To read the URL
+import { useSearchParams } from "next/navigation"; 
 import { questions } from "@/lib/questions";
 
-// We need to wrap the main component in Suspense because it uses searchParams
 export default function StationPageWrapper() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#0F172A]" />}>
@@ -17,43 +16,38 @@ export default function StationPageWrapper() {
 
 function StationPage() {
   const searchParams = useSearchParams();
-  const categoryFilter = searchParams.get("category"); // Get category from URL
+  const categoryFilter = searchParams.get("category"); 
+  const isStudyMode = !!categoryFilter; // If category exists, we are in Study Mode (No Timer)
 
   // --- STATE ---
   const [activeQuestions, setActiveQuestions] = useState<typeof questions>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
-  const [streak, setStreak] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(900); // 15 mins
+  const [timeLeft, setTimeLeft] = useState(900); // 15 mins (Only for Shift)
   const [isFinished, setIsFinished] = useState(false);
   const [score, setScore] = useState(0);
 
   // --- INIT QUESTIONS ---
   useEffect(() => {
-    // 1. Get User Level from memory
     const userLevel = localStorage.getItem("userLevel") || "EMT";
-    
-    // 2. Filter Questions
     let filtered = questions.filter(q => q.level === userLevel);
     
-    // 3. Apply Category Filter (if user clicked a specific button)
     if (categoryFilter) {
       filtered = filtered.filter(q => q.category === categoryFilter);
     }
 
-    // 4. Shuffle and Set
     const shuffled = filtered.sort(() => Math.random() - 0.5);
-    setActiveQuestions(shuffled.length > 0 ? shuffled : questions); // Fallback to all if empty
+    setActiveQuestions(shuffled.length > 0 ? shuffled : questions);
   }, [categoryFilter]);
 
-  const SHIFT_LENGTH = 10;
-  // Use safe access in case array is empty during initial render
+  const SHIFT_LENGTH = isStudyMode ? activeQuestions.length : 10;
   const question = activeQuestions[currentIndex % activeQuestions.length];
 
-  // --- TIMER ---
+  // --- TIMER (Only if NOT Study Mode) ---
   useEffect(() => {
-    if (isFinished) return;
+    if (isFinished || isStudyMode) return; // Disable timer in Study Mode
+    
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
@@ -64,7 +58,7 @@ function StationPage() {
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [isFinished]);
+  }, [isFinished, isStudyMode]);
 
   // --- KEYBOARD ---
   useEffect(() => {
@@ -92,15 +86,24 @@ function StationPage() {
   const handleSubmit = (idx: number) => {
     setSubmitted(true);
     if (idx === question.correctIndex) {
-      setStreak(s => s + 1);
       setScore(s => s + 1);
-    } else {
-      setStreak(0);
+      
+      // --- SAVE MASTERY ---
+      // We save the ID of the question to localStorage so Study Hub knows we passed it.
+      const mastered = JSON.parse(localStorage.getItem("mastered-ids") || "[]");
+      if (!mastered.includes(question.id)) {
+        mastered.push(question.id);
+        localStorage.setItem("mastered-ids", JSON.stringify(mastered));
+      }
     }
   };
 
   const handleNext = () => {
-    if (currentIndex + 1 >= Math.min(SHIFT_LENGTH, activeQuestions.length)) {
+    // If Study Mode, we go until the end of the filtered list
+    // If Shift Mode, we stop at 10
+    const limit = isStudyMode ? activeQuestions.length : 10;
+    
+    if (currentIndex + 1 >= limit) {
       setIsFinished(true);
     } else {
       setSubmitted(false);
@@ -117,8 +120,10 @@ function StationPage() {
 
   // --- END SCREEN ---
   if (isFinished) {
-    const percentage = Math.round((score / Math.min(SHIFT_LENGTH, activeQuestions.length)) * 100);
+    const totalQs = isStudyMode ? activeQuestions.length : 10;
+    const percentage = totalQs > 0 ? Math.round((score / totalQs) * 100) : 0;
     const passed = percentage >= 70;
+    
     return (
       <div className="min-h-screen bg-[#0F172A] flex items-center justify-center p-6 text-white font-sans">
         <div className="max-w-md w-full bg-slate-900 border border-white/10 rounded-2xl p-8 text-center shadow-2xl">
@@ -127,9 +132,13 @@ function StationPage() {
               <span className={`text-4xl ${passed ? "text-green-500" : "text-red-500"}`}>{passed ? "✓" : "✕"}</span>
             </div>
           </div>
-          <h1 className="text-2xl font-black text-white mb-2">SESSION COMPLETE</h1>
+          <h1 className="text-2xl font-black text-white mb-2">{isStudyMode ? "MODULE COMPLETE" : "SHIFT COMPLETE"}</h1>
           <p className="text-gray-400 text-sm mb-8">{passed ? "Competency maintained." : "Review protocols."}</p>
-          <Link href={categoryFilter ? "/study" : "/dashboard"} className="block w-full py-4 bg-blue-600 font-bold rounded-xl text-white">
+          <div className="bg-slate-800 p-4 rounded-xl mb-8">
+             <p className="text-gray-500 text-xs font-bold uppercase">Accuracy</p>
+             <p className={`text-2xl font-bold ${passed ? "text-green-400" : "text-red-400"}`}>{percentage}%</p>
+          </div>
+          <Link href={isStudyMode ? "/study" : "/dashboard"} className="block w-full py-4 bg-blue-600 font-bold rounded-xl text-white">
             CONTINUE
           </Link>
         </div>
@@ -137,26 +146,28 @@ function StationPage() {
     );
   }
 
-  // --- ACTIVE SCREEN ---
   if (!question) return <div className="min-h-screen bg-[#0F172A]" />;
 
   return (
     <div className="min-h-screen bg-[#0F172A] text-white font-sans flex flex-col">
       <header className="px-6 py-4 border-b border-white/5 bg-[#0F172A] flex justify-between items-center sticky top-0 z-10">
         <div className="flex items-center gap-4">
-          <Link href={categoryFilter ? "/study" : "/dashboard"} className="p-2 hover:bg-white/10 rounded-full text-gray-400 hover:text-white">✕</Link>
+          <Link href={isStudyMode ? "/study" : "/dashboard"} className="p-2 hover:bg-white/10 rounded-full text-gray-400 hover:text-white">✕</Link>
           <div>
             <h1 className="text-xs font-bold tracking-widest text-blue-400 uppercase">
-              {categoryFilter ? categoryFilter.toUpperCase() : "GENERAL DRILL"} • {currentIndex + 1}/{Math.min(SHIFT_LENGTH, activeQuestions.length)}
+              {categoryFilter ? categoryFilter.toUpperCase() : "GENERAL DRILL"} • {currentIndex + 1}/{isStudyMode ? activeQuestions.length : 10}
             </h1>
             <div className="h-1 w-24 bg-gray-800 rounded-full mt-1 overflow-hidden">
-              <div className="h-full bg-blue-500 transition-all duration-500" style={{ width: `${((currentIndex + 1) / Math.min(SHIFT_LENGTH, activeQuestions.length)) * 100}%` }} />
+              <div className="h-full bg-blue-500 transition-all duration-500" style={{ width: `${((currentIndex + 1) / (isStudyMode ? activeQuestions.length : 10)) * 100}%` }} />
             </div>
           </div>
         </div>
-        <div className={`text-xl font-mono font-bold ${timeLeft < 60 ? "text-red-500 animate-pulse" : "text-white"}`}>
-          {formatTime(timeLeft)}
-        </div>
+        {/* Only show timer if NOT in study mode */}
+        {!isStudyMode && (
+          <div className={`text-xl font-mono font-bold ${timeLeft < 60 ? "text-red-500 animate-pulse" : "text-white"}`}>
+            {formatTime(timeLeft)}
+          </div>
+        )}
       </header>
 
       <main className="flex-1 max-w-3xl mx-auto w-full p-6 flex flex-col justify-center">
