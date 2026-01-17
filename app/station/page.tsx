@@ -55,7 +55,7 @@ function upsertPerf(category: string, scorePct: number) {
   } else {
     const attempts = (prev.attempts || 0) + 1;
     const best = Math.max(prev.best ?? prev.last ?? 0, score);
-    const prevAvg = Number.isFinite(prev.avg) ? prev.avg : (prev.last ?? score);
+    const prevAvg = Number.isFinite(prev.avg) ? prev.avg : prev.last ?? score;
     const prevAttempts = Math.max(1, prev.attempts || 1);
     const avg = clamp(Math.round((prevAvg * prevAttempts + score) / attempts));
 
@@ -120,6 +120,9 @@ function StationPage() {
 
   const persistedRef = useRef(false);
 
+  // track session timing (works for shift + study/review)
+  const startedAtRef = useRef<number>(Date.now());
+
   // --- THEME ---
   const isP = level === "Paramedic";
   const theme = useMemo(
@@ -162,6 +165,7 @@ function StationPage() {
     setTimeLeft(isShiftMode ? 900 : 0);
 
     persistedRef.current = false;
+    startedAtRef.current = Date.now();
   }, [categoryFilter, isShiftMode]);
 
   const question = activeQuestions[currentIndex];
@@ -190,20 +194,41 @@ function StationPage() {
     if (persistedRef.current) return;
     persistedRef.current = true;
 
-    const pct = totalQs > 0 ? Math.round((scoreCorrect / totalQs) * 100) : 0;
+    const total = Math.max(0, totalQs);
+    const correct = Math.max(0, scoreCorrect);
+    const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
 
-    // Category used for dashboard performance bars
     const sessionCategory = categoryFilter || "General";
+    const sessionMode = isShiftMode ? "shift" : isReviewMode ? "review" : "study";
 
-    // 1) Last shift result (dashboard reads this)
-    localStorage.setItem("last-shift-result", JSON.stringify({ category: sessionCategory, score: pct }));
+    const startedAt = startedAtRef.current || Date.now();
+    const at = Date.now();
+    const durationMs = Math.max(0, at - startedAt);
+
+    // 1) Last result (dashboard reads this)
+    localStorage.setItem(
+      "last-shift-result",
+      JSON.stringify({
+        category: sessionCategory,
+        score: clamp(pct),
+        correct,
+        total,
+        level,
+        mode: sessionMode,
+        startedAt,
+        at,
+        durationMs,
+      })
+    );
 
     // 2) Category performance map (dashboard performance section)
     upsertPerf(sessionCategory, pct);
 
-    // 3) Mark streak complete
-    markShiftCompleteToday();
-  }, [isFinished, scoreCorrect, totalQs, categoryFilter]);
+    // 3) Mark streak complete ONLY for real SHIFT
+    if (isShiftMode) {
+      markShiftCompleteToday();
+    }
+  }, [isFinished, scoreCorrect, totalQs, categoryFilter, isShiftMode, isReviewMode, level]);
 
   // --- LOGIC ---
   const handleNext = useCallback(() => {
@@ -238,7 +263,7 @@ function StationPage() {
     [submitted, isFinished, question]
   );
 
-  // --- KEYBOARD SHORTCUTS (no stale closures) ---
+  // --- KEYBOARD SHORTCUTS ---
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isFinished) return;
@@ -277,19 +302,19 @@ function StationPage() {
         >
           <div className="text-center mb-8">
             <h1 className="text-sm font-black tracking-[0.3em] text-slate-400 uppercase mb-2">After Action Report</h1>
-            <div className="text-4xl font-black">
-              {isShiftMode ? "SHIFT ENDED" : "SESSION COMPLETE"}
-            </div>
+            <div className="text-4xl font-black">{isShiftMode ? "SHIFT ENDED" : "SESSION COMPLETE"}</div>
             {categoryFilter && (
-              <div className={`mt-2 text-[11px] font-mono ${theme.accent} opacity-90`}>
-                CATEGORY: {categoryFilter.toUpperCase()}
-              </div>
+              <div className={`mt-2 text-[11px] font-mono ${theme.accent} opacity-90`}>CATEGORY: {categoryFilter.toUpperCase()}</div>
             )}
           </div>
 
           <div className="flex justify-center mb-10 relative">
             <div className={`absolute inset-0 rounded-full blur-xl opacity-40 ${passed ? "bg-emerald-500" : "bg-red-500"}`} />
-            <div className={`relative w-32 h-32 rounded-full border-4 flex items-center justify-center bg-slate-950 ${passed ? "border-emerald-500 text-emerald-400" : "border-red-500 text-red-500"}`}>
+            <div
+              className={`relative w-32 h-32 rounded-full border-4 flex items-center justify-center bg-slate-950 ${
+                passed ? "border-emerald-500 text-emerald-400" : "border-red-500 text-red-500"
+              }`}
+            >
               <div className="text-center">
                 <div className="text-3xl font-black">{percentage}%</div>
                 <div className="text-[10px] font-bold uppercase tracking-widest">{passed ? "PASSED" : "FAILED"}</div>
@@ -310,10 +335,7 @@ function StationPage() {
             </div>
           </div>
 
-          <Link
-            href="/dashboard"
-            className={`block w-full py-4 rounded-xl font-black text-center text-white shadow-lg transition-transform active:scale-95 ${theme.btn}`}
-          >
+          <Link href="/dashboard" className={`block w-full py-4 rounded-xl font-black text-center text-white shadow-lg transition-transform active:scale-95 ${theme.btn}`}>
             RETURN TO BASE
           </Link>
         </motion.div>
@@ -337,9 +359,7 @@ function StationPage() {
 
           <div>
             <div className="flex items-center gap-2">
-              <span className={`text-[10px] font-black tracking-[0.2em] uppercase ${theme.accent}`}>
-                {categoryFilter ? categoryFilter : "GENERAL"}
-              </span>
+              <span className={`text-[10px] font-black tracking-[0.2em] uppercase ${theme.accent}`}>{categoryFilter ? categoryFilter : "GENERAL"}</span>
 
               {isShiftMode && (
                 <span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 text-[9px] font-bold border border-red-500/30 animate-pulse">
@@ -380,9 +400,7 @@ function StationPage() {
           </div>
         ) : (
           <div className="text-right">
-            <div className={`text-xl font-mono font-bold tracking-tight ${theme.accent}`}>
-              +{scoreCorrect * 15}
-            </div>
+            <div className={`text-xl font-mono font-bold tracking-tight ${theme.accent}`}>+{scoreCorrect * 15}</div>
             <div className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">XP Gained</div>
           </div>
         )}
@@ -405,9 +423,7 @@ function StationPage() {
               <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
             </div>
 
-            <h2 className="text-xl md:text-3xl font-bold leading-relaxed mb-8 text-slate-100 drop-shadow-md">
-              {question.text}
-            </h2>
+            <h2 className="text-xl md:text-3xl font-bold leading-relaxed mb-8 text-slate-100 drop-shadow-md">{question.text}</h2>
 
             <div className="grid grid-cols-1 gap-3">
               {question.options.map((option, idx) => {
@@ -437,9 +453,7 @@ function StationPage() {
                   borderColor = b;
                   bgColor = bg;
                   textColor = "text-white";
-                  shadow = isP
-                    ? "shadow-[0_0_20px_rgba(244,63,94,0.15)]"
-                    : "shadow-[0_0_20px_rgba(34,211,238,0.15)]";
+                  shadow = isP ? "shadow-[0_0_20px_rgba(244,63,94,0.15)]" : "shadow-[0_0_20px_rgba(34,211,238,0.15)]";
                 }
 
                 return (
