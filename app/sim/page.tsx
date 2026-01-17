@@ -2,172 +2,198 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { questions, Level } from "@/lib/questions";
+import { questions } from "@/lib/questions";
+import { useRouter } from "next/navigation";
 
 export default function SimulatorPage() {
+  const router = useRouter();
+  
+  // State
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [isGlitching, setIsGlitching] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false); // New "Thinking" state
   const [showGate, setShowGate] = useState(false);
   const [timeLeft, setTimeLeft] = useState(7200); // 2 Hours
   
-  // State for filtered questions
+  // Data State
   const [activeQuestions, setActiveQuestions] = useState<typeof questions>([]);
   const [userLevel, setUserLevel] = useState<string>("EMT");
 
-  // Load User Level and Filter Questions on Mount
+  // --- INIT ---
   useEffect(() => {
     const level = localStorage.getItem("userLevel") || "EMT";
     setUserLevel(level);
-    
-    // Filter questions matching the level
     const filtered = questions.filter(q => q.level === level);
-    // If we don't have enough, just use all (fallback)
     setActiveQuestions(filtered.length > 0 ? filtered : questions);
   }, []);
 
   const question = activeQuestions[currentQIndex % activeQuestions.length];
 
-  // Timer Logic
+  // --- TIMER ---
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => prev - 1);
-    }, 1000);
+    const timer = setInterval(() => setTimeLeft(p => p - 1), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const formatTime = (seconds: number) => {
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = seconds % 60;
-    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  const formatTime = (s: number) => {
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    return `${h}:${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
   };
 
+  // --- HANDLERS ---
   const handleNext = () => {
     if (selectedOption === null) return;
 
-    // TRIGGER GLITCH AT Q5 (Index 4)
+    // TRIGGER THE STOP AT Q5
     if (currentQIndex === 4) {
-      setIsGlitching(true);
-      setTimeout(() => setShowGate(true), 3000);
+      setIsAnalyzing(true);
+      // Fake "Analysis" delay before showing the Gate
+      setTimeout(() => setShowGate(true), 2500);
     } else {
-      setCurrentQIndex((prev) => prev + 1);
+      setCurrentQIndex(prev => prev + 1);
       setSelectedOption(null);
     }
   };
 
-  // --- GATE (Paywall Tease) ---
+  // --- 3. THE GATE (Paywall Redirect) ---
   if (showGate) {
+    // We redirect to the paywall immediately after showing the status
+    // But we render this briefly to smooth the transition
+    setTimeout(() => router.push('/pay'), 100); 
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center p-6 text-center font-mono">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full bg-[#0F172A] border border-blue-500/30 p-8 rounded-2xl shadow-2xl"
-        >
-          <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <div className="w-3 h-3 bg-red-500 rounded-full animate-ping" />
-          </div>
-          
-          <h1 className="text-3xl font-black text-white mb-2 tracking-tighter">EXAM STOPPED</h1>
-          <p className="text-blue-400 text-sm font-bold tracking-widest mb-6">CONFIDENCE INTERVAL: 94%</p>
-          
-          <div className="bg-black/50 p-4 rounded-lg border border-white/5 mb-6 text-left">
-            <p className="text-gray-400 text-xs mb-1">Candidate Level:</p>
-            <p className="text-white font-mono text-sm font-bold mb-3">{userLevel.toUpperCase()}</p>
-            <p className="text-gray-400 text-xs mb-1">Performance:</p>
-            <div className="flex items-center gap-2">
-              <div className="h-2 flex-1 bg-gray-700 rounded-full overflow-hidden">
-                <div className="h-full w-[68%] bg-yellow-500 blur-[1px]" />
-              </div>
-              <span className="text-yellow-500 text-xs font-bold">BORDERLINE</span>
-            </div>
-          </div>
+      <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center p-6 text-center">
+        <div className="animate-pulse">
+          <h1 className="text-3xl font-black text-white mb-2 tracking-widest">REDIRECTING...</h1>
+        </div>
+      </div>
+    );
+  }
 
-          <a href="/pay" className="block w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors">
-            UNLOCK FULL REPORT
-          </a>
+  // --- 2. THE ANALYZING SCREEN (The "Glitch" Replacement) ---
+  if (isAnalyzing) {
+    return (
+      <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center p-6 text-center font-mono relative overflow-hidden">
+        
+        {/* Background Scanline */}
+        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px]" />
+
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }} 
+          animate={{ opacity: 1, scale: 1 }}
+          className="z-10"
+        >
+          <div className="w-20 h-20 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-8" />
+          
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter">
+            EXAM STOPPED
+          </h1>
+          
+          <div className="space-y-2 text-blue-400 text-sm md:text-base">
+            <p>&gt; ACQUIRING RESPONSE MATRIX...</p>
+            <p>&gt; CALCULATING CONFIDENCE INTERVAL...</p>
+            <p>&gt; DETERMINING COMPETENCY...</p>
+          </div>
         </motion.div>
       </div>
     );
   }
 
-  // --- GLITCH ANIMATION ---
-  if (isGlitching) {
-    return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center overflow-hidden">
-        <motion.h1 
-          animate={{ x: [-5, 5, -5, 0], opacity: [1, 0.5, 1] }}
-          transition={{ duration: 0.1, repeat: Infinity }}
-          className="text-6xl md:text-9xl font-black text-white tracking-tighter"
-          style={{ textShadow: "2px 0 red, -2px 0 blue" }}
-        >
-          SYSTEM<br />FAILURE
-        </motion.h1>
-        <p className="mt-8 font-mono text-red-500 text-xl">&gt; THETA_LIMIT_REACHED</p>
-      </div>
-    );
-  }
+  // --- 1. THE SIMULATOR (Dark Mode / Premium Feel) ---
+  if (!question) return <div className="min-h-screen bg-[#0F172A]" />;
 
-  // --- EXAM INTERFACE (Pearson VUE Decoy) ---
   return (
-    <div className="min-h-screen bg-[#F0F0F0] text-black font-sans flex flex-col">
-      <header className="bg-[#2C3E50] text-white p-4 flex justify-between items-center shadow-md">
+    <div className="min-h-screen bg-[#0F172A] text-white font-sans flex flex-col">
+      
+      {/* HEADER */}
+      <header className="px-6 py-4 border-b border-white/5 bg-[#0F172A] flex justify-between items-center sticky top-0 z-10">
         <div>
-          <h1 className="text-sm font-bold tracking-wide opacity-80">NREMT COGNITIVE EXAM</h1>
-          <p className="text-xs opacity-60">Level: {userLevel}</p>
+          <h1 className="text-xs font-bold tracking-widest text-blue-400 uppercase">
+            NREMT ADAPTIVE SIMULATION
+          </h1>
+          <p className="text-[10px] text-gray-500 font-mono mt-1">CANDIDATE: {userLevel}</p>
         </div>
         <div className="text-right">
-          <p className="text-xl font-mono font-bold">{formatTime(timeLeft)}</p>
-          <p className="text-[10px] uppercase opacity-60">Time Remaining</p>
+          <p className="text-xl font-mono font-bold text-white">{formatTime(timeLeft)}</p>
+          <p className="text-[10px] text-gray-500 uppercase tracking-widest">Time Remaining</p>
         </div>
       </header>
 
-      <div className="w-full bg-gray-300 h-2">
-        <div className="bg-blue-600 h-full transition-all duration-500" style={{ width: `${(currentQIndex / 70) * 100}%` }} />
+      {/* PROGRESS BAR */}
+      <div className="w-full bg-slate-900 h-1">
+        <div 
+          className="bg-blue-600 h-full transition-all duration-500 shadow-[0_0_10px_#2563EB]" 
+          style={{ width: `${((currentQIndex + 1) / 5) * 100}%` }} // Scaling just for the demo feel
+        />
       </div>
 
-      <main className="flex-1 max-w-4xl mx-auto w-full p-6 md:p-12 flex flex-col">
-        <div className="flex-1">
-          <div className="mb-8">
-            <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded border border-blue-200">
-              Question {currentQIndex + 1} of 70
+      {/* QUESTION STAGE */}
+      <main className="flex-1 max-w-3xl mx-auto w-full p-6 flex flex-col justify-center relative">
+        
+        {/* Question Card */}
+        <motion.div
+          key={currentQIndex}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="mb-6 flex items-center gap-3">
+            <span className="bg-slate-800 text-gray-300 text-xs font-bold px-3 py-1 rounded border border-white/10">
+              Q{currentQIndex + 1}
+            </span>
+            <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">
+              {question.category}
             </span>
           </div>
 
-          <h2 className="text-xl md:text-2xl font-medium text-gray-900 leading-relaxed mb-10">
-            {question ? question.text : "Loading scenarios..."}
+          <h2 className="text-xl md:text-3xl font-bold leading-relaxed mb-10 text-slate-100">
+            {question.text}
           </h2>
 
-          <div className="space-y-3">
-            {question?.options.map((option, idx) => (
+          <div className="grid grid-cols-1 gap-3">
+            {question.options.map((option, idx) => (
               <button
                 key={idx}
                 onClick={() => setSelectedOption(idx)}
-                className={`w-full text-left p-4 rounded border-2 transition-all duration-200 flex items-center gap-4 ${
-                  selectedOption === idx ? "border-blue-600 bg-blue-50" : "border-gray-200 bg-white hover:border-gray-300"
+                className={`relative p-5 rounded-xl border-2 text-left transition-all duration-200 group ${
+                  selectedOption === idx 
+                    ? "border-blue-500 bg-blue-500/10 shadow-[0_0_20px_rgba(59,130,246,0.2)]" 
+                    : "border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20"
                 }`}
               >
-                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedOption === idx ? "border-blue-600" : "border-gray-300"}`}>
-                  {selectedOption === idx && <div className="w-3 h-3 bg-blue-600 rounded-full" />}
+                <div className="flex items-start gap-4">
+                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 transition-colors ${
+                    selectedOption === idx ? "border-blue-500" : "border-gray-600"
+                  }`}>
+                    {selectedOption === idx && <div className="w-3 h-3 bg-blue-500 rounded-full" />}
+                  </div>
+                  <span className={`text-lg font-medium ${selectedOption === idx ? "text-white" : "text-gray-300"}`}>
+                    {option}
+                  </span>
                 </div>
-                <span className="font-medium text-gray-700">{option}</span>
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        <div className="mt-12 flex justify-end border-t border-gray-300 pt-6">
-          <button
-            onClick={handleNext}
-            disabled={selectedOption === null}
-            className={`px-8 py-3 rounded font-bold text-white transition-all ${
-              selectedOption === null ? "bg-gray-400 cursor-not-allowed" : "bg-[#2C3E50] hover:bg-[#34495E] shadow-lg"
-            }`}
-          >
-            NEXT QUESTION →
-          </button>
-        </div>
       </main>
+
+      {/* FOOTER */}
+      <div className="p-6 border-t border-white/5 flex justify-end max-w-3xl mx-auto w-full">
+        <button
+          onClick={handleNext}
+          disabled={selectedOption === null}
+          className={`px-8 py-4 rounded-xl font-bold text-white transition-all flex items-center gap-2 ${
+            selectedOption === null 
+              ? "bg-gray-800 text-gray-500 cursor-not-allowed" 
+              : "bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/20"
+          }`}
+        >
+          {currentQIndex === 4 ? "COMPLETE EXAM" : "NEXT QUESTION"} 
+          <span>→</span>
+        </button>
+      </div>
     </div>
   );
 }
