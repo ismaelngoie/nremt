@@ -1,173 +1,227 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect, Suspense } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation"; 
+import { questions } from "@/lib/questions";
 
-// Map NREMT domains to body visual zones
-const ZONE_MAP: Record<string, "head" | "chest" | "abdomen" | "limbs"> = {
-  "Airway": "head",
-  "Respiration": "chest",
-  "Ventilation": "chest",
-  "Cardiology": "chest",
-  "Trauma": "limbs",
-  "Medical": "abdomen",
-  "OBGYN": "abdomen",
-  "EMS Operations": "head",
-};
+export default function StationPageWrapper() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0F172A]" />}>
+      <StationPage />
+    </Suspense>
+  );
+}
 
-export default function BodyHeatmap() {
-  const [weakDomain, setWeakDomain] = useState<string>("General");
-  const [weakPct, setWeakPct] = useState(0);
-  const [activeZone, setActiveZone] = useState<"head" | "chest" | "abdomen" | "limbs" | null>(null);
+function StationPage() {
+  const searchParams = useSearchParams();
+  const categoryFilter = searchParams.get("category"); 
+  const isStudyMode = !!categoryFilter; // If category exists, we are in Study Mode (No Timer)
 
+  // --- STATE ---
+  const [activeQuestions, setActiveQuestions] = useState<typeof questions>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(900); // 15 mins (Only for Shift)
+  const [isFinished, setIsFinished] = useState(false);
+  const [score, setScore] = useState(0);
+
+  // --- INIT QUESTIONS ---
   useEffect(() => {
-    // 1. Read real user data
-    const wd = localStorage.getItem("weakestDomain") || "Trauma";
-    const wp = Number(localStorage.getItem("weakestDomainPct")) || 0;
+    const userLevel = localStorage.getItem("userLevel") || "EMT";
+    let filtered = questions.filter(q => q.level === userLevel);
     
-    setWeakDomain(wd);
-    setWeakPct(wp);
-
-    // 2. Determine which body part lights up
-    // Simple fuzzy match for the domain string
-    let zone: "head" | "chest" | "abdomen" | "limbs" = "chest"; // Default
-    
-    for (const [key, value] of Object.entries(ZONE_MAP)) {
-      if (wd.includes(key)) zone = value;
+    if (categoryFilter) {
+      filtered = filtered.filter(q => q.category === categoryFilter);
     }
-    setActiveZone(zone);
-  }, []);
 
-  // Visual configuration for the "Weak" zone
-  const pulseColor = weakPct < 60 ? "#EF4444" : "#F59E0B"; // Red if critical, Orange if borderline
-  const pulseShadow = weakPct < 60 ? "rgba(239, 68, 68, 0.6)" : "rgba(245, 158, 11, 0.6)";
+    const shuffled = filtered.sort(() => Math.random() - 0.5);
+    setActiveQuestions(shuffled.length > 0 ? shuffled : questions);
+  }, [categoryFilter]);
+
+  const SHIFT_LENGTH = isStudyMode ? activeQuestions.length : 10;
+  const question = activeQuestions[currentIndex % activeQuestions.length];
+
+  // --- TIMER (Only if NOT Study Mode) ---
+  useEffect(() => {
+    if (isFinished || isStudyMode) return; // Disable timer in Study Mode
+    
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          setIsFinished(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [isFinished, isStudyMode]);
+
+  // --- KEYBOARD ---
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isFinished) return;
+      if (submitted) {
+        if (e.key === "Enter") handleNext();
+        return;
+      }
+      if (e.key === "1") handleOptionSelect(0);
+      if (e.key === "2") handleOptionSelect(1);
+      if (e.key === "3") handleOptionSelect(2);
+      if (e.key === "4") handleOptionSelect(3);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selected, submitted, isFinished]);
+
+  const handleOptionSelect = (idx: number) => {
+    if (submitted) return;
+    setSelected(idx);
+    handleSubmit(idx);
+  };
+
+  const handleSubmit = (idx: number) => {
+    setSubmitted(true);
+    if (idx === question.correctIndex) {
+      setScore(s => s + 1);
+      
+      // --- SAVE MASTERY ---
+      // We save the ID of the question to localStorage so Study Hub knows we passed it.
+      const mastered = JSON.parse(localStorage.getItem("mastered-ids") || "[]");
+      if (!mastered.includes(question.id)) {
+        mastered.push(question.id);
+        localStorage.setItem("mastered-ids", JSON.stringify(mastered));
+      }
+    }
+  };
+
+  const handleNext = () => {
+    // If Study Mode, we go until the end of the filtered list
+    // If Shift Mode, we stop at 10
+    const limit = isStudyMode ? activeQuestions.length : 10;
+    
+    if (currentIndex + 1 >= limit) {
+      setIsFinished(true);
+    } else {
+      setSubmitted(false);
+      setSelected(null);
+      setCurrentIndex(prev => prev + 1);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  // --- END SCREEN ---
+  if (isFinished) {
+    const totalQs = isStudyMode ? activeQuestions.length : 10;
+    const percentage = totalQs > 0 ? Math.round((score / totalQs) * 100) : 0;
+    const passed = percentage >= 70;
+    
+    return (
+      <div className="min-h-screen bg-[#0F172A] flex items-center justify-center p-6 text-white font-sans">
+        <div className="max-w-md w-full bg-slate-900 border border-white/10 rounded-2xl p-8 text-center shadow-2xl">
+          <div className="mb-6 flex justify-center">
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center ${passed ? "bg-green-500/20" : "bg-red-500/20"}`}>
+              <span className={`text-4xl ${passed ? "text-green-500" : "text-red-500"}`}>{passed ? "✓" : "✕"}</span>
+            </div>
+          </div>
+          <h1 className="text-2xl font-black text-white mb-2">{isStudyMode ? "MODULE COMPLETE" : "SHIFT COMPLETE"}</h1>
+          <p className="text-gray-400 text-sm mb-8">{passed ? "Competency maintained." : "Review protocols."}</p>
+          <div className="bg-slate-800 p-4 rounded-xl mb-8">
+             <p className="text-gray-500 text-xs font-bold uppercase">Accuracy</p>
+             <p className={`text-2xl font-bold ${passed ? "text-green-400" : "text-red-400"}`}>{percentage}%</p>
+          </div>
+          <Link href={isStudyMode ? "/study" : "/dashboard"} className="block w-full py-4 bg-blue-600 font-bold rounded-xl text-white">
+            CONTINUE
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!question) return <div className="min-h-screen bg-[#0F172A]" />;
 
   return (
-    <div className="relative w-full h-[400px] flex items-center justify-center overflow-hidden">
-      
-      {/* 1. Holographic Grid Background (The "Sim" feel) */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black_40%,transparent_100%)] pointer-events-none" />
-
-      {/* 2. The Active Scanner Line (Moving up/down) */}
-      <motion.div 
-        animate={{ top: ["0%", "100%", "0%"] }}
-        transition={{ duration: 8, ease: "linear", repeat: Infinity }}
-        className="absolute left-0 right-0 h-[2px] bg-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.8)] z-20 pointer-events-none"
-      />
-
-      {/* 3. The Interactive Body (Segmented Tech Armor) */}
-      <svg width="240" height="420" viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="z-10 drop-shadow-[0_0_25px_rgba(59,130,246,0.15)]">
-        
-        {/* HEAD ZONE (Neuro / Ops / Airway) */}
-        <Link href={`/station?category=${encodeURIComponent(weakDomain)}`}>
-            <motion.path 
-            d="M50 12 L 65 20 L 62 45 L 50 55 L 38 45 L 35 20 Z" 
-            stroke={activeZone === "head" ? pulseColor : "rgba(255,255,255,0.2)"}
-            strokeWidth={activeZone === "head" ? 1.5 : 0.5}
-            fill={activeZone === "head" ? pulseShadow : "rgba(255,255,255,0.02)"}
-            animate={activeZone === "head" ? { opacity: [0.6, 1, 0.6] } : {}}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="cursor-pointer hover:fill-blue-500/20 transition-colors"
-            />
-        </Link>
-
-        {/* CHEST ZONE (Cardio / Respiratory) */}
-        <Link href={`/station?category=${encodeURIComponent(weakDomain)}`}>
-            {/* Left Pec */}
-            <motion.path 
-            d="M52 58 L 85 62 L 75 95 L 52 90 Z" 
-            stroke={activeZone === "chest" ? pulseColor : "rgba(255,255,255,0.2)"}
-            strokeWidth={activeZone === "chest" ? 1.5 : 0.5}
-            fill={activeZone === "chest" ? pulseShadow : "rgba(255,255,255,0.02)"}
-            animate={activeZone === "chest" ? { opacity: [0.6, 1, 0.6] } : {}}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="cursor-pointer hover:fill-blue-500/20"
-            />
-            {/* Right Pec */}
-            <motion.path 
-            d="M48 58 L 15 62 L 25 95 L 48 90 Z" 
-            stroke={activeZone === "chest" ? pulseColor : "rgba(255,255,255,0.2)"}
-            strokeWidth={activeZone === "chest" ? 1.5 : 0.5}
-            fill={activeZone === "chest" ? pulseShadow : "rgba(255,255,255,0.02)"}
-            animate={activeZone === "chest" ? { opacity: [0.6, 1, 0.6] } : {}}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="cursor-pointer hover:fill-blue-500/20"
-            />
-            {/* Center Core (Sternum) */}
-            <path d="M50 58 L 48 90 L 50 110 L 52 90 Z" fill="rgba(255,255,255,0.1)" />
-        </Link>
-
-        {/* ABDOMEN ZONE (Medical / GI / OBGYN) */}
-        <Link href={`/station?category=${encodeURIComponent(weakDomain)}`}>
-            <motion.path 
-            d="M30 100 L 70 100 L 65 135 L 35 135 Z" 
-            stroke={activeZone === "abdomen" ? pulseColor : "rgba(255,255,255,0.2)"}
-            strokeWidth={activeZone === "abdomen" ? 1.5 : 0.5}
-            fill={activeZone === "abdomen" ? pulseShadow : "rgba(255,255,255,0.02)"}
-            animate={activeZone === "abdomen" ? { opacity: [0.6, 1, 0.6] } : {}}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="cursor-pointer hover:fill-blue-500/20"
-            />
-        </Link>
-
-        {/* LIMBS ZONE (Trauma) */}
-        <Link href={`/station?category=${encodeURIComponent(weakDomain)}`}>
-            {/* Shoulders */}
-            <motion.path d="M15 62 L 5 80 L 12 85 L 25 70 Z" stroke="rgba(255,255,255,0.2)" fill="rgba(255,255,255,0.02)" />
-            <motion.path d="M85 62 L 95 80 L 88 85 L 75 70 Z" stroke="rgba(255,255,255,0.2)" fill="rgba(255,255,255,0.02)" />
-            
-            {/* Thighs - Highlighted if Trauma */}
-            <motion.path 
-            d="M35 135 L 65 135 L 60 180 L 40 180 Z" 
-            stroke={activeZone === "limbs" ? pulseColor : "rgba(255,255,255,0.2)"}
-            strokeWidth={activeZone === "limbs" ? 1.5 : 0.5}
-            fill={activeZone === "limbs" ? pulseShadow : "rgba(255,255,255,0.02)"}
-            animate={activeZone === "limbs" ? { opacity: [0.6, 1, 0.6] } : {}}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="cursor-pointer hover:fill-blue-500/20"
-            />
-        </Link>
-
-      </svg>
-
-      {/* 4. Floating HUD Labels (Contextual) */}
-      
-      {/* Label 1: The Weakness */}
-      <motion.div 
-        initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.5 }}
-        className="absolute top-24 right-2 md:right-16 text-right"
-      >
-        <div className="flex items-center justify-end gap-2">
-          <span className="text-[10px] font-black font-mono tracking-widest text-slate-300">DIAGNOSTIC</span>
-          <div className={`w-1.5 h-1.5 rounded-full animate-pulse`} style={{ backgroundColor: pulseColor }} />
+    <div className="min-h-screen bg-[#0F172A] text-white font-sans flex flex-col">
+      <header className="px-6 py-4 border-b border-white/5 bg-[#0F172A] flex justify-between items-center sticky top-0 z-10">
+        <div className="flex items-center gap-4">
+          <Link href={isStudyMode ? "/study" : "/dashboard"} className="p-2 hover:bg-white/10 rounded-full text-gray-400 hover:text-white">✕</Link>
+          <div>
+            <h1 className="text-xs font-bold tracking-widest text-blue-400 uppercase">
+              {categoryFilter ? categoryFilter.toUpperCase() : "GENERAL DRILL"} • {currentIndex + 1}/{isStudyMode ? activeQuestions.length : 10}
+            </h1>
+            <div className="h-1 w-24 bg-gray-800 rounded-full mt-1 overflow-hidden">
+              <div className="h-full bg-blue-500 transition-all duration-500" style={{ width: `${((currentIndex + 1) / (isStudyMode ? activeQuestions.length : 10)) * 100}%` }} />
+            </div>
+          </div>
         </div>
-        <div className="bg-slate-900/80 border border-white/10 backdrop-blur-md px-3 py-2 rounded-lg mt-1 border-r-2" style={{ borderRightColor: pulseColor }}>
-           <div className="text-[9px] text-slate-400 font-mono mb-0.5">PRIORITY FOCUS</div>
-           <div className="text-xs font-black text-white">{weakDomain.toUpperCase()}</div>
-           <div className="text-xs font-mono" style={{ color: pulseColor }}>{weakPct}% ACCURACY</div>
-        </div>
-        <Link href={`/station?category=${encodeURIComponent(weakDomain)}`} className="text-[9px] underline text-slate-500 hover:text-white mt-1 block">
-           Tap body to fix &rarr;
-        </Link>
-      </motion.div>
+        {/* Only show timer if NOT in study mode */}
+        {!isStudyMode && (
+          <div className={`text-xl font-mono font-bold ${timeLeft < 60 ? "text-red-500 animate-pulse" : "text-white"}`}>
+            {formatTime(timeLeft)}
+          </div>
+        )}
+      </header>
 
-      {/* Label 2: The Strength (Static for now, or randomize) */}
-      <motion.div 
-        initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.8 }}
-        className="absolute bottom-20 left-2 md:left-16"
-      >
-        <div className="flex items-center gap-2">
-           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-           <span className="text-[10px] font-black font-mono tracking-widest text-emerald-500">SYSTEM STABLE</span>
-        </div>
-        <div className="h-[1px] w-12 bg-emerald-500/30 my-1" />
-        <div className="text-[9px] text-slate-500 font-mono">
-           AIRWAY: 98%<br/>
-           OPS: 92%
-        </div>
-      </motion.div>
+      <main className="flex-1 max-w-3xl mx-auto w-full p-6 flex flex-col justify-center">
+        <AnimatePresence mode="wait">
+          <motion.div key={currentIndex} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.2 }}>
+            <span className="inline-block px-3 py-1 rounded bg-slate-800 text-gray-300 text-xs font-bold tracking-widest mb-6 border border-white/10">
+              {question.category.toUpperCase()}
+            </span>
+            <h2 className="text-2xl md:text-3xl font-bold leading-relaxed mb-10 text-slate-100">{question.text}</h2>
+            <div className="grid grid-cols-1 gap-3">
+              {question.options.map((option, idx) => {
+                let borderColor = "border-white/10";
+                let bgColor = "bg-white/5";
+                let textColor = "text-gray-300";
+                if (submitted) {
+                  if (idx === question.correctIndex) { borderColor = "border-green-500"; bgColor = "bg-green-500/20"; textColor = "text-green-400"; }
+                  else if (idx === selected) { borderColor = "border-red-500"; bgColor = "bg-red-500/20"; textColor = "text-red-400"; }
+                  else { bgColor = "opacity-20"; }
+                } else if (selected === idx) { borderColor = "border-blue-500"; bgColor = "bg-blue-500/20"; textColor = "text-white"; }
+                
+                return (
+                  <button key={idx} onClick={() => handleOptionSelect(idx)} className={`relative p-5 rounded-xl border-2 text-left transition-all duration-200 group ${borderColor} ${bgColor}`}>
+                    <div className="flex items-start gap-4">
+                      <div className={`hidden md:flex w-6 h-6 rounded border items-center justify-center text-[10px] font-mono mt-0.5 ${submitted ? "opacity-0" : "border-white/20 text-gray-500"}`}>{idx + 1}</div>
+                      <span className={`text-lg font-medium ${textColor}`}>{option}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </main>
 
+      <AnimatePresence>
+        {submitted && (
+          <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", bounce: 0, duration: 0.4 }} className="fixed bottom-0 left-0 w-full bg-slate-900 border-t border-white/10 p-6 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+            <div className="max-w-3xl mx-auto flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${selected === question.correctIndex ? "bg-green-500" : "bg-red-500"}`}>
+                    <span className="text-black font-bold text-lg">{selected === question.correctIndex ? "✓" : "✕"}</span>
+                  </div>
+                  <h3 className={`font-bold text-lg ${selected === question.correctIndex ? "text-green-400" : "text-red-400"}`}>{selected === question.correctIndex ? "Correct!" : "Incorrect"}</h3>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed">{question.explanation}</p>
+              </div>
+              <button onClick={handleNext} className="w-full md:w-auto px-8 py-3 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                NEXT <span className="text-xs bg-black/10 px-1.5 py-0.5 rounded ml-1 hidden md:inline">ENTER</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
