@@ -3,7 +3,7 @@
 import Dock from "@/components/Dock";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 // --- Types ---
 type Level = "EMT" | "Paramedic";
@@ -51,7 +51,7 @@ export default function ProfilePage() {
     [isP]
   );
 
-  // Freeze expiry date per mount (prevents “changing” if user sits on the page)
+  // Freeze expiry date per mount
   const dateString = useMemo(() => {
     const expDate = new Date();
     expDate.setFullYear(expDate.getFullYear() + 2);
@@ -67,7 +67,6 @@ export default function ProfilePage() {
     setName(storedName);
     setNameDraft(storedName);
 
-    // Stats
     const mastered = safeJSON<number[]>(localStorage.getItem("mastered-ids"), []);
     const shiftHistory = safeJSON<string[]>(localStorage.getItem("shift-history"), []);
 
@@ -78,7 +77,7 @@ export default function ProfilePage() {
     );
 
     setStats({
-      drillsRun: shiftHistory.length, // this is “drills” (shifts), not “full sims”
+      drillsRun: shiftHistory.length,
       mastery: mastered.length,
       daysActive: Math.max(1, uniqueDays.size),
     });
@@ -105,7 +104,6 @@ export default function ProfilePage() {
   };
 
   const exportData = async () => {
-    // Only export your app’s keys (not everything in localStorage)
     const keys = [
       "userLevel",
       "userName",
@@ -130,7 +128,6 @@ export default function ProfilePage() {
       await navigator.clipboard.writeText(text);
       alert("Export copied to clipboard.");
     } catch {
-      // fallback
       alert("Could not copy automatically. (Clipboard blocked)");
       console.log(text);
     }
@@ -139,7 +136,6 @@ export default function ProfilePage() {
   const handleReset = () => {
     if (!confirm("WARNING: This will wipe progress + history. This cannot be undone.")) return;
 
-    // Remove only app keys (production-safe)
     const keysToRemove = [
       "shift-history",
       "last-shift-date",
@@ -160,7 +156,6 @@ export default function ProfilePage() {
     ];
     keysToRemove.forEach((k) => localStorage.removeItem(k));
 
-    // Keep identity, but refresh UI
     setStats({ drillsRun: 0, mastery: 0, daysActive: 1 });
     router.replace("/dashboard");
   };
@@ -182,13 +177,12 @@ export default function ProfilePage() {
       </header>
 
       <main className="px-4 space-y-6 max-w-md mx-auto">
-        {/* 1. THE ID CARD (Hero Visual) */}
+        {/* 1. THE ID CARD */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className={`relative bg-white rounded-2xl p-6 shadow-2xl overflow-hidden text-black transform transition-all duration-500 border-t-4 ${theme.cardBorder}`}
         >
-          {/* Holographic Sheen */}
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/40 to-transparent opacity-50 pointer-events-none" />
 
           <div className="flex justify-between items-start mb-6">
@@ -214,7 +208,6 @@ export default function ProfilePage() {
             <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-black tracking-tight leading-none uppercase truncate">{name}</h2>
-
                 <button
                   onClick={() => setEditName(true)}
                   className="text-[10px] px-2 py-1 rounded bg-black/10 hover:bg-black/15 font-bold uppercase tracking-widest"
@@ -232,7 +225,6 @@ export default function ProfilePage() {
               <br />
               REGION: US-NREMT
             </div>
-            {/* Barcode Mock */}
             <div className="flex gap-0.5 h-6 opacity-60" aria-hidden="true">
               {[...Array(12)].map((_, i) => (
                 <div key={i} className={`bg-black ${i % 3 === 0 ? "w-1" : "w-0.5"}`} />
