@@ -18,9 +18,9 @@ type PricingTier = {
 // ✅ PASTE YOUR STRIPE PAYMENT LINKS HERE
 // (Stripe Dashboard -> Payment Links -> copy the URL)
 const STRIPE_LINKS: Record<PlanKey, string> = {
-  annual: "PASTE_YOUR_ANNUAL_PAYMENT_LINK_HERE",
-  monthly: "PASTE_YOUR_MONTHLY_PAYMENT_LINK_HERE",
-  lifetime: "https://buy.stripe.com/test_14A14ocUi61x2JN2k96J200",
+  annual: "https://buy.stripe.com/14AeVe4nMey3dor0c16J202",
+  monthly: "https://buy.stripe.com/aFadRag6ugGb5VZ7Et6J201",
+  lifetime: "https://buy.stripe.com/14A14ocUi61x2JN2k96J200",
 };
 
 const PRICING: Record<PlanKey, PricingTier> = {
@@ -192,7 +192,7 @@ function PaywallContent() {
   async function handleRestore() {
     const email = restoreEmail.trim().toLowerCase();
     if (!email.includes("@")) {
-      setRestoreMsg("Type the same email you used at Stripe checkout.");
+      setRestoreMsg("Type the same email you paid with.");
       return;
     }
 
