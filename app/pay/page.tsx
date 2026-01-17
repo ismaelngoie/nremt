@@ -243,7 +243,7 @@ function PaywallContent() {
           <div className="mb-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 p-4">
             <div className="text-sm font-black text-emerald-200">✅ Payment Complete</div>
             <div className="mt-1 text-sm text-slate-200">
-              Type the <b>same email</b> you used at checkout in the Restore box at the bottom.
+              Type the <b>same email</b> you paid with in the Restore box at the bottom.
             </div>
           </div>
         )}
@@ -525,7 +525,7 @@ function PaywallContent() {
           </div>
 
           <p className="mt-2 text-sm text-slate-300 leading-relaxed">
-            Type the <b>same email</b> you used at Stripe checkout. We’ll check Stripe and unlock you.
+            Type the <b>same email</b> you paid with in the Restore box at the bottom.
           </p>
 
           <div className="mt-3 flex gap-2">
