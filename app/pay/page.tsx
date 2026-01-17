@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type PlanKey = "monthly" | "annual" | "lifetime";
 
@@ -12,6 +12,14 @@ type PricingTier = {
   strike: number | null;
   badge?: string;
   subtitle: string;
+};
+
+// ✅ PASTE YOUR STRIPE PAYMENT LINKS HERE
+// (Stripe Dashboard -> Payment Links -> copy the URL)
+const STRIPE_LINKS: Record<PlanKey, string> = {
+  annual: "PASTE_YOUR_ANNUAL_PAYMENT_LINK_HERE",
+  monthly: "PASTE_YOUR_MONTHLY_PAYMENT_LINK_HERE",
+  lifetime: "PASTE_YOUR_LIFETIME_PAYMENT_LINK_HERE",
 };
 
 const PRICING: Record<PlanKey, PricingTier> = {
@@ -57,7 +65,16 @@ type DomainRow = {
 };
 
 export default function PaywallPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const paid = searchParams.get("success") === "true";
+
   const [selectedPlan, setSelectedPlan] = useState<PlanKey>("annual");
+
+  // Restore
+  const [restoreEmail, setRestoreEmail] = useState("");
+  const [restoreLoading, setRestoreLoading] = useState(false);
+  const [restoreMsg, setRestoreMsg] = useState<string | null>(null);
 
   // Personalization
   const [userLevel, setUserLevel] = useState("EMT");
@@ -112,7 +129,7 @@ export default function PaywallPage() {
       // ignore
     }
 
-    // Missed question preview (massive conversion booster)
+    // Missed question preview
     try {
       const raw = localStorage.getItem("diagnosticAnswers");
       if (raw) {
@@ -142,7 +159,6 @@ export default function PaywallPage() {
       ctaGrad: isP ? "from-rose-600 to-red-500" : "from-blue-600 to-cyan-500",
       subtleBg: isP ? "bg-[#0B1022]" : "bg-[#0F172A]",
       bar: isP ? "bg-rose-500" : "bg-cyan-400",
-      softBar: isP ? "bg-rose-500/30" : "bg-cyan-400/30",
       badgeGrad: isP ? "from-rose-500 to-red-500" : "from-cyan-400 to-blue-500",
       icon: isP ? "⚡️" : "🚑",
     };
@@ -166,24 +182,81 @@ export default function PaywallPage() {
     return Math.round(perMonth * 100) / 100;
   }, []);
 
-  // Carry plan to checkout
-  const checkoutHref = useMemo(() => `/dashboard?plan=${selectedPlan}`, [selectedPlan]);
+  // ✅ Stripe checkout URL based on chosen plan
+  const checkoutHref = useMemo(() => STRIPE_LINKS[selectedPlan], [selectedPlan]);
 
-  // Make sure scrolling never hides last content behind sticky checkout
-  // (This is the fix for your “Quick answers gets covered” issue)
-  const bottomSafePadding = "pb-[260px]";
+  // scrolling safe space (your previous fix)
+  const bottomSafePadding = "pb-[340px]";
+
+  async function handleRestore() {
+    const email = restoreEmail.trim().toLowerCase();
+    if (!email.includes("@")) {
+      setRestoreMsg("Type the same email you used at Stripe checkout.");
+      return;
+    }
+
+    setRestoreLoading(true);
+    setRestoreMsg(null);
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = (await res.json()) as { ok?: boolean; access?: string; error?: string };
+
+      if (data.ok) {
+        // ✅ Simple unlock keys (you said you don't care about security)
+        localStorage.setItem("pro", "true");
+        localStorage.setItem("proEmail", email);
+        localStorage.setItem("proAccess", data.access || "pro");
+
+        setRestoreMsg("✅ Restored. Sending you to Dashboard...");
+        router.push("/dashboard");
+        return;
+      }
+
+      setRestoreMsg("❌ Not found. Use the exact email you paid with.");
+    } catch (e: any) {
+      setRestoreMsg(`❌ Error: ${e?.message || "Failed"}`);
+    } finally {
+      setRestoreLoading(false);
+    }
+  }
 
   return (
-    <div className={`min-h-screen ${theme.subtleBg} text-white font-sans flex flex-col items-center px-4 md:px-6 relative overflow-y-auto`}>
+    <div
+      className={`min-h-screen ${theme.subtleBg} text-white font-sans flex flex-col items-center px-4 md:px-6 relative overflow-y-auto`}
+    >
       {/* Background glows */}
       <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
-        <div className={`absolute -top-24 left-1/2 -translate-x-1/2 w-[680px] h-[680px] ${isP ? "bg-rose-500/10" : "bg-cyan-500/10"} blur-[130px] rounded-full`} />
-        <div className={`absolute top-[30%] -left-40 w-[520px] h-[520px] ${isP ? "bg-red-600/10" : "bg-blue-600/10"} blur-[130px] rounded-full`} />
+        <div
+          className={`absolute -top-24 left-1/2 -translate-x-1/2 w-[680px] h-[680px] ${
+            isP ? "bg-rose-500/10" : "bg-cyan-500/10"
+          } blur-[130px] rounded-full`}
+        />
+        <div
+          className={`absolute top-[30%] -left-40 w-[520px] h-[520px] ${
+            isP ? "bg-red-600/10" : "bg-blue-600/10"
+          } blur-[130px] rounded-full`}
+        />
         <div className="absolute bottom-[-18%] right-[-18%] w-[620px] h-[620px] bg-white/5 blur-[160px] rounded-full" />
       </div>
 
       {/* CONTENT */}
       <div className={`w-full max-w-sm z-10 pt-5 ${bottomSafePadding}`}>
+        {/* Paid banner (optional). If you set Stripe redirect to /pay?success=true this shows. */}
+        {paid && (
+          <div className="mb-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 p-4">
+            <div className="text-sm font-black text-emerald-200">✅ Payment Complete</div>
+            <div className="mt-1 text-sm text-slate-200">
+              Type the <b>same email</b> you used at checkout in the Restore box at the bottom.
+            </div>
+          </div>
+        )}
+
         {/* Top header */}
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="mb-4">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
@@ -206,7 +279,9 @@ export default function PaywallPage() {
             <div className="mt-2 flex flex-wrap gap-2">
               {passProb !== null && (
                 <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border ${theme.chipBg}`}>
-                  <span className={`text-[10px] font-black uppercase tracking-widest ${theme.chipText}`}>Pass probability</span>
+                  <span className={`text-[10px] font-black uppercase tracking-widest ${theme.chipText}`}>
+                    Pass probability
+                  </span>
                   <span className="text-sm font-black text-white">{passProb}%</span>
                 </div>
               )}
@@ -223,7 +298,12 @@ export default function PaywallPage() {
         </motion.div>
 
         {/* Social proof strip */}
-        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="mb-5">
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+          className="mb-5"
+        >
           <div className="rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 flex items-center justify-between gap-3 backdrop-blur-md">
             <div className="flex items-center gap-2">
               <Stars />
@@ -242,9 +322,13 @@ export default function PaywallPage() {
           </div>
         </motion.div>
 
-        {/* ID card (identity upgrade) */}
+        {/* ID card */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-          <div className={`bg-white rounded-2xl p-6 shadow-2xl shadow-blue-900/50 relative overflow-hidden text-black transform rotate-1 border-t-4 ${isP ? "border-rose-500" : "border-cyan-500"}`}>
+          <div
+            className={`bg-white rounded-2xl p-6 shadow-2xl shadow-blue-900/50 relative overflow-hidden text-black transform rotate-1 border-t-4 ${
+              isP ? "border-rose-500" : "border-cyan-500"
+            }`}
+          >
             <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/35 to-transparent opacity-60 pointer-events-none" />
 
             <div className="flex justify-between items-start mb-6">
@@ -288,7 +372,7 @@ export default function PaywallPage() {
           </div>
         </motion.div>
 
-        {/* “Real data” teaser: domain breakdown (blurred) */}
+        {/* Domain breakdown teaser */}
         {domainBreakdown && domainBreakdown.length > 0 && (
           <div className="mb-6 rounded-2xl bg-slate-900/45 border border-white/10 p-5 relative overflow-hidden">
             <div className="flex items-center justify-between">
@@ -328,7 +412,7 @@ export default function PaywallPage() {
           </div>
         )}
 
-        {/* Billion conversion booster: missed question + explanation blurred */}
+        {/* Missed question teaser */}
         {missed && (
           <div className="mb-6 rounded-2xl bg-slate-900/45 border border-white/10 p-5 relative overflow-hidden">
             <div className="flex items-center justify-between">
@@ -436,7 +520,8 @@ export default function PaywallPage() {
         <div className="mb-6 rounded-xl bg-white/5 border border-white/10 p-4">
           <div className="text-sm font-extrabold text-white">Why Annual wins</div>
           <div className="mt-1 text-sm text-slate-300 leading-relaxed">
-            Most candidates study for weeks. Annual keeps your progress, costs less than 7 months of monthly, and removes “time pressure”.
+            Most candidates study for weeks. Annual keeps your progress, costs less than 7 months of monthly, and removes
+            “time pressure”.
           </div>
         </div>
 
@@ -444,14 +529,20 @@ export default function PaywallPage() {
         <div className="mb-6 rounded-2xl bg-slate-900/40 border border-white/10 p-5">
           <h3 className="text-xs font-black text-slate-300 uppercase tracking-widest">Recent wins</h3>
           <div className="mt-4 space-y-3">
-            <Testimonial quote="The readiness score told me exactly what to fix. I hammered cardio for a week and passed." meta="EMT Candidate • 9 days ago" />
-            <Testimonial quote="Feels like a real exam session. The pacing and review mode finally made it click." meta="Paramedic Candidate • 2 weeks ago" />
+            <Testimonial
+              quote="The readiness score told me exactly what to fix. I hammered cardio for a week and passed."
+              meta="EMT Candidate • 9 days ago"
+            />
+            <Testimonial
+              quote="Feels like a real exam session. The pacing and review mode finally made it click."
+              meta="Paramedic Candidate • 2 weeks ago"
+            />
             <Testimonial quote="I stopped guessing. The rationales were the difference." meta="EMR → EMT • First attempt pass" />
           </div>
         </div>
 
-        {/* Mini FAQ (scroll-safe because of bottom padding + no hidden content) */}
-        <div className="mb-4 rounded-2xl bg-slate-900/40 border border-white/10 p-5">
+        {/* Mini FAQ */}
+        <div className="mb-6 rounded-2xl bg-slate-900/40 border border-white/10 p-5">
           <h3 className="text-xs font-black text-slate-300 uppercase tracking-widest">Quick answers</h3>
           <div className="mt-3 space-y-2">
             <FAQItem q="Do I get instant access after payment?" a="Yes — you’ll unlock the full report, rationales, and unlimited sims immediately." />
@@ -461,9 +552,50 @@ export default function PaywallPage() {
             <FAQItem q="Does it work for my level?" a="Yes — the content and scoring calibrate to EMT or Paramedic mode automatically." />
           </div>
         </div>
+
+        {/* ✅ RESTORE BOX (very bottom like you asked) */}
+        <div className="mb-4 rounded-2xl bg-slate-900/45 border border-white/10 p-5">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xs font-black text-slate-300 uppercase tracking-widest">Premium user?</h3>
+            <span className="text-[11px] font-mono text-slate-400">Restore access</span>
+          </div>
+
+          <p className="mt-2 text-sm text-slate-300 leading-relaxed">
+            Type the <b>same email</b> you used at Stripe checkout. We’ll check Stripe and unlock you.
+          </p>
+
+          <div className="mt-3 flex gap-2">
+            <input
+              value={restoreEmail}
+              onChange={(e) => setRestoreEmail(e.target.value)}
+              placeholder="you@email.com"
+              className="flex-1 bg-black/30 border border-white/10 rounded-xl px-3 py-3 text-sm text-white outline-none focus:border-white/20"
+            />
+            <button
+              onClick={handleRestore}
+              disabled={restoreLoading}
+              className="px-4 py-3 rounded-xl font-black text-sm bg-white/10 border border-white/10 hover:bg-white/15 disabled:opacity-60"
+            >
+              {restoreLoading ? "..." : "RESTORE"}
+            </button>
+          </div>
+
+          <AnimatePresence initial={false}>
+            {restoreMsg && (
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 6 }}
+                className="mt-3 text-sm text-slate-200"
+              >
+                {restoreMsg}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
-      {/* STICKY CHECKOUT (safe-area aware, doesn’t cover content due to pb-[260px]) */}
+      {/* STICKY CHECKOUT */}
       <div className="fixed bottom-0 left-0 right-0 z-20">
         <div className="mx-auto w-full max-w-sm px-4 pb-4">
           <div className="rounded-2xl bg-black/35 backdrop-blur-xl border border-white/10 p-3 shadow-[0_-15px_40px_-20px_rgba(0,0,0,0.8)]">
@@ -476,15 +608,14 @@ export default function PaywallPage() {
               </div>
 
               <div className="text-xs text-slate-400 font-mono">
-                {selectedPlan === "annual" && (
-                  <>Save {fmt((PRICING.annual.strike ?? 0) - PRICING.annual.price)}</>
-                )}
+                {selectedPlan === "annual" && <>Save {fmt((PRICING.annual.strike ?? 0) - PRICING.annual.price)}</>}
                 {selectedPlan === "monthly" && <>Cancel anytime</>}
                 {selectedPlan === "lifetime" && <>Pay once</>}
               </div>
             </div>
 
-            <Link href={checkoutHref}>
+            {/* ✅ Stripe checkout */}
+            <a href={checkoutHref}>
               <motion.button
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
@@ -492,7 +623,7 @@ export default function PaywallPage() {
               >
                 UNLOCK MY PLAN
               </motion.button>
-            </Link>
+            </a>
 
             {/* Trust chips */}
             <div className="mt-3 flex flex-wrap items-center justify-center gap-2 opacity-95">
@@ -551,9 +682,7 @@ function PlanCard({ selected, onClick, badge, title, subtitle, rightTop, rightMa
       onClick={onClick}
       className={[
         "relative w-full p-4 rounded-2xl border-2 transition-all duration-300 text-left",
-        selected
-          ? `${accentStyles.bg} ${accentStyles.ring} ${accentStyles.glow}`
-          : "bg-slate-800/30 border-white/10 opacity-90 hover:opacity-100 hover:border-white/15",
+        selected ? `${accentStyles.bg} ${accentStyles.ring} ${accentStyles.glow}` : "bg-slate-800/30 border-white/10 opacity-90 hover:opacity-100 hover:border-white/15",
       ].join(" ")}
     >
       {selected && badge && (
