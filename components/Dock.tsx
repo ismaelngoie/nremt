@@ -7,7 +7,7 @@ import { useState, useEffect, useMemo } from "react";
 
 const navItems = [
   { id: "dashboard", href: "/dashboard", label: "Station", icon: <GridIcon /> },
-  { id: "sim", href: "/sim", label: "Simulate", icon: <PulseIcon /> },
+  { id: "sim", href: "/simulator", label: "Simulate", icon: <PulseIcon /> },
   { id: "study", href: "/study", label: "Study", icon: <LayersIcon /> },
   { id: "profile", href: "/profile", label: "Identity", icon: <UserIcon /> },
 ];
