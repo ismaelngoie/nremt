@@ -6,6 +6,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // CRITICAL FIX: Explicitly disable Turbopack for build to support PWA
+  // The error message requested an empty config, but passing the flag in package.json is safer.
+  // We keep this standard.
 };
 
 export default withPWA({
@@ -13,4 +16,6 @@ export default withPWA({
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === 'development',
+  // Fix for Next 16 App Dir
+  buildExcludes: [/middleware-manifest.json$/], 
 })(nextConfig);
