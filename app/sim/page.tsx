@@ -1,169 +1,174 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { questions } from "@/lib/questions";
 import { useRouter } from "next/navigation";
 
+type Level = "EMT" | "Paramedic";
+type Stage = "quiz" | "analyzing" | "preview";
+
+type Q = (typeof questions)[number];
+
+type AnswerRecord = {
+  id: number;
+  category: string;
+  selectedIndex: number;
+  correctIndex: number;
+  isCorrect: boolean;
+
+  // Snapshot for premium preview
+  text: string;
+  options: string[];
+  explanation: string;
+};
+
+type DomainRow = {
+  category: string;
+  correct: number;
+  total: number;
+  accuracy: number; // 0..100
+};
+
+const clamp = (n: number, min: number, max: number) => Math.max(min, Math.min(max, n));
+
+function shuffle<T>(arr: T[]) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const r = crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32;
+    const j = Math.floor(r * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/**
+ * Pick 5 questions with category diversity if possible.
+ * This makes the “weakest domain” feel real and premium.
+ */
+function pickDiagnosticQuestions(pool: Q[], count = 5) {
+  const byCat = new Map<string, Q[]>();
+  for (const q of pool) {
+    const list = byCat.get(q.category) || [];
+    list.push(q);
+    byCat.set(q.category, list);
+  }
+
+  const categories = shuffle(Array.from(byCat.keys()));
+
+  // Pick 1 from each category first
+  const picked: Q[] = [];
+  for (const cat of categories) {
+    const list = byCat.get(cat)!;
+    const one = shuffle(list)[0];
+    if (one) picked.push(one);
+    if (picked.length >= count) break;
+  }
+
+  if (picked.length >= count) return picked.slice(0, count);
+
+  // Fill remaining with randoms not already picked
+  const pickedIds = new Set(picked.map((q) => q.id));
+  const remaining = shuffle(pool.filter((q) => !pickedIds.has(q.id)));
+  return [...picked, ...remaining.slice(0, count - picked.length)];
+}
+
+/**
+ * Wilson score interval (approx CI for a proportion).
+ * Great for premium-feeling “confidence interval”.
+ */
+function wilsonCI(correct: number, n: number, z = 1.96) {
+  if (n <= 0) return { low: 0, high: 100 };
+  const p = correct / n;
+  const denom = 1 + (z * z) / n;
+  const center = (p + (z * z) / (2 * n)) / denom;
+  const margin =
+    (z *
+      Math.sqrt((p * (1 - p)) / n + (z * z) / (4 * n * n))) /
+    denom;
+
+  return {
+    low: Math.round(clamp((center - margin) * 100, 0, 100)),
+    high: Math.round(clamp((center + margin) * 100, 0, 100)),
+  };
+}
+
+/**
+ * Converts small-sample diagnostic to a “readiness” score
+ * that feels stable (not whiplash).
+ */
+function readinessScore(correct: number, n: number) {
+  // Posterior mean of Beta(correct+1, wrong+1)
+  const passProb = (correct + 1) / (n + 2); // 0..1
+  // Map to readiness range with a strong floor/ceiling:
+  // 0% -> ~35, 100% -> ~95
+  const score = Math.round(35 + passProb * 60);
+  return clamp(score, 35, 95);
+}
+
+function computeDomainBreakdown(ans: AnswerRecord[]): DomainRow[] {
+  const by = new Map<string, { correct: number; total: number }>();
+  for (const a of ans) {
+    const cur = by.get(a.category) || { correct: 0, total: 0 };
+    cur.total += 1;
+    if (a.isCorrect) cur.correct += 1;
+    by.set(a.category, cur);
+  }
+
+  const rows: DomainRow[] = Array.from(by.entries()).map(([category, v]) => ({
+    category,
+    correct: v.correct,
+    total: v.total,
+    accuracy: v.total ? Math.round((v.correct / v.total) * 100) : 0,
+  }));
+
+  // Sort worst to best (more “insight”)
+  rows.sort((a, b) => a.accuracy - b.accuracy);
+  return rows;
+}
+
+function statusFromReadiness(readiness: number) {
+  if (readiness >= 80) return { label: "ON TRACK", tone: "text-emerald-300" };
+  if (readiness >= 65) return { label: "BORDERLINE", tone: "text-yellow-300" };
+  return { label: "AT RISK", tone: "text-red-300" };
+}
+
 export default function SimulatorPage() {
   const router = useRouter();
-  
-  // State
+
+  const [stage, setStage] = useState<Stage>("quiz");
+  const [userLevel, setUserLevel] = useState<Level>("EMT");
+
+  const [activeQuestions, setActiveQuestions] = useState<Q[]>([]);
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [isAnalyzing, setIsAnalyzing] = useState(false); 
-  const [showGate, setShowGate] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(7200); 
-  const [activeQuestions, setActiveQuestions] = useState<typeof questions>([]);
-  const [userLevel, setUserLevel] = useState<string>("EMT");
+
+  const [answers, setAnswers] = useState<AnswerRecord[]>([]);
   const [analysisText, setAnalysisText] = useState("INITIATING STOP PROTOCOL...");
+  const [analysisPct, setAnalysisPct] = useState(0);
 
-  // --- INIT ---
-  useEffect(() => {
-    const level = localStorage.getItem("userLevel") || "EMT";
-    setUserLevel(level);
-    const filtered = questions.filter(q => q.level === level);
-    setActiveQuestions(filtered.length > 0 ? filtered : questions);
-  }, []);
+  // Premium-feeling diagnostic timer (shorter than “real exam”, still pressure)
+  const [timeLeft, setTimeLeft] = useState(420);
 
-  const question = activeQuestions[currentQIndex % activeQuestions.length];
+  const question = activeQuestions[currentQIndex];
 
-  // --- TIMER ---
-  useEffect(() => {
-    const timer = setInterval(() => setTimeLeft(p => p - 1), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTime = (s: number) => {
-    const h = Math.floor(s / 3600);
-    const m = Math.floor((s % 3600) / 60);
-    const sec = s % 60;
-    return `${h}:${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
-  };
-
-  // --- HANDLERS ---
-  const handleNext = () => {
-    if (selectedOption === null) return;
-
-    if (currentQIndex === 4) {
-      runAnalysisSequence();
-    } else {
-      setCurrentQIndex(prev => prev + 1);
-      setSelectedOption(null);
-    }
-  };
-
-  const runAnalysisSequence = () => {
-    setIsAnalyzing(true);
-    
-    // Slow, readable analysis steps
-    setTimeout(() => setAnalysisText("ACQUIRING RESPONSE MATRIX..."), 1500);
-    setTimeout(() => setAnalysisText("CALCULATING CONFIDENCE INTERVAL..."), 3000);
-    setTimeout(() => setAnalysisText("DETERMINING COMPETENCY..."), 4500);
-    setTimeout(() => setShowGate(true), 6000); // 6 Seconds total
-  };
-
-  // --- 3. THE GATE (Paywall Redirect) ---
-  if (showGate) {
-    setTimeout(() => router.push('/pay'), 100); 
-    return (
-      <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center p-6 text-center">
-        <div className="animate-pulse">
-          <h1 className="text-3xl font-black text-white mb-2 tracking-widest">REDIRECTING...</h1>
-        </div>
-      </div>
-    );
-  }
-
-  // --- 2. THE ANALYZING SCREEN (Red Accents) ---
-  if (isAnalyzing) {
-    return (
-      <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center p-6 text-center font-mono relative overflow-hidden">
-        
-        {/* Red Scanline */}
-        <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(transparent_50%,rgba(220,38,38,0.3)_50%)] bg-[length:100%_4px]" />
-        <motion.div 
-          animate={{ top: ["0%", "100%"] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-          className="absolute left-0 right-0 h-1 bg-red-500/50 blur-sm z-0"
-        />
-
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }} 
-          animate={{ opacity: 1, scale: 1 }}
-          className="z-10"
-        >
-          <div className="w-24 h-24 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto mb-8 shadow-[0_0_30px_rgba(239,68,68,0.4)]" />
-          
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tighter drop-shadow-lg">
-            EXAM STOPPED
-          </h1>
-          
-          <div className="bg-black/40 border border-red-500/30 p-6 rounded-xl backdrop-blur-sm">
-            <p className="text-red-400 font-bold text-lg md:text-xl tracking-widest animate-pulse">
-              &gt; {analysisText}
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
-
-  // --- 1. THE SIMULATOR ---
-  if (!question) return <div className="min-h-screen bg-[#0F172A]" />;
-
-  return (
-    <div className="min-h-screen bg-[#0F172A] text-white font-sans flex flex-col">
-      <header className="px-6 py-4 border-b border-white/5 bg-[#0F172A] flex justify-between items-center sticky top-0 z-10">
-        <div>
-          <h1 className="text-xs font-bold tracking-widest text-blue-400 uppercase">
-            NREMT ADAPTIVE SIMULATION
-          </h1>
-          <p className="text-[10px] text-gray-500 font-mono mt-1">CANDIDATE: {userLevel}</p>
-        </div>
-        <div className="text-right">
-          <p className="text-xl font-mono font-bold text-white">{formatTime(timeLeft)}</p>
-          <p className="text-[10px] text-gray-500 uppercase tracking-widest">Time Remaining</p>
-        </div>
-      </header>
-
-      <div className="w-full bg-slate-900 h-1">
-        <div className="bg-blue-600 h-full transition-all duration-500 shadow-[0_0_10px_#2563EB]" style={{ width: `${((currentQIndex + 1) / 5) * 100}%` }} />
-      </div>
-
-      <main className="flex-1 max-w-3xl mx-auto w-full p-6 flex flex-col justify-center relative">
-        <motion.div key={currentQIndex} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-          <div className="mb-6 flex items-center gap-3">
-            <span className="bg-slate-800 text-gray-300 text-xs font-bold px-3 py-1 rounded border border-white/10">Q{currentQIndex + 1}</span>
-            <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">{question.category}</span>
-          </div>
-          <h2 className="text-xl md:text-3xl font-bold leading-relaxed mb-10 text-slate-100">{question.text}</h2>
-          <div className="grid grid-cols-1 gap-3">
-            {question.options.map((option, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSelectedOption(idx)}
-                className={`relative p-5 rounded-xl border-2 text-left transition-all duration-200 group ${
-                  selectedOption === idx ? "border-blue-500 bg-blue-500/10 shadow-[0_0_20px_rgba(59,130,246,0.2)]" : "border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20"
-                }`}
-              >
-                <div className="flex items-start gap-4">
-                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 transition-colors ${selectedOption === idx ? "border-blue-500" : "border-gray-600"}`}>
-                    {selectedOption === idx && <div className="w-3 h-3 bg-blue-500 rounded-full" />}
-                  </div>
-                  <span className={`text-lg font-medium ${selectedOption === idx ? "text-white" : "text-gray-300"}`}>{option}</span>
-                </div>
-              </button>
-            ))}
-          </div>
-        </motion.div>
-      </main>
-
-      <div className="p-6 border-t border-white/5 flex justify-end max-w-3xl mx-auto w-full">
-        <button onClick={handleNext} disabled={selectedOption === null} className={`px-8 py-4 rounded-xl font-bold text-white transition-all flex items-center gap-2 ${selectedOption === null ? "bg-gray-800 text-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/20"}`}>
-          {currentQIndex === 4 ? "COMPLETE EXAM" : "NEXT QUESTION"} <span>→</span>
-        </button>
-      </div>
-    </div>
-  );
-}
+  const theme = useMemo(() => {
+    const isP = userLevel === "Paramedic";
+    return {
+      isP,
+      accent: isP ? "text-rose-300" : "text-cyan-300",
+      accentSoft: isP ? "text-rose-200" : "text-cyan-200",
+      border: isP ? "border-rose-400/35" : "border-cyan-400/35",
+      btn: isP
+        ? "bg-gradient-to-r from-rose-600 to-red-500"
+        : "bg-gradient-to-r from-blue-600 to-cyan-500",
+      selectRing: isP ? "border-rose-500 bg-rose-500/10" : "border-blue-500 bg-blue-500/10",
+      radioFill: isP ? "bg-rose-500" : "bg-blue-500",
+      bar: isP ? "bg-rose-500" : "bg-blue-600",
+      barGlow: isP ? "shadow-[0_0_10px_#f43f5e]" : "shadow-[0_0_10px_#2563EB]",
+      scan:
+        isP
+          ? "bg-[linear-gradient(transparent_50%,rgba(244,63,94,0.28)_50%)]"
+          : "bg-[linear-gradient(transparent_50%,rgba(34,211,238,0.22)_50%)]",
+      spinner: isP ? "border-rose-500" : "border-cyan-500",
+      chip: isP ? "bg-rose-500/10 border-rose-500/20" : "bg-cyan-500/10 bor
