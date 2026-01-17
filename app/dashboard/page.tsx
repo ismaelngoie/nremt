@@ -28,16 +28,18 @@ type DiagnosticAnswer = {
 
 type DayDot = { day: string; active: boolean };
 
-type PerfMap = Record<
-  string,
-  {
-    attempts: number;
-    last: number; // 0..100
-    best: number; // 0..100
-    avg: number; // 0..100
-    updatedAt?: number;
-  }
->;
+type PerfEntry = {
+  attempts: number;
+  last: number; // 0..100
+  best: number; // 0..100
+  avg: number; // 0..100
+  updatedAt?: number;
+  // optional “last attempt” totals if available
+  lastCorrect?: number;
+  lastTotal?: number;
+};
+
+type PerfMap = Record<string, PerfEntry>;
 
 type ExamResult = {
   mode?: "exam";
@@ -54,11 +56,21 @@ function clamp(n: number, min = 0, max = 100) {
   return Math.max(min, Math.min(max, n));
 }
 
+// Safe JSON with fallback (DO NOT use null fallback without explicit generic type)
 function safeJSON<T>(raw: string | null, fallback: T): T {
   try {
     return raw ? (JSON.parse(raw) as T) : fallback;
   } catch {
     return fallback;
+  }
+}
+
+// Best practice for nullable JSON blobs
+function safeJSONNullable<T>(raw: string | null): T | null {
+  try {
+    return raw ? (JSON.parse(raw) as T) : null;
+  } catch {
+    return null;
   }
 }
 
@@ -88,8 +100,8 @@ function daysUntil(dateISO: string) {
  * Normalize any of:
  * - old PerfMap { [cat]: {attempts,last,best,avg,updatedAt} }
  * - old arrays [{category,score/accuracy,...}]
- * - NEW category-performance from simulator:
- *   { [cat]: { attempts, correct, total, lastPct, lastAt, lastMode } }
+ * - NEW store shapes:
+ *   { [cat]: { attempts, correct, total, lastPct, lastAt } }
  */
 function normalizePerf(raw: unknown): PerfMap {
   const out: PerfMap = {};
@@ -103,29 +115,41 @@ function normalizePerf(raw: unknown): PerfMap {
       const category = String(anyItem.category || anyItem.name || "").trim();
       if (!category) continue;
 
-      const lastNum = Number(anyItem.lastPct ?? anyItem.last ?? anyItem.score ?? anyItem.accuracy ?? anyItem.value);
+      const lastNum = Number(
+        anyItem.lastPct ??
+          anyItem.last ??
+          anyItem.score ??
+          anyItem.accuracy ??
+          anyItem.value
+      );
       if (!Number.isFinite(lastNum)) continue;
 
       const last = clamp(Math.round(lastNum));
-      const attempts = Number(anyItem.attempts);
-      const a = Number.isFinite(attempts) && attempts > 0 ? Math.floor(attempts) : 1;
+      const attemptsNum = Number(anyItem.attempts);
+      const attempts =
+        Number.isFinite(attemptsNum) && attemptsNum > 0 ? Math.floor(attemptsNum) : 1;
 
-      const correct = Number(anyItem.correct);
-      const total = Number(anyItem.total);
+      const correctNum = Number(anyItem.correct);
+      const totalNum = Number(anyItem.total);
+
       const avgFromTotals =
-        Number.isFinite(correct) && Number.isFinite(total) && total > 0
-          ? clamp(Math.round((correct / total) * 100))
+        Number.isFinite(correctNum) &&
+        Number.isFinite(totalNum) &&
+        totalNum > 0
+          ? clamp(Math.round((correctNum / totalNum) * 100))
           : last;
 
-      const best = Number(anyItem.best);
-      const avg = Number(anyItem.avg);
+      const bestNum = Number(anyItem.best);
+      const avgNum = Number(anyItem.avg);
 
       out[category] = {
-        attempts: a,
+        attempts,
         last,
-        best: Number.isFinite(best) ? clamp(Math.round(best)) : Math.max(last, avgFromTotals),
-        avg: Number.isFinite(avg) ? clamp(Math.round(avg)) : avgFromTotals,
+        best: Number.isFinite(bestNum) ? clamp(Math.round(bestNum)) : Math.max(last, avgFromTotals),
+        avg: Number.isFinite(avgNum) ? clamp(Math.round(avgNum)) : avgFromTotals,
         updatedAt: Number(anyItem.lastAt ?? anyItem.updatedAt) || Date.now(),
+        lastCorrect: Number.isFinite(correctNum) ? Math.max(0, Math.floor(correctNum)) : undefined,
+        lastTotal: Number.isFinite(totalNum) ? Math.max(0, Math.floor(totalNum)) : undefined,
       };
     }
     return out;
@@ -134,40 +158,49 @@ function normalizePerf(raw: unknown): PerfMap {
   // Object style
   if (raw && typeof raw === "object") {
     const obj = raw as Record<string, any>;
+
     for (const [categoryRaw, val] of Object.entries(obj)) {
       const category = String(categoryRaw || "").trim();
       if (!category) continue;
 
+      // category: 72 (number)
       if (typeof val === "number") {
         const s = clamp(Math.round(val));
         out[category] = { attempts: 1, last: s, best: s, avg: s, updatedAt: Date.now() };
         continue;
       }
 
+      // category: { ... }
       if (val && typeof val === "object") {
         const lastNum = Number(val.lastPct ?? val.last ?? val.score ?? val.accuracy ?? val.value);
         if (!Number.isFinite(lastNum)) continue;
         const last = clamp(Math.round(lastNum));
 
-        const attempts = Number(val.attempts);
-        const a = Number.isFinite(attempts) && attempts > 0 ? Math.floor(attempts) : 1;
+        const attemptsNum = Number(val.attempts);
+        const attempts =
+          Number.isFinite(attemptsNum) && attemptsNum > 0 ? Math.floor(attemptsNum) : 1;
 
-        const correct = Number(val.correct);
-        const total = Number(val.total);
+        const correctNum = Number(val.correct);
+        const totalNum = Number(val.total);
+
         const avgFromTotals =
-          Number.isFinite(correct) && Number.isFinite(total) && total > 0
-            ? clamp(Math.round((correct / total) * 100))
+          Number.isFinite(correctNum) &&
+          Number.isFinite(totalNum) &&
+          totalNum > 0
+            ? clamp(Math.round((correctNum / totalNum) * 100))
             : last;
 
-        const best = Number(val.best);
-        const avg = Number(val.avg);
+        const bestNum = Number(val.best);
+        const avgNum = Number(val.avg);
 
         out[category] = {
-          attempts: a,
+          attempts,
           last,
-          best: Number.isFinite(best) ? clamp(Math.round(best)) : Math.max(last, avgFromTotals),
-          avg: Number.isFinite(avg) ? clamp(Math.round(avg)) : avgFromTotals,
+          best: Number.isFinite(bestNum) ? clamp(Math.round(bestNum)) : Math.max(last, avgFromTotals),
+          avg: Number.isFinite(avgNum) ? clamp(Math.round(avgNum)) : avgFromTotals,
           updatedAt: Number(val.lastAt ?? val.updatedAt) || Date.now(),
+          lastCorrect: Number.isFinite(correctNum) ? Math.max(0, Math.floor(correctNum)) : undefined,
+          lastTotal: Number.isFinite(totalNum) ? Math.max(0, Math.floor(totalNum)) : undefined,
         };
       }
     }
@@ -214,7 +247,7 @@ function upsertShiftHistoryForDate(d: Date) {
   localStorage.setItem("last-shift-date", dayStr); // legacy compatibility
 }
 
-export default function Dashboard() {
+export default function DashboardPage() {
   const [level, setLevel] = useState<Level>("EMT");
   const [userName, setUserName] = useState("FUTURE MEDIC");
 
@@ -300,14 +333,6 @@ export default function Dashboard() {
     setStreakDays(dots);
   }, []);
 
-  // Still keep this for “instant fill” on click,
-  // BUT we ALSO auto-fill based on last-shift-result in refreshFromStorage.
-  const markShiftToday = useCallback(() => {
-    const today = new Date();
-    upsertShiftHistoryForDate(today);
-    computeStreakDots();
-  }, [computeStreakDots]);
-
   const saveExamDate = useCallback(() => {
     if (!examDate) return;
     localStorage.setItem("exam-date", examDate);
@@ -323,27 +348,31 @@ export default function Dashboard() {
     setLevel(normalized);
     setUserName(localStorage.getItem("userName") || "FUTURE MEDIC");
 
-    // --- AUTO-FILL CALENDAR AFTER DRILL ENDS ---
-    // If Station saved a last-shift-result with a timestamp/date, we mark that day as complete.
-    const lastShiftKeys = ["last-shift-result", "lastShiftResult", "lastDrillResult", "stationLastResult", "last-session-result"];
+    // --- AUTO-RECONCILE SHIFT HISTORY (supports old/new station storage) ---
+    const lastShiftKeys = [
+      "last-shift-result",
+      "lastShiftResult",
+      "lastDrillResult",
+      "stationLastResult",
+      "last-session-result",
+    ];
     const lastShiftRes = readFirstExistingJSON<any>(lastShiftKeys, null);
+
     const completionDate = extractCompletionDateFromResult(lastShiftRes);
     if (completionDate) {
       upsertShiftHistoryForDate(completionDate);
     } else {
-      // legacy: if station only saves last-shift-date, we keep it
       const legacy = localStorage.getItem("last-shift-date");
       if (legacy) {
-        // ensure it’s in shift-history too
         const d = new Date(legacy);
         if (!Number.isNaN(d.getTime())) upsertShiftHistoryForDate(d);
       }
     }
 
-    // --- PERFORMANCE (category-performance + last-exam-result) ---
+    // --- PERFORMANCE ---
     const perfRaw = readFirstExistingJSON<unknown>(
       [
-        "category-performance", // primary
+        "category-performance",
         "categoryPerformance",
         "shift-performance",
         "shiftPerformance",
@@ -353,19 +382,23 @@ export default function Dashboard() {
       ],
       {}
     );
+
     let perfMap = normalizePerf(perfRaw);
 
-    // Merge last-shift-result into perfMap (if station only logs category+score)
+    // Merge last-shift-result (if it includes category + pct, and optionally correct/total)
     if (lastShiftRes && typeof lastShiftRes === "object") {
       const cat = String(lastShiftRes.category || lastShiftRes.domain || "").trim();
-      const scoreNum = Number(lastShiftRes.score ?? lastShiftRes.accuracy ?? lastShiftRes.value);
+      const scoreNum = Number(lastShiftRes.pct ?? lastShiftRes.score ?? lastShiftRes.accuracy ?? lastShiftRes.value);
       const atNum = Number(lastShiftRes.at ?? lastShiftRes.completedAt ?? lastShiftRes.endedAt);
+
+      const correctNum = Number(lastShiftRes.correct);
+      const totalNum = Number(lastShiftRes.total);
+
       if (cat && Number.isFinite(scoreNum)) {
         const score = clamp(Math.round(scoreNum));
         const updatedAt = Number.isFinite(atNum) ? atNum : Date.now();
         const existing = perfMap[cat];
 
-        // Only apply if it’s new-ish (or missing)
         if (!existing || (existing.updatedAt ?? 0) < updatedAt) {
           const attempts = existing ? existing.attempts + 1 : 1;
           const best = existing ? Math.max(existing.best, score) : score;
@@ -373,32 +406,57 @@ export default function Dashboard() {
             ? clamp(Math.round((existing.avg * existing.attempts + score) / attempts))
             : score;
 
-          perfMap[cat] = { attempts, last: score, best, avg, updatedAt };
+          perfMap[cat] = {
+            attempts,
+            last: score,
+            best,
+            avg,
+            updatedAt,
+            lastCorrect: Number.isFinite(correctNum) ? Math.max(0, Math.floor(correctNum)) : existing?.lastCorrect,
+            lastTotal: Number.isFinite(totalNum) ? Math.max(0, Math.floor(totalNum)) : existing?.lastTotal,
+          };
         }
       }
     }
 
-    // Merge last-exam-result perCategory (in case store is empty / user cleared)
-    const lastExam: ExamResult | null = safeJSON(localStorage.getItem("last-exam-result"), null);
-    if (lastExam?.perCategory && typeof lastExam.perCategory === "object") {
+    // Merge last-exam-result perCategory (THIS IS WHERE YOUR BUILD FAILED BEFORE)
+    const lastExam = safeJSONNullable<ExamResult>(localStorage.getItem("last-exam-result"));
+    if (lastExam && lastExam.perCategory && typeof lastExam.perCategory === "object") {
       const at = Number(lastExam.at) || Date.now();
+
       for (const [cat, v] of Object.entries(lastExam.perCategory)) {
+        if (!cat) continue;
+
         const pct = clamp(Math.round(Number(v.pct)));
-        if (!cat || !Number.isFinite(pct)) continue;
+        if (!Number.isFinite(pct)) continue;
+
+        const correct = Number(v.correct);
+        const total = Number(v.total);
 
         const existing = perfMap[cat];
         if (!existing || (existing.updatedAt ?? 0) < at) {
           const attempts = existing ? existing.attempts + 1 : 1;
           const best = existing ? Math.max(existing.best, pct) : pct;
-          const avg = existing ? clamp(Math.round((existing.avg * existing.attempts + pct) / attempts)) : pct;
-          perfMap[cat] = { attempts, last: pct, best, avg, updatedAt: at };
+          const avg = existing
+            ? clamp(Math.round((existing.avg * existing.attempts + pct) / attempts))
+            : pct;
+
+          perfMap[cat] = {
+            attempts,
+            last: pct,
+            best,
+            avg,
+            updatedAt: at,
+            lastCorrect: Number.isFinite(correct) ? Math.max(0, Math.floor(correct)) : existing?.lastCorrect,
+            lastTotal: Number.isFinite(total) ? Math.max(0, Math.floor(total)) : existing?.lastTotal,
+          };
         }
       }
     }
 
     setPerf(perfMap);
 
-    // --- WEAK DOMAIN (prefer saved weakestDomain; else compute from perfMap) ---
+    // --- WEAK DOMAIN (prefer saved; else compute) ---
     const storedWeak = localStorage.getItem("weakestDomain");
     if (storedWeak) {
       setWeakDomain(storedWeak);
@@ -406,7 +464,7 @@ export default function Dashboard() {
       if (typeof wp === "number") setWeakPct(clamp(Math.round(wp)));
     } else {
       const sorted = Object.entries(perfMap)
-        .map(([category, v]) => ({ category, last: v.last, attempts: v.attempts }))
+        .map(([category, v]) => ({ category, last: v.last }))
         .filter((x) => x.category && Number.isFinite(x.last))
         .sort((a, b) => a.last - b.last);
 
@@ -417,7 +475,7 @@ export default function Dashboard() {
       }
     }
 
-    // --- READINESS (use stored readinessScore; fallback to overall perf avg) ---
+    // --- READINESS ---
     const rs = Number(localStorage.getItem("readinessScore"));
     if (Number.isFinite(rs)) {
       setReadiness(clamp(Math.round(rs)));
@@ -469,11 +527,10 @@ export default function Dashboard() {
       if (Number.isFinite(dte) && dte >= 0 && dte <= 365) setDaysToExam(Math.round(dte));
     }
 
-    // Streak
+    // Streak dots
     computeStreakDots();
   }, [computeStreakDots]);
 
-  // Load + refresh on focus/visibility so returning from /station updates dots/perf
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -487,9 +544,14 @@ export default function Dashboard() {
     };
     document.addEventListener("visibilitychange", onVis);
 
+    // if another tab updates localStorage, reflect it
+    const onStorage = () => refreshFromStorage();
+    window.addEventListener("storage", onStorage);
+
     return () => {
       window.removeEventListener("focus", onFocus);
       document.removeEventListener("visibilitychange", onVis);
+      window.removeEventListener("storage", onStorage);
     };
   }, [refreshFromStorage]);
 
@@ -504,10 +566,11 @@ export default function Dashboard() {
         best: clamp(Math.round(d.accuracy)),
         avg: clamp(Math.round(d.accuracy)),
         updatedAt: Date.now(),
+        lastCorrect: d.correct,
+        lastTotal: d.total,
       }));
     }
 
-    // show worst-first (weakness view)
     return entries.sort((a, b) => a.last - b.last).slice(0, 6);
   }, [perf, domainBreakdown]);
 
@@ -661,7 +724,6 @@ export default function Dashboard() {
           <div className="grid grid-cols-3 gap-2 mt-4">
             <Link
               href={ROUTES.drill}
-              onClick={() => markShiftToday()}
               className={`col-span-2 w-full py-3 rounded-xl font-black text-sm text-white border border-white/10 bg-gradient-to-r ${theme.btn} shadow-lg hover:shadow-white/10 transition-all flex items-center justify-center gap-2`}
             >
               <span className={`w-2 h-2 rounded-full ${shiftComplete ? theme.bar : "bg-white animate-pulse"}`} />
@@ -711,10 +773,15 @@ export default function Dashboard() {
                   <div className="flex items-center justify-between gap-3">
                     <div className="min-w-0">
                       <div className="text-sm font-extrabold text-slate-100 truncate">{r.category}</div>
+
                       <div className="text-[11px] text-slate-400 font-mono">
                         last {r.last}% • best {r.best}% • avg {r.avg}% • {r.attempts}x
+                        {typeof r.lastCorrect === "number" && typeof r.lastTotal === "number" && r.lastTotal > 0 ? (
+                          <> • {r.lastCorrect}/{r.lastTotal}</>
+                        ) : null}
                       </div>
                     </div>
+
                     <div
                       className={`text-sm font-black ${
                         r.last >= 80 ? "text-emerald-300" : r.last >= 65 ? "text-yellow-300" : "text-red-300"
@@ -751,7 +818,12 @@ export default function Dashboard() {
                 <div key={d.category} className="rounded-xl bg-white/5 border border-white/10 p-3">
                   <div className="flex items-center justify-between">
                     <div className="text-sm font-extrabold text-slate-100">{d.category}</div>
-                    <div className="text-sm font-black text-white">{clamp(Math.round(d.accuracy))}%</div>
+                    <div className="text-sm font-black text-white">
+                      {clamp(Math.round(d.accuracy))}%{" "}
+                      <span className="text-white/40 font-mono text-[11px]">
+                        ({d.correct}/{d.total})
+                      </span>
+                    </div>
                   </div>
                   <div className="mt-2 w-full bg-white/10 h-2 rounded-full overflow-hidden">
                     <div className={`h-full ${theme.bar}`} style={{ width: `${clamp(d.accuracy)}%` }} />
@@ -763,7 +835,6 @@ export default function Dashboard() {
             <div className="mt-4 grid grid-cols-2 gap-2">
               <Link
                 href={ROUTES.drill}
-                onClick={() => markShiftToday()}
                 className={`py-3 rounded-xl font-black text-sm text-white border border-white/10 bg-gradient-to-r ${theme.btn} flex items-center justify-center`}
               >
                 START FIX PLAN →
