@@ -1,130 +1,168 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function PaywallPage() {
-  const [selectedPlan, setSelectedPlan] = useState<"lifetime" | "monthly">("lifetime");
+  const [selectedPlan, setSelectedPlan] = useState<"lifetime" | "monthly" | "weekly">("lifetime");
+  const [userLevel, setUserLevel] = useState("EMT");
+  const [userName, setUserName] = useState("CANDIDATE");
+
+  useEffect(() => {
+    setUserLevel(localStorage.getItem("userLevel") || "EMT");
+    // In a real flow, you might have asked for their name earlier, or default to Future Medic
+    setUserName("FUTURE MEDIC");
+  }, []);
+
+  // Future Date for ID Card
+  const validDate = new Date();
+  validDate.setFullYear(validDate.getFullYear() + 2);
+  const dateString = validDate.toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }); // MM/YYYY
 
   return (
-    <div className="min-h-screen bg-[#0F172A] text-white font-sans flex flex-col items-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-[#0F172A] text-white font-sans flex flex-col items-center p-4 md:p-6 relative overflow-y-auto">
       
       {/* Background Glows */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full" />
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full" />
       </div>
 
-      {/* Header */}
+      {/* 1. THE ID CARD (Identity Reinforcement) */}
       <motion.div 
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="z-10 text-center mb-8 mt-4"
+        className="z-10 w-full max-w-sm mt-4 mb-8"
       >
-        <div className="inline-block px-3 py-1 bg-red-500/10 border border-red-500/30 rounded-full text-red-400 text-xs font-bold tracking-widest mb-4">
-          REPORT LOCKED
-        </div>
-        <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2">
-          Unlock Your <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
-            Readiness Score
-          </span>
-        </h1>
-        <p className="text-slate-400 text-sm max-w-xs mx-auto">
-          You are trending borderline. Access the full clinical breakdown to identify critical weaknesses.
-        </p>
-      </motion.div>
+        <div className="bg-white rounded-2xl p-6 shadow-2xl shadow-blue-900/50 relative overflow-hidden text-black transform rotate-1 hover:rotate-0 transition-transform duration-500">
+          {/* Holographic Overlay Effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/30 to-transparent opacity-50 pointer-events-none" />
+          
+          <div className="flex justify-between items-start mb-6">
+            <div>
+              <p className="text-[10px] font-bold tracking-widest text-gray-500 uppercase">National Registry</p>
+              <div className="h-1 w-12 bg-blue-600 mt-1" />
+            </div>
+            <span className="text-xl font-black text-gray-200">2026</span>
+          </div>
 
-      {/* The Blurred Tease */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2 }}
-        className="relative w-full max-w-sm h-32 bg-slate-800/50 rounded-2xl border border-slate-700 mb-8 overflow-hidden flex items-center justify-center"
-      >
-        <div className="absolute inset-0 backdrop-blur-md z-10 flex items-center justify-center bg-black/20">
-          <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
-            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-16 h-16 bg-blue-50 rounded-lg flex items-center justify-center border-2 border-blue-100 text-3xl">
+              {userLevel === "Paramedic" ? "⚡️" : "🚑"}
+            </div>
+            <div>
+              <p className="text-xs font-bold text-blue-600 uppercase mb-0.5">{userLevel} CERTIFICATION</p>
+              <h2 className="text-2xl font-black tracking-tight leading-none">{userName}</h2>
+              <p className="text-[10px] font-mono text-gray-500 mt-1">VALID THROUGH: {dateString}</p>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-end">
+             <div className="flex gap-2">
+               <div className="px-2 py-1 bg-gray-100 rounded text-[9px] font-bold text-gray-600">NREMT-P</div>
+               <div className="px-2 py-1 bg-gray-100 rounded text-[9px] font-bold text-gray-600">BLS</div>
+             </div>
+             {/* Authentic looking barcode */}
+             <div className="h-6 w-24 bg-black opacity-80" style={{clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%, 10% 90%, 20% 90%, 25% 100%, 30% 100%, 35% 80%, 40% 100%)"}}></div>
           </div>
         </div>
-        {/* Fake Graph Line */}
-        <svg className="w-full h-full opacity-30" viewBox="0 0 100 40" preserveAspectRatio="none">
-          <path d="M0 30 C 20 40, 40 10, 60 20 S 100 5, 100 5" stroke="#3B82F6" strokeWidth="2" fill="none" />
-        </svg>
       </motion.div>
 
-      {/* Plan Selection */}
-      <div className="w-full max-w-sm space-y-4 z-10 mb-8">
+      {/* 2. VALUE PROPS (What You Get) */}
+      <div className="w-full max-w-sm space-y-3 mb-8 z-10">
+        <div className="flex items-center gap-3 text-sm">
+          <span className="text-green-400 text-lg">📚</span>
+          <span className="text-gray-200">Unlock <strong>2026 Clinical Protocols</strong></span>
+        </div>
+        <div className="flex items-center gap-3 text-sm">
+          <span className="text-blue-400 text-lg">🧠</span>
+          <span className="text-gray-200">Unlimited <strong>Clinical Scenarios</strong></span>
+        </div>
+        <div className="flex items-center gap-3 text-sm">
+          <span className="text-yellow-400 text-lg">🛡️</span>
+          <span className="text-gray-200"><strong>100% Pass Guarantee</strong> or Refund</span>
+        </div>
+      </div>
+
+      {/* 3. PRICING TIERS */}
+      <div className="w-full max-w-sm space-y-3 z-10 mb-8">
         
-        {/* LIFETIME CARD */}
+        {/* LIFETIME */}
         <button
           onClick={() => setSelectedPlan("lifetime")}
-          className={`relative w-full p-4 rounded-xl border-2 transition-all duration-300 text-left group ${
+          className={`relative w-full p-4 rounded-xl border-2 transition-all duration-300 text-left ${
             selectedPlan === "lifetime" 
-              ? "bg-blue-600/10 border-blue-500 shadow-[0_0_30px_-10px_rgba(59,130,246,0.3)]" 
-              : "bg-slate-800/50 border-slate-700 hover:border-slate-600"
+              ? "bg-blue-600/20 border-blue-500 shadow-[0_0_30px_-10px_rgba(59,130,246,0.4)]" 
+              : "bg-slate-800/50 border-slate-700 opacity-80 hover:opacity-100"
           }`}
         >
           {selectedPlan === "lifetime" && (
-            <div className="absolute -top-3 right-4 bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide shadow-lg">
+            <div className="absolute -top-3 right-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg">
               Best Value
             </div>
           )}
-          <div className="flex justify-between items-center mb-1">
-            <h3 className={`font-bold text-lg ${selectedPlan === "lifetime" ? "text-white" : "text-slate-300"}`}>
-              Lifetime Access
-            </h3>
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="font-bold text-white">Lifetime Access</h3>
+              <p className="text-xs text-slate-400">One-time payment. Own it forever.</p>
+            </div>
             <div className="text-right">
-              <span className="text-sm text-slate-400 line-through mr-2">$149</span>
-              <span className="text-xl font-bold text-white">$69</span>
+              <span className="text-xs text-slate-500 line-through block">$149</span>
+              <span className="text-xl font-black text-white">$69</span>
             </div>
           </div>
-          <p className="text-xs text-slate-400">One-time payment. Own it forever.</p>
         </button>
 
-        {/* MONTHLY CARD */}
+        {/* MONTHLY */}
         <button
           onClick={() => setSelectedPlan("monthly")}
           className={`relative w-full p-4 rounded-xl border-2 transition-all duration-300 text-left ${
             selectedPlan === "monthly" 
-              ? "bg-blue-600/10 border-blue-500" 
-              : "bg-slate-800/50 border-slate-700 hover:border-slate-600"
+              ? "bg-blue-600/20 border-blue-500" 
+              : "bg-slate-800/50 border-slate-700 opacity-80 hover:opacity-100"
           }`}
         >
-          <div className="flex justify-between items-center mb-1">
-            <h3 className={`font-bold text-lg ${selectedPlan === "monthly" ? "text-white" : "text-slate-300"}`}>
-              Monthly
-            </h3>
+          {selectedPlan === "monthly" && (
+            <div className="absolute -top-3 right-4 bg-gray-700 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+              Popular
+            </div>
+          )}
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="font-bold text-white">Monthly Pro</h3>
+              <p className="text-xs text-slate-400">Full access. Cancel anytime.</p>
+            </div>
             <span className="text-xl font-bold text-white">$19<span className="text-sm font-normal text-slate-400">/mo</span></span>
           </div>
-          <p className="text-xs text-slate-400">Cancel anytime.</p>
+        </button>
+
+        {/* WEEKLY (Low Friction) */}
+        <button
+          onClick={() => setSelectedPlan("weekly")}
+          className={`relative w-full p-3 rounded-xl border transition-all duration-300 text-left flex justify-between items-center ${
+            selectedPlan === "weekly" 
+              ? "bg-blue-600/10 border-blue-500/50" 
+              : "bg-transparent border-transparent opacity-60 hover:opacity-100"
+          }`}
+        >
+          <span className="text-sm font-medium text-slate-300">Weekly Access</span>
+          <span className="text-sm font-bold text-white">$6.99<span className="text-xs font-normal text-slate-500">/wk</span></span>
         </button>
       </div>
 
       {/* CTA Button */}
-      <Link href="/dashboard" className="w-full max-w-sm z-10">
+      <Link href="/dashboard" className="w-full max-w-sm z-10 sticky bottom-6">
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-500 rounded-xl font-bold text-lg shadow-lg hover:shadow-blue-500/25 transition-all"
+          className="w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl font-black text-lg shadow-lg hover:shadow-cyan-500/25 transition-all text-white border border-white/10"
         >
-          UNLOCK FULL ACCESS
+          UNLOCK CERTIFICATION
         </motion.button>
+        <p className="text-center text-[10px] text-slate-500 mt-3 font-medium">
+          Launch pricing ends soon. Verified Secure.
+        </p>
       </Link>
-
-      {/* Trust Badges */}
-      <div className="mt-8 flex items-center gap-4 text-slate-500 text-xs font-medium">
-        <span className="flex items-center gap-1">
-          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-          Money-Back Guarantee
-        </span>
-        <span className="flex items-center gap-1">
-          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"/></svg>
-          Secure SSL Payment
-        </span>
-      </div>
 
     </div>
   );
