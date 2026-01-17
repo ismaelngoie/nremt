@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
@@ -6,17 +7,12 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  // SEO title (keyword-first)
   title: {
     default: "NREMT Practice Test + NREMT Prep Simulator | NREMTS",
     template: "%s | NREMT",
   },
-
-  // SEO description (keyword + benefit)
   description:
     "NREMT practice test + CAT-style simulator. Get an instant readiness score, detailed rationales, and a focused NREMT prep study plan for EMT & Paramedic.",
-
-  // Helps Google understand the topic (lightweight)
   keywords: [
     "nremt practice test",
     "nremt prep",
@@ -27,25 +23,17 @@ export const metadata: Metadata = {
     "nremt study guide",
     "nremt exam practice",
   ],
-
   manifest: "/manifest.json",
-
-  // --- ADD THIS SECTION ---
   icons: {
     icon: "/icon.png",
     apple: "/icon.png",
   },
-  // ------------------------
-
   applicationName: "NREMT",
-
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "NREMT",
   },
-
-  // Social sharing (can be more “hooky” without hurting SEO)
   openGraph: {
     title: "NREMT Practice Test + CAT-Style Simulator (Free Diagnostic)",
     description:
@@ -53,15 +41,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "NREMTS",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "NREMT Practice Test (Free) — Will the Computer Stop?",
-    description:
-      "Free diagnostic → readiness score + weakness plan. EMT & Paramedic modes.",
+    description: "Free diagnostic → readiness score + weakness plan. EMT & Paramedic modes.",
   },
-
-  // Optional: prevents iOS from auto-detecting phone numbers etc.
   formatDetection: {
     telephone: false,
   },
