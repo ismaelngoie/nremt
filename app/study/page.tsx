@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { questions } from "@/lib/questions";
 
 const icons: Record<string, string> = {
+  // Existing
   "Patient Treatment": "🚑",
   "Primary Assessment": "👁️",
   "Secondary Assessment": "🩺",
@@ -17,9 +18,28 @@ const icons: Record<string, string> = {
   "Cardiology": "❤️",
   "Trauma": "🦴",
   "Medical & OBGYN": "👶",
-  "Respiration": "🫁",
+  "Respiration": "😮‍💨", // Updated to allow Airway to keep 🫁
   "Ventilation": "💨",
   "Medical": "💊",
+
+  // New Categories
+  "Airway & Ventilation": "😷",         // Mask / BVM
+  "Cardiology & Resuscitation": "⚡",   // Defibrillation
+  "ECG & Arrhythmias": "📉",            // Rhythm Strip / Graph
+  "ECG/Resuscitation": "💓",            // Beating Heart / ROSC
+  "Medical Critical care": "🚨",        // Critical Alert
+  "Medical Emergencies (ALS)": "💉",    // IV / ALS Skills
+  "Pharmacology": "🧪",                 // Vials / Meds (Distinct from pill)
+  "Trauma & Critical Care": "🩹",       // Bandage / Wound Care
+  "Behavioral & Special Populations": "🌀", // Mental Health / Spiral
+  "EMS Operations & Documentations": "📋", // Clipboard / PCR
+  "Geriatrics & Special Populations": "👴", // Elderly
+  "Medical Emergencies": "🤒",          // General Sickness
+  "OB/GYN & Neonatal": "🤰",            // Pregnancy
+  "Pediatrics": "🧸",                   // Teddy Bear
+  "Pediatrics & OB": "🍼",              // Bottle / Newborn
+  "Respiratory & Cardiac": "🫀",        // Anatomical Heart
+  "Trauma & Bleeding Control": "🩸",    // Blood Drop
 };
 
 type Level = "EMT" | "Paramedic";
