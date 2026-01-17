@@ -1,142 +1,196 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+
+type Level = "EMT" | "Paramedic";
 
 export default function Home() {
   const router = useRouter();
-  const [showLevelSelect, setShowLevelSelect] = useState(false);
+  const [level, setLevel] = useState<Level>("EMT");
 
-  const handleStart = () => {
-    setShowLevelSelect(true);
-  };
+  useEffect(() => {
+    const saved = localStorage.getItem("userLevel") as Level | null;
+    if (saved === "EMT" || saved === "Paramedic") setLevel(saved);
+  }, []);
 
-  const selectLevel = (level: "EMT" | "Paramedic") => {
+  const accent = useMemo(() => {
+    return level === "Paramedic"
+      ? {
+          glow: "bg-red-600/12",
+          chip: "text-red-300 border-red-500/30 bg-red-500/10",
+          grad: "from-red-400 to-rose-500",
+          btn: "from-red-600 to-rose-500",
+        }
+      : {
+          glow: "bg-blue-600/14",
+          chip: "text-blue-300 border-blue-500/30 bg-blue-500/10",
+          grad: "from-blue-400 to-cyan-400",
+          btn: "from-blue-600 to-cyan-500",
+        };
+  }, [level]);
+
+  const start = () => {
     localStorage.setItem("userLevel", level);
-    router.push('/sim');
+    router.push("/sim");
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-[#0F172A] overflow-hidden relative p-4">
-      
-      {/* Background Ambience */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-red-600/10 blur-[120px] rounded-full" />
+    <main className="min-h-screen bg-[#0F172A] overflow-hidden relative px-4 py-10 flex items-center justify-center">
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[720px] h-[720px] bg-cyan-500/10 blur-[140px] rounded-full" />
+        <div className="absolute -left-32 top-[25%] w-[520px] h-[520px] bg-blue-600/10 blur-[140px] rounded-full" />
+        <div className="absolute -right-32 bottom-[-10%] w-[520px] h-[520px] bg-red-600/10 blur-[140px] rounded-full" />
       </div>
 
-      <div className="z-10 flex flex-col items-center text-center space-y-8 max-w-lg w-full">
-        
-        {/* Badge */}
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
+      <div className="relative z-10 w-full max-w-lg">
+        {/* Top proof + app feel */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm"
+          className="flex flex-col items-center text-center"
         >
-          <span className="text-xs font-bold tracking-[0.2em] text-blue-400">
-            OFFICIAL NREMT STANDARDS
-          </span>
-        </motion.div>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+            <span className="text-[11px] font-black tracking-[0.22em] text-slate-200 uppercase">
+              CAT-Style Diagnostic
+            </span>
+            <span className="text-[11px] font-mono text-slate-400">5 questions • ~60 sec</span>
+          </div>
 
-        {/* Title */}
-        <div className="relative">
-          <motion.h1 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none"
-          >
+          <h1 className="mt-6 text-5xl md:text-7xl font-black tracking-tighter leading-[0.95] text-white">
             WILL THE <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-red-500">
+            <span className={`text-transparent bg-clip-text bg-gradient-to-r ${accent.grad}`}>
               COMPUTER STOP?
             </span>
-          </motion.h1>
-        </div>
+          </h1>
 
-        {/* Dynamic Subtext */}
-        <div className="h-12 flex items-center justify-center">
-          <AnimatePresence mode="wait">
-            {!showLevelSelect ? (
-              <motion.p 
-                key="intro"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="text-gray-400 text-sm md:text-base font-medium max-w-xs"
-              >
-                Take the free 5-question diagnostic to calculate your current pass probability.
-              </motion.p>
-            ) : (
-              <motion.p 
-                key="select"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-blue-300 text-sm md:text-base font-mono"
-              >
-                &gt; SELECT CERTIFICATION LEVEL TO CALIBRATE:
-              </motion.p>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* INTERACTIVE AREA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-          className="w-full"
-        >
-          {!showLevelSelect ? (
-            <button 
-              onClick={handleStart}
-              className="w-full group relative px-8 py-5 bg-white text-[#0F172A] font-black text-lg rounded-xl overflow-hidden shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.5)] transition-all duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-white to-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
-              <span className="relative z-10 flex items-center justify-center gap-2">
-                START DIAGNOSTIC <span>→</span>
-              </span>
-            </button>
-          ) : (
-            <div className="grid grid-cols-2 gap-4">
-              {/* EMT BUTTON */}
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => selectLevel("EMT")}
-                className="group relative p-6 bg-blue-900/20 border border-blue-500/50 hover:bg-blue-600 hover:border-blue-500 rounded-xl transition-all duration-200 backdrop-blur-sm"
-              >
-                <div className="text-4xl mb-3">🚑</div>
-                <div className="text-white font-black text-xl">EMT</div>
-                <div className="text-blue-200 text-[10px] font-bold tracking-widest mt-1 group-hover:text-white">BLS (EMT/EMR)</div>
-              </motion.button>
-
-              {/* PARAMEDIC BUTTON */}
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => selectLevel("Paramedic")}
-                className="group relative p-6 bg-red-900/20 border border-red-500/50 hover:bg-red-600 hover:border-red-500 rounded-xl transition-all duration-200 backdrop-blur-sm"
-              >
-                <div className="text-4xl mb-3">⚡️</div>
-                <div className="text-white font-black text-xl">PARAMEDIC</div>
-                <div className="text-red-200 text-[10px] font-bold tracking-widest mt-1 group-hover:text-white">ALS (Paramedic/AEMT)</div>
-              </motion.button>
-            </div>
-          )}
+          <p className="mt-4 text-slate-300 text-sm md:text-base max-w-md leading-relaxed">
+            Get a readiness score + your weakest domain in under a minute.
+            No signup. Just run the sim.
+          </p>
         </motion.div>
 
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="text-white/20 text-[10px] uppercase tracking-widest mt-8"
+        {/* Level selector + CTA (no extra click) */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.12 }}
+          className="mt-8"
         >
-          No Sign Up Required • 60 Seconds
-        </motion.p>
+          <div className="rounded-2xl bg-slate-900/40 border border-white/10 p-5 backdrop-blur-sm">
+            {/* subtle glow based on level */}
+            <div className={`absolute inset-0 -z-10 blur-[120px] rounded-2xl ${accent.glow}`} />
 
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-left">
+                <div className="text-xs font-black uppercase tracking-widest text-slate-300">
+                  Select Level
+                </div>
+                <div className="text-[11px] text-slate-400 font-semibold mt-1">
+                  Calibrates your diagnostic + study plan
+                </div>
+              </div>
+
+              {/* Optional mini social proof (replace with real numbers if you have them) */}
+              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5">
+                <span className="text-yellow-300 text-sm">★★★★★</span>
+                <span className="text-[11px] text-slate-300 font-black">4.8</span>
+                <span className="text-[11px] text-slate-400 font-semibold">avg rating</span>
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <button
+                onClick={() => setLevel("EMT")}
+                className={[
+                  "relative rounded-xl p-4 border transition-all text-left",
+                  level === "EMT"
+                    ? "bg-blue-600/15 border-blue-400/60 shadow-[0_0_35px_-16px_rgba(59,130,246,0.55)]"
+                    : "bg-white/5 border-white/10 hover:border-white/20",
+                ].join(" ")}
+              >
+                <div className="text-3xl">🚑</div>
+                <div className="mt-2 text-white font-black">EMT</div>
+                <div className="text-[10px] font-bold tracking-widest text-blue-200/90 uppercase mt-1">
+                  BLS Mode
+                </div>
+              </button>
+
+              <button
+                onClick={() => setLevel("Paramedic")}
+                className={[
+                  "relative rounded-xl p-4 border transition-all text-left",
+                  level === "Paramedic"
+                    ? "bg-red-600/15 border-red-400/60 shadow-[0_0_35px_-16px_rgba(239,68,68,0.5)]"
+                    : "bg-white/5 border-white/10 hover:border-white/20",
+                ].join(" ")}
+              >
+                <div className="text-3xl">⚡️</div>
+                <div className="mt-2 text-white font-black">PARAMEDIC</div>
+                <div className="text-[10px] font-bold tracking-widest text-red-200/90 uppercase mt-1">
+                  ALS Mode
+                </div>
+              </button>
+            </div>
+
+            {/* Value bullets (tight, not cluttered) */}
+            <div className="mt-4 grid gap-2">
+              <MiniRow text="Instant readiness score + domain weakness" />
+              <MiniRow text="Rationales + review mode inside the sim" />
+              <MiniRow text="No signup required to start" />
+            </div>
+
+            <motion.button
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              onClick={start}
+              className={`mt-5 w-full py-5 rounded-xl font-black text-lg text-white border border-white/10
+                          bg-gradient-to-r ${accent.btn} shadow-lg hover:shadow-cyan-500/20 transition-all`}
+            >
+              START FREE DIAGNOSTIC →
+            </motion.button>
+
+            {/* Trust chips */}
+            <div className="mt-4 flex flex-wrap justify-center gap-2 opacity-90">
+              <Chip className={accent.chip} text={`${level} calibrated`} />
+              <Chip className="text-slate-300 border-white/10 bg-white/5" text="60 seconds" />
+              <Chip className="text-slate-300 border-white/10 bg-white/5" text="Mobile friendly" />
+              <Chip className="text-slate-300 border-white/10 bg-white/5" text="No signup" />
+            </div>
+          </div>
+
+          <p className="mt-6 text-center text-white/25 text-[10px] uppercase tracking-widest">
+            Fast • Focused • Built for exam pressure
+          </p>
+        </motion.div>
       </div>
     </main>
+  );
+}
+
+function MiniRow({ text }: { text: string }) {
+  return (
+    <div className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2">
+      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500/15 border border-emerald-400/25">
+        <svg className="w-3.5 h-3.5 text-emerald-300" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fillRule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </span>
+      <span className="text-sm text-slate-200">{text}</span>
+    </div>
+  );
+}
+
+function Chip({ text, className }: { text: string; className: string }) {
+  return (
+    <div className={`inline-flex items-center px-2.5 py-1.5 rounded-full border ${className}`}>
+      <span className="text-[10px] font-black tracking-wide uppercase">{text}</span>
+    </div>
   );
 }
