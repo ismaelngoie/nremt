@@ -39,6 +39,17 @@ type PerfMap = Record<
   }
 >;
 
+type ExamResult = {
+  mode?: "exam";
+  level?: Level;
+  at?: number;
+  score?: number;
+  total?: number;
+  pct?: number;
+  passed?: boolean;
+  perCategory?: Record<string, { correct: number; total: number; pct: number }>;
+};
+
 function clamp(n: number, min = 0, max = 100) {
   return Math.max(min, Math.min(max, n));
 }
@@ -73,32 +84,54 @@ function daysUntil(dateISO: string) {
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
 
+/**
+ * Normalize any of:
+ * - old PerfMap { [cat]: {attempts,last,best,avg,updatedAt} }
+ * - old arrays [{category,score/accuracy,...}]
+ * - NEW category-performance from simulator:
+ *   { [cat]: { attempts, correct, total, lastPct, lastAt, lastMode } }
+ */
 function normalizePerf(raw: unknown): PerfMap {
   const out: PerfMap = {};
 
+  // Array style
   if (Array.isArray(raw)) {
     for (const item of raw) {
       if (!item || typeof item !== "object") continue;
       const anyItem = item as any;
+
       const category = String(anyItem.category || anyItem.name || "").trim();
       if (!category) continue;
-      const score = Number(anyItem.score ?? anyItem.accuracy ?? anyItem.last ?? anyItem.value);
-      if (!Number.isFinite(score)) continue;
-      const s = clamp(Math.round(score));
+
+      const lastNum = Number(anyItem.lastPct ?? anyItem.last ?? anyItem.score ?? anyItem.accuracy ?? anyItem.value);
+      if (!Number.isFinite(lastNum)) continue;
+
+      const last = clamp(Math.round(lastNum));
       const attempts = Number(anyItem.attempts);
       const a = Number.isFinite(attempts) && attempts > 0 ? Math.floor(attempts) : 1;
 
+      const correct = Number(anyItem.correct);
+      const total = Number(anyItem.total);
+      const avgFromTotals =
+        Number.isFinite(correct) && Number.isFinite(total) && total > 0
+          ? clamp(Math.round((correct / total) * 100))
+          : last;
+
+      const best = Number(anyItem.best);
+      const avg = Number(anyItem.avg);
+
       out[category] = {
         attempts: a,
-        last: s,
-        best: clamp(Math.round(anyItem.best ?? s)),
-        avg: clamp(Math.round(anyItem.avg ?? s)),
-        updatedAt: Number(anyItem.updatedAt) || Date.now(),
+        last,
+        best: Number.isFinite(best) ? clamp(Math.round(best)) : Math.max(last, avgFromTotals),
+        avg: Number.isFinite(avg) ? clamp(Math.round(avg)) : avgFromTotals,
+        updatedAt: Number(anyItem.lastAt ?? anyItem.updatedAt) || Date.now(),
       };
     }
     return out;
   }
 
+  // Object style
   if (raw && typeof raw === "object") {
     const obj = raw as Record<string, any>;
     for (const [categoryRaw, val] of Object.entries(obj)) {
@@ -112,20 +145,29 @@ function normalizePerf(raw: unknown): PerfMap {
       }
 
       if (val && typeof val === "object") {
-        const last = Number(val.last ?? val.score ?? val.accuracy ?? val.value);
-        if (!Number.isFinite(last)) continue;
-        const l = clamp(Math.round(last));
+        const lastNum = Number(val.lastPct ?? val.last ?? val.score ?? val.accuracy ?? val.value);
+        if (!Number.isFinite(lastNum)) continue;
+        const last = clamp(Math.round(lastNum));
+
         const attempts = Number(val.attempts);
         const a = Number.isFinite(attempts) && attempts > 0 ? Math.floor(attempts) : 1;
+
+        const correct = Number(val.correct);
+        const total = Number(val.total);
+        const avgFromTotals =
+          Number.isFinite(correct) && Number.isFinite(total) && total > 0
+            ? clamp(Math.round((correct / total) * 100))
+            : last;
+
         const best = Number(val.best);
         const avg = Number(val.avg);
 
         out[category] = {
           attempts: a,
-          last: l,
-          best: Number.isFinite(best) ? clamp(Math.round(best)) : l,
-          avg: Number.isFinite(avg) ? clamp(Math.round(avg)) : l,
-          updatedAt: Number(val.updatedAt) || Date.now(),
+          last,
+          best: Number.isFinite(best) ? clamp(Math.round(best)) : Math.max(last, avgFromTotals),
+          avg: Number.isFinite(avg) ? clamp(Math.round(avg)) : avgFromTotals,
+          updatedAt: Number(val.lastAt ?? val.updatedAt) || Date.now(),
         };
       }
     }
@@ -143,9 +185,36 @@ function readFirstExistingJSON<T>(keys: string[], fallback: T): T {
   return fallback;
 }
 
-export default function Dashboard() {
-  const [plan, setPlan] = useState<string | null>(null);
+function extractCompletionDateFromResult(obj: any): Date | null {
+  if (!obj || typeof obj !== "object") return null;
 
+  // common timestamp fields
+  const ts = Number(obj.at ?? obj.endedAt ?? obj.completedAt ?? obj.timestamp ?? obj.time);
+  if (Number.isFinite(ts) && ts > 0) {
+    const d = new Date(ts);
+    if (!Number.isNaN(d.getTime())) return d;
+  }
+
+  // ISO date string fields
+  const iso = obj.dateISO ?? obj.date;
+  if (typeof iso === "string" && iso.length >= 8) {
+    const d = new Date(iso);
+    if (!Number.isNaN(d.getTime())) return d;
+  }
+
+  return null;
+}
+
+function upsertShiftHistoryForDate(d: Date) {
+  const dayStr = d.toDateString();
+  const existing = safeJSON<string[]>(localStorage.getItem("shift-history"), []);
+  const set = new Set(existing);
+  set.add(dayStr);
+  localStorage.setItem("shift-history", JSON.stringify(Array.from(set)));
+  localStorage.setItem("last-shift-date", dayStr); // legacy compatibility
+}
+
+export default function Dashboard() {
   const [level, setLevel] = useState<Level>("EMT");
   const [userName, setUserName] = useState("FUTURE MEDIC");
 
@@ -205,8 +274,7 @@ export default function Dashboard() {
   const ROUTES = useMemo(
     () => ({
       drill: `/station?category=${encodeURIComponent(weakDomain)}`,
-      simulator: "/simulator", // you requested this path
-      paywall: "/pay",
+      simulator: "/simulator",
       review: `/station?mode=review&category=${encodeURIComponent(weakDomain)}`,
     }),
     [weakDomain]
@@ -232,23 +300,13 @@ export default function Dashboard() {
     setStreakDays(dots);
   }, []);
 
+  // Still keep this for “instant fill” on click,
+  // BUT we ALSO auto-fill based on last-shift-result in refreshFromStorage.
   const markShiftToday = useCallback(() => {
-    const todayStr = new Date().toDateString();
-    const existing = safeJSON<string[]>(localStorage.getItem("shift-history"), []);
-    const set = new Set(existing);
-    set.add(todayStr);
-    localStorage.setItem("shift-history", JSON.stringify(Array.from(set)));
-    localStorage.setItem("last-shift-date", todayStr);
-
-    setShiftComplete(true);
-
-    const last7 = getLast7Dates();
-    const dots: DayDot[] = last7.map((d) => ({
-      day: dayLetter(d),
-      active: set.has(d.toDateString()),
-    }));
-    setStreakDays(dots);
-  }, []);
+    const today = new Date();
+    upsertShiftHistoryForDate(today);
+    computeStreakDots();
+  }, [computeStreakDots]);
 
   const saveExamDate = useCallback(() => {
     if (!examDate) return;
@@ -265,15 +323,114 @@ export default function Dashboard() {
     setLevel(normalized);
     setUserName(localStorage.getItem("userName") || "FUTURE MEDIC");
 
-    // Readiness fields
-    const rs = Number(localStorage.getItem("readinessScore"));
-    const wd = localStorage.getItem("weakestDomain");
-    const wp = Number(localStorage.getItem("weakestDomainPct"));
-    const sl = localStorage.getItem("statusLabel");
+    // --- AUTO-FILL CALENDAR AFTER DRILL ENDS ---
+    // If Station saved a last-shift-result with a timestamp/date, we mark that day as complete.
+    const lastShiftKeys = ["last-shift-result", "lastShiftResult", "lastDrillResult", "stationLastResult", "last-session-result"];
+    const lastShiftRes = readFirstExistingJSON<any>(lastShiftKeys, null);
+    const completionDate = extractCompletionDateFromResult(lastShiftRes);
+    if (completionDate) {
+      upsertShiftHistoryForDate(completionDate);
+    } else {
+      // legacy: if station only saves last-shift-date, we keep it
+      const legacy = localStorage.getItem("last-shift-date");
+      if (legacy) {
+        // ensure it’s in shift-history too
+        const d = new Date(legacy);
+        if (!Number.isNaN(d.getTime())) upsertShiftHistoryForDate(d);
+      }
+    }
 
-    if (Number.isFinite(rs)) setReadiness(clamp(Math.round(rs)));
-    if (wd) setWeakDomain(wd);
-    if (Number.isFinite(wp)) setWeakPct(clamp(Math.round(wp)));
+    // --- PERFORMANCE (category-performance + last-exam-result) ---
+    const perfRaw = readFirstExistingJSON<unknown>(
+      [
+        "category-performance", // primary
+        "categoryPerformance",
+        "shift-performance",
+        "shiftPerformance",
+        "performanceByCategory",
+        "domainPerformance",
+        "stationPerformance",
+      ],
+      {}
+    );
+    let perfMap = normalizePerf(perfRaw);
+
+    // Merge last-shift-result into perfMap (if station only logs category+score)
+    if (lastShiftRes && typeof lastShiftRes === "object") {
+      const cat = String(lastShiftRes.category || lastShiftRes.domain || "").trim();
+      const scoreNum = Number(lastShiftRes.score ?? lastShiftRes.accuracy ?? lastShiftRes.value);
+      const atNum = Number(lastShiftRes.at ?? lastShiftRes.completedAt ?? lastShiftRes.endedAt);
+      if (cat && Number.isFinite(scoreNum)) {
+        const score = clamp(Math.round(scoreNum));
+        const updatedAt = Number.isFinite(atNum) ? atNum : Date.now();
+        const existing = perfMap[cat];
+
+        // Only apply if it’s new-ish (or missing)
+        if (!existing || (existing.updatedAt ?? 0) < updatedAt) {
+          const attempts = existing ? existing.attempts + 1 : 1;
+          const best = existing ? Math.max(existing.best, score) : score;
+          const avg = existing
+            ? clamp(Math.round((existing.avg * existing.attempts + score) / attempts))
+            : score;
+
+          perfMap[cat] = { attempts, last: score, best, avg, updatedAt };
+        }
+      }
+    }
+
+    // Merge last-exam-result perCategory (in case store is empty / user cleared)
+    const lastExam: ExamResult | null = safeJSON(localStorage.getItem("last-exam-result"), null);
+    if (lastExam?.perCategory && typeof lastExam.perCategory === "object") {
+      const at = Number(lastExam.at) || Date.now();
+      for (const [cat, v] of Object.entries(lastExam.perCategory)) {
+        const pct = clamp(Math.round(Number(v.pct)));
+        if (!cat || !Number.isFinite(pct)) continue;
+
+        const existing = perfMap[cat];
+        if (!existing || (existing.updatedAt ?? 0) < at) {
+          const attempts = existing ? existing.attempts + 1 : 1;
+          const best = existing ? Math.max(existing.best, pct) : pct;
+          const avg = existing ? clamp(Math.round((existing.avg * existing.attempts + pct) / attempts)) : pct;
+          perfMap[cat] = { attempts, last: pct, best, avg, updatedAt: at };
+        }
+      }
+    }
+
+    setPerf(perfMap);
+
+    // --- WEAK DOMAIN (prefer saved weakestDomain; else compute from perfMap) ---
+    const storedWeak = localStorage.getItem("weakestDomain");
+    if (storedWeak) {
+      setWeakDomain(storedWeak);
+      const wp = perfMap[storedWeak]?.last;
+      if (typeof wp === "number") setWeakPct(clamp(Math.round(wp)));
+    } else {
+      const sorted = Object.entries(perfMap)
+        .map(([category, v]) => ({ category, last: v.last, attempts: v.attempts }))
+        .filter((x) => x.category && Number.isFinite(x.last))
+        .sort((a, b) => a.last - b.last);
+
+      if (sorted.length) {
+        setWeakDomain(sorted[0].category);
+        setWeakPct(clamp(Math.round(sorted[0].last)));
+        localStorage.setItem("weakestDomain", sorted[0].category);
+      }
+    }
+
+    // --- READINESS (use stored readinessScore; fallback to overall perf avg) ---
+    const rs = Number(localStorage.getItem("readinessScore"));
+    if (Number.isFinite(rs)) {
+      setReadiness(clamp(Math.round(rs)));
+    } else {
+      const vals = Object.values(perfMap).map((v) => v.avg).filter((x) => Number.isFinite(x));
+      if (vals.length) {
+        const avg = clamp(Math.round(vals.reduce((a, b) => a + b, 0) / vals.length));
+        setReadiness(avg);
+      }
+    }
+
+    // Status label
+    const sl = localStorage.getItem("statusLabel");
     if (sl) setStatusLabel(sl);
 
     // Diagnostic extras
@@ -289,8 +446,6 @@ export default function Dashboard() {
     if (Array.isArray(db) && db.length) {
       const sorted = [...db].sort((a, b) => a.accuracy - b.accuracy);
       setDomainBreakdown(sorted.slice(0, 6));
-      if (!wd && sorted[0]?.category) setWeakDomain(sorted[0].category);
-      if (!Number.isFinite(wp) && typeof sorted[0]?.accuracy === "number") setWeakPct(sorted[0].accuracy);
     } else {
       setDomainBreakdown([]);
     }
@@ -314,61 +469,9 @@ export default function Dashboard() {
       if (Number.isFinite(dte) && dte >= 0 && dte <= 365) setDaysToExam(Math.round(dte));
     }
 
-    // Performance
-    const perfKeys = [
-      "category-performance",
-      "categoryPerformance",
-      "shift-performance",
-      "shiftPerformance",
-      "performanceByCategory",
-      "domainPerformance",
-      "stationPerformance",
-    ];
-    const rawPerf = readFirstExistingJSON<unknown>(perfKeys, {});
-    let perfMap = normalizePerf(rawPerf);
-
-    // Merge last result if present
-    const lastResultKeys = ["last-shift-result", "lastShiftResult", "lastDrillResult", "stationLastResult", "last-session-result"];
-    const lastRes = readFirstExistingJSON<any>(lastResultKeys, null);
-
-    if (lastRes && typeof lastRes === "object") {
-      const cat = String(lastRes.category || lastRes.domain || "").trim();
-      const scoreNum = Number(lastRes.score ?? lastRes.accuracy ?? lastRes.value);
-      if (cat && Number.isFinite(scoreNum)) {
-        const score = clamp(Math.round(scoreNum));
-        const existing = perfMap[cat];
-
-        if (!existing || existing.last !== score) {
-          const attempts = existing ? existing.attempts + 1 : 1;
-          const best = existing ? Math.max(existing.best, score) : score;
-          const avg = existing ? clamp(Math.round((existing.avg * existing.attempts + score) / attempts)) : score;
-          perfMap[cat] = { attempts, last: score, best, avg, updatedAt: Date.now() };
-
-          localStorage.setItem("category-performance", JSON.stringify(perfMap));
-        }
-      }
-    }
-
-    setPerf(perfMap);
-
     // Streak
     computeStreakDots();
   }, [computeStreakDots]);
-
-  // PLAN: read ?plan= from URL on client (no useSearchParams -> no prerender crash)
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const sp = new URLSearchParams(window.location.search);
-    const p = sp.get("plan");
-
-    if (p) {
-      setPlan(p);
-      localStorage.setItem("userPlan", p);
-    } else {
-      setPlan(localStorage.getItem("userPlan"));
-    }
-  }, []);
 
   // Load + refresh on focus/visibility so returning from /station updates dots/perf
   useEffect(() => {
@@ -404,6 +507,7 @@ export default function Dashboard() {
       }));
     }
 
+    // show worst-first (weakness view)
     return entries.sort((a, b) => a.last - b.last).slice(0, 6);
   }, [perf, domainBreakdown]);
 
@@ -425,13 +529,6 @@ export default function Dashboard() {
               <span className="text-[11px] font-black tracking-[0.22em] uppercase text-slate-200">NREMTS</span>
               <span className={`text-[11px] font-mono ${theme.accent}`}>{level} MODE</span>
             </div>
-
-            {plan && (
-              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border ${theme.chip}`}>
-                <span className={`text-[10px] font-black tracking-widest uppercase ${theme.chipText}`}>plan</span>
-                <span className="text-[11px] font-mono text-white">{plan.toUpperCase()}</span>
-              </div>
-            )}
           </div>
 
           <h1 className="mt-3 text-2xl font-black text-white tracking-tight leading-none">
@@ -535,7 +632,6 @@ export default function Dashboard() {
             <div>
               <h3 className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Daily Mission</h3>
 
-              {/* requested: red for Paramedic / cyan for EMT when not complete */}
               <h2 className={`text-xl font-black leading-tight ${shiftComplete ? "text-white" : theme.accentStrong}`}>
                 {shiftComplete ? "Shift Complete" : "Start Your Shift"}
               </h2>
@@ -563,7 +659,6 @@ export default function Dashboard() {
           </div>
 
           <div className="grid grid-cols-3 gap-2 mt-4">
-            {/* requested: clicking drill fills today immediately */}
             <Link
               href={ROUTES.drill}
               onClick={() => markShiftToday()}
@@ -603,7 +698,7 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-black text-slate-300 uppercase tracking-widest">Performance</h3>
             <span className={`text-[11px] font-mono ${theme.accent}`}>
-              {Object.keys(perf).length > 0 ? "from your drills" : domainBreakdown.length > 0 ? "from your diagnostic" : "—"}
+              {Object.keys(perf).length > 0 ? "from drills + simulator" : domainBreakdown.length > 0 ? "from diagnostic" : "—"}
             </span>
           </div>
 
@@ -710,36 +805,6 @@ export default function Dashboard() {
                 REVIEW MISSES →
               </Link>
             </div>
-          </motion.section>
-        )}
-
-        {/* Pro upgrade */}
-        {!plan && (
-          <motion.section
-            initial={{ y: 16, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.14 }}
-            className="rounded-2xl bg-black/25 border border-white/10 p-5"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="text-xs font-black uppercase tracking-widest text-slate-300">Unlock the full machine</div>
-                <div className="mt-1 text-sm text-slate-300 leading-relaxed">
-                  Full sims + rationales + auto fix plan every day until you pass.
-                </div>
-              </div>
-              <div className={`px-3 py-1.5 rounded-full border ${theme.chip}`}>
-                <span className={`text-[10px] font-black uppercase tracking-widest ${theme.chipText}`}>pro</span>{" "}
-                <span className="text-[11px] font-mono text-white">LOCKED</span>
-              </div>
-            </div>
-
-            <Link
-              href={ROUTES.paywall}
-              className={`mt-4 w-full py-3 rounded-xl font-black text-sm text-white border border-white/10 bg-gradient-to-r ${theme.btn} flex items-center justify-center`}
-            >
-              UNLOCK MY PLAN →
-            </Link>
           </motion.section>
         )}
       </main>
