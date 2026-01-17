@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 type PlanKey = "monthly" | "annual" | "lifetime";
@@ -64,7 +65,7 @@ type DomainRow = {
   accuracy: number; // 0..100
 };
 
-export default function PaywallPage() {
+function PaywallContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const paid = searchParams.get("success") === "true";
@@ -227,21 +228,11 @@ export default function PaywallPage() {
   }
 
   return (
-    <div
-      className={`min-h-screen ${theme.subtleBg} text-white font-sans flex flex-col items-center px-4 md:px-6 relative overflow-y-auto`}
-    >
+    <div className={`min-h-screen ${theme.subtleBg} text-white font-sans flex flex-col items-center px-4 md:px-6 relative overflow-y-auto`}>
       {/* Background glows */}
       <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
-        <div
-          className={`absolute -top-24 left-1/2 -translate-x-1/2 w-[680px] h-[680px] ${
-            isP ? "bg-rose-500/10" : "bg-cyan-500/10"
-          } blur-[130px] rounded-full`}
-        />
-        <div
-          className={`absolute top-[30%] -left-40 w-[520px] h-[520px] ${
-            isP ? "bg-red-600/10" : "bg-blue-600/10"
-          } blur-[130px] rounded-full`}
-        />
+        <div className={`absolute -top-24 left-1/2 -translate-x-1/2 w-[680px] h-[680px] ${isP ? "bg-rose-500/10" : "bg-cyan-500/10"} blur-[130px] rounded-full`} />
+        <div className={`absolute top-[30%] -left-40 w-[520px] h-[520px] ${isP ? "bg-red-600/10" : "bg-blue-600/10"} blur-[130px] rounded-full`} />
         <div className="absolute bottom-[-18%] right-[-18%] w-[620px] h-[620px] bg-white/5 blur-[160px] rounded-full" />
       </div>
 
@@ -279,9 +270,7 @@ export default function PaywallPage() {
             <div className="mt-2 flex flex-wrap gap-2">
               {passProb !== null && (
                 <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border ${theme.chipBg}`}>
-                  <span className={`text-[10px] font-black uppercase tracking-widest ${theme.chipText}`}>
-                    Pass probability
-                  </span>
+                  <span className={`text-[10px] font-black uppercase tracking-widest ${theme.chipText}`}>Pass probability</span>
                   <span className="text-sm font-black text-white">{passProb}%</span>
                 </div>
               )}
@@ -298,12 +287,7 @@ export default function PaywallPage() {
         </motion.div>
 
         {/* Social proof strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
-          className="mb-5"
-        >
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="mb-5">
           <div className="rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 flex items-center justify-between gap-3 backdrop-blur-md">
             <div className="flex items-center gap-2">
               <Stars />
@@ -324,11 +308,7 @@ export default function PaywallPage() {
 
         {/* ID card */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-          <div
-            className={`bg-white rounded-2xl p-6 shadow-2xl shadow-blue-900/50 relative overflow-hidden text-black transform rotate-1 border-t-4 ${
-              isP ? "border-rose-500" : "border-cyan-500"
-            }`}
-          >
+          <div className={`bg-white rounded-2xl p-6 shadow-2xl shadow-blue-900/50 relative overflow-hidden text-black transform rotate-1 border-t-4 ${isP ? "border-rose-500" : "border-cyan-500"}`}>
             <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/35 to-transparent opacity-60 pointer-events-none" />
 
             <div className="flex justify-between items-start mb-6">
@@ -340,17 +320,11 @@ export default function PaywallPage() {
             </div>
 
             <div className="flex items-center gap-4 mb-6">
-              <div
-                className={`w-16 h-16 rounded-lg flex items-center justify-center border-2 text-3xl ${
-                  isP ? "bg-rose-50 border-rose-100 text-rose-600" : "bg-blue-50 border-blue-100 text-blue-600"
-                }`}
-              >
+              <div className={`w-16 h-16 rounded-lg flex items-center justify-center border-2 text-3xl ${isP ? "bg-rose-50 border-rose-100 text-rose-600" : "bg-blue-50 border-blue-100 text-blue-600"}`}>
                 {theme.icon}
               </div>
               <div>
-                <p className={`text-xs font-black uppercase mb-0.5 ${isP ? "text-rose-600" : "text-blue-600"}`}>
-                  {userLevel} MODE
-                </p>
+                <p className={`text-xs font-black uppercase mb-0.5 ${isP ? "text-rose-600" : "text-blue-600"}`}>{userLevel} MODE</p>
                 <h2 className="text-2xl font-black tracking-tight leading-none">{userName}</h2>
                 <p className="text-[10px] font-mono text-gray-500 mt-1">VALID THROUGH: {dateString}</p>
               </div>
@@ -436,10 +410,7 @@ export default function PaywallPage() {
                     const isCorrect = i === missed.correctIndex;
                     const isPicked = i === missed.selectedIndex;
                     return (
-                      <div
-                        key={i}
-                        className="rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm text-slate-200 flex items-center justify-between"
-                      >
+                      <div key={i} className="rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm text-slate-200 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <span className="text-slate-400 font-mono">{String.fromCharCode(65 + i)}.</span>
                           <span className="font-semibold">{opt}</span>
@@ -520,8 +491,7 @@ export default function PaywallPage() {
         <div className="mb-6 rounded-xl bg-white/5 border border-white/10 p-4">
           <div className="text-sm font-extrabold text-white">Why Annual wins</div>
           <div className="mt-1 text-sm text-slate-300 leading-relaxed">
-            Most candidates study for weeks. Annual keeps your progress, costs less than 7 months of monthly, and removes
-            “time pressure”.
+            Most candidates study for weeks. Annual keeps your progress, costs less than 7 months of monthly, and removes “time pressure”.
           </div>
         </div>
 
@@ -529,14 +499,8 @@ export default function PaywallPage() {
         <div className="mb-6 rounded-2xl bg-slate-900/40 border border-white/10 p-5">
           <h3 className="text-xs font-black text-slate-300 uppercase tracking-widest">Recent wins</h3>
           <div className="mt-4 space-y-3">
-            <Testimonial
-              quote="The readiness score told me exactly what to fix. I hammered cardio for a week and passed."
-              meta="EMT Candidate • 9 days ago"
-            />
-            <Testimonial
-              quote="Feels like a real exam session. The pacing and review mode finally made it click."
-              meta="Paramedic Candidate • 2 weeks ago"
-            />
+            <Testimonial quote="The readiness score told me exactly what to fix. I hammered cardio for a week and passed." meta="EMT Candidate • 9 days ago" />
+            <Testimonial quote="Feels like a real exam session. The pacing and review mode finally made it click." meta="Paramedic Candidate • 2 weeks ago" />
             <Testimonial quote="I stopped guessing. The rationales were the difference." meta="EMR → EMT • First attempt pass" />
           </div>
         </div>
@@ -582,12 +546,7 @@ export default function PaywallPage() {
 
           <AnimatePresence initial={false}>
             {restoreMsg && (
-              <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 6 }}
-                className="mt-3 text-sm text-slate-200"
-              >
+              <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} className="mt-3 text-sm text-slate-200">
                 {restoreMsg}
               </motion.div>
             )}
@@ -642,6 +601,18 @@ export default function PaywallPage() {
   );
 }
 
+/**
+ * ✅ IMPORTANT (fixes Cloudflare/Next export build):
+ * useSearchParams() must be inside a Suspense boundary.
+ */
+export default function PaywallPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0F172A]" />}>
+      <PaywallContent />
+    </Suspense>
+  );
+}
+
 /* ----------------- UI Bits ----------------- */
 
 function FeatureRow({ icon, text, highlight = false }: { icon: string; text: string; highlight?: boolean }) {
@@ -682,7 +653,9 @@ function PlanCard({ selected, onClick, badge, title, subtitle, rightTop, rightMa
       onClick={onClick}
       className={[
         "relative w-full p-4 rounded-2xl border-2 transition-all duration-300 text-left",
-        selected ? `${accentStyles.bg} ${accentStyles.ring} ${accentStyles.glow}` : "bg-slate-800/30 border-white/10 opacity-90 hover:opacity-100 hover:border-white/15",
+        selected
+          ? `${accentStyles.bg} ${accentStyles.ring} ${accentStyles.glow}`
+          : "bg-slate-800/30 border-white/10 opacity-90 hover:opacity-100 hover:border-white/15",
       ].join(" ")}
     >
       {selected && badge && (
@@ -741,7 +714,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-function TrustChip({ icon, text }: { icon: React.ReactNode; text: string }) {
+function TrustChip({ icon, text }: { icon: ReactNode; text: string }) {
   return (
     <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/5 border border-white/10">
       <span className="text-slate-200">{icon}</span>
@@ -755,7 +728,7 @@ function Stars() {
     <div className="flex items-center gap-0.5 text-yellow-300">
       {Array.from({ length: 5 }).map((_, i) => (
         <svg key={i} className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.975a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.382 2.456a1 1 0 00-.364 1.118l1.287 3.974c.3.922-.755 1.688-1.539 1.118l-3.382-2.455a1 1 0 00-1.176 0l-3.382 2.455c-.783.57-1.838-.196-1.539-1.118l1.287-3.974a1 1 0 00-.364-1.118L2.045 9.402c-.783-.57-.38-1.81.588-1.81H6.81a1 1 0 00.95-.69l1.289-3.975z" />
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.975a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.382 2.456a1 1 0 00-.364 1.118l1.287 3.974c.3.922-.755 1.688-1.539 1.118l-3.382-2.455a1 1 0 00-1.176 0l-3.382 2.455c-.783.57-.838-.196-1.539-1.118l1.287-3.974a1 1 0 00-.364-1.118L2.045 9.402c-.783-.57-.38-1.81.588-1.81H6.81a1 1 0 00.95-.69l1.289-3.975z" />
         </svg>
       ))}
     </div>
