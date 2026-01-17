@@ -2134,4 +2134,4204 @@ export const questions: Question[] = [
     correctIndex: 0,
     explanation: "Standardization improves safety and outcomes."
   },
+  {
+    "id": 301,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 52-year-old male has chest pain and a prescribed nitroglycerin. They took sildenafil within 12 hours. You should:",
+    "options": [
+      "Withhold nitroglycerin and contact medical control per protocol",
+      "Assist with prescribed inhaler",
+      "Place the patient supine and elevate legs",
+      "Provide high-flow oxygen and reassess"
+    ],
+    "correctIndex": 0,
+    "explanation": "PDE-5 inhibitors + nitroglycerin can cause profound hypotension."
+  },
+  {
+    "id": 302,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 60-year-old male has chest pain and a prescribed nitroglycerin. They took sildenafil within 8 hours. You should:",
+    "options": [
+      "Encourage the patient to walk to the ambulance",
+      "Withhold nitroglycerin and contact medical control per protocol",
+      "Delay treatment until hospital",
+      "Apply a tourniquet proximal to the wound"
+    ],
+    "correctIndex": 1,
+    "explanation": "PDE-5 inhibitors + nitroglycerin can cause profound hypotension."
+  },
+  {
+    "id": 303,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 45-year-old male has chest pain and a prescribed nitroglycerin. They took sildenafil within 18 hours. You should:",
+    "options": [
+      "Delay treatment until hospital",
+      "Apply a tourniquet proximal to the wound",
+      "Withhold nitroglycerin and contact medical control per protocol",
+      "Encourage the patient to walk to the ambulance"
+    ],
+    "correctIndex": 2,
+    "explanation": "PDE-5 inhibitors + nitroglycerin can cause profound hypotension."
+  },
+  {
+    "id": 304,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 67-year-old male has chest pain and a prescribed nitroglycerin. They took sildenafil within 6 hours. You should:",
+    "options": [
+      "Apply a tourniquet proximal to the wound",
+      "Rub extremities vigorously",
+      "Cool the burn briefly and cover with a dry sterile dressing",
+      "Withhold nitroglycerin and contact medical control per protocol"
+    ],
+    "correctIndex": 3,
+    "explanation": "PDE-5 inhibitors + nitroglycerin can cause profound hypotension."
+  },
+  {
+    "id": 305,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 58-year-old male has chest pain and a prescribed nitroglycerin. They took sildenafil within 20 hours. You should:",
+    "options": [
+      "Provide BVM ventilations",
+      "Assist with prescribed inhaler",
+      "Provide high-flow oxygen and reassess",
+      "Withhold nitroglycerin and contact medical control per protocol"
+    ],
+    "correctIndex": 3,
+    "explanation": "PDE-5 inhibitors + nitroglycerin can cause profound hypotension."
+  },
+  {
+    "id": 306,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 55-year-old male has suspected ACS, no aspirin allergy, and no active bleeding. The best first medication is:",
+    "options": [
+      "Give aspirin 160–325 mg",
+      "Provide BVM ventilations",
+      "Chewable aspirin (160–325 mg)",
+      "Apply direct pressure only and wait"
+    ],
+    "correctIndex": 2,
+    "explanation": "Aspirin is indicated early for suspected ACS unless contraindicated."
+  },
+  {
+    "id": 307,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 42-year-old female has suspected ACS, no aspirin allergy, and no active bleeding. The best first medication is:",
+    "options": [
+      "Place the patient supine and elevate legs",
+      "Chewable aspirin (160–325 mg)",
+      "Assist with prescribed inhaler",
+      "Apply direct pressure only and wait"
+    ],
+    "correctIndex": 1,
+    "explanation": "Aspirin is indicated early for suspected ACS unless contraindicated."
+  },
+  {
+    "id": 308,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 71-year-old male has suspected ACS, no aspirin allergy, and no active bleeding. The best first medication is:",
+    "options": [
+      "Insert an oropharyngeal airway",
+      "Place the patient supine and elevate legs",
+      "Give aspirin 160–325 mg",
+      "Chewable aspirin (160–325 mg)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Aspirin is indicated early for suspected ACS unless contraindicated."
+  },
+  {
+    "id": 309,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 63-year-old female has suspected ACS, no aspirin allergy, and no active bleeding. The best first medication is:",
+    "options": [
+      "Chewable aspirin (160–325 mg)",
+      "Cool the burn briefly and cover with a dry sterile dressing",
+      "Place the patient supine and elevate legs",
+      "Give aspirin 160–325 mg"
+    ],
+    "correctIndex": 0,
+    "explanation": "Aspirin is indicated early for suspected ACS unless contraindicated."
+  },
+  {
+    "id": 310,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 49-year-old male has suspected ACS, no aspirin allergy, and no active bleeding. The best first medication is:",
+    "options": [
+      "Provide BVM ventilations",
+      "Apply direct pressure only and wait",
+      "Chewable aspirin (160–325 mg)",
+      "Administer nitroglycerin as prescribed"
+    ],
+    "correctIndex": 2,
+    "explanation": "Aspirin is indicated early for suspected ACS unless contraindicated."
+  },
+  {
+    "id": 311,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 9-year-old male has wheezing and a prescribed albuterol inhaler. After confirming indications, you should:",
+    "options": [
+      "Delay treatment until hospital",
+      "Give epinephrine auto-injector immediately",
+      "Apply a tourniquet proximal to the wound",
+      "Assist with the inhaler and reassess breathing"
+    ],
+    "correctIndex": 3,
+    "explanation": "EMTs may assist with a patient’s prescribed inhaler when appropriate."
+  },
+  {
+    "id": 312,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 16-year-old female has wheezing and a prescribed albuterol inhaler. After confirming indications, you should:",
+    "options": [
+      "Apply direct pressure only and wait",
+      "Give aspirin 160–325 mg",
+      "Assist with the inhaler and reassess breathing",
+      "Encourage the patient to walk to the ambulance"
+    ],
+    "correctIndex": 2,
+    "explanation": "EMTs may assist with a patient’s prescribed inhaler when appropriate."
+  },
+  {
+    "id": 313,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 28-year-old male has wheezing and a prescribed albuterol inhaler. After confirming indications, you should:",
+    "options": [
+      "Insert an oropharyngeal airway",
+      "Provide BVM ventilations",
+      "Give aspirin 160–325 mg",
+      "Assist with the inhaler and reassess breathing"
+    ],
+    "correctIndex": 3,
+    "explanation": "EMTs may assist with a patient’s prescribed inhaler when appropriate."
+  },
+  {
+    "id": 314,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 36-year-old female has wheezing and a prescribed albuterol inhaler. After confirming indications, you should:",
+    "options": [
+      "Cool the burn briefly and cover with a dry sterile dressing",
+      "Assist with the inhaler and reassess breathing",
+      "Apply a tourniquet proximal to the wound",
+      "Give epinephrine auto-injector immediately"
+    ],
+    "correctIndex": 1,
+    "explanation": "EMTs may assist with a patient’s prescribed inhaler when appropriate."
+  },
+  {
+    "id": 315,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 66-year-old male has wheezing and a prescribed albuterol inhaler. After confirming indications, you should:",
+    "options": [
+      "Apply direct pressure only and wait",
+      "Delay treatment until hospital",
+      "Assist with prescribed inhaler",
+      "Assist with the inhaler and reassess breathing"
+    ],
+    "correctIndex": 3,
+    "explanation": "EMTs may assist with a patient’s prescribed inhaler when appropriate."
+  },
+  {
+    "id": 316,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 24-year-old male is unresponsive with slow respirations and pinpoint pupils. Your priority is to:",
+    "options": [
+      "Place the patient supine and elevate legs",
+      "Encourage the patient to walk to the ambulance",
+      "Administer nitroglycerin as prescribed",
+      "Ventilate with a BVM and give naloxone per protocol"
+    ],
+    "correctIndex": 3,
+    "explanation": "Airway/ventilation comes first; naloxone supports reversal but does not replace ventilations."
+  },
+  {
+    "id": 317,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 33-year-old female is unresponsive with slow respirations and pinpoint pupils. Your priority is to:",
+    "options": [
+      "Cool the burn briefly and cover with a dry sterile dressing",
+      "Rub extremities vigorously",
+      "Give aspirin 160–325 mg",
+      "Ventilate with a BVM and give naloxone per protocol"
+    ],
+    "correctIndex": 3,
+    "explanation": "Airway/ventilation comes first; naloxone supports reversal but does not replace ventilations."
+  },
+  {
+    "id": 318,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 41-year-old male is unresponsive with slow respirations and pinpoint pupils. Your priority is to:",
+    "options": [
+      "Encourage the patient to walk to the ambulance",
+      "Provide BVM ventilations",
+      "Administer nitroglycerin as prescribed",
+      "Ventilate with a BVM and give naloxone per protocol"
+    ],
+    "correctIndex": 3,
+    "explanation": "Airway/ventilation comes first; naloxone supports reversal but does not replace ventilations."
+  },
+  {
+    "id": 319,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 57-year-old female is unresponsive with slow respirations and pinpoint pupils. Your priority is to:",
+    "options": [
+      "Ventilate with a BVM and give naloxone per protocol",
+      "Apply direct pressure only and wait",
+      "Encourage the patient to walk to the ambulance",
+      "Administer nitroglycerin as prescribed"
+    ],
+    "correctIndex": 0,
+    "explanation": "Airway/ventilation comes first; naloxone supports reversal but does not replace ventilations."
+  },
+  {
+    "id": 320,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 68-year-old male is unresponsive with slow respirations and pinpoint pupils. Your priority is to:",
+    "options": [
+      "Provide BVM ventilations",
+      "Place the patient supine and elevate legs",
+      "Ventilate with a BVM and give naloxone per protocol",
+      "Give oral glucose"
+    ],
+    "correctIndex": 2,
+    "explanation": "Airway/ventilation comes first; naloxone supports reversal but does not replace ventilations."
+  },
+  {
+    "id": 321,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 19-year-old female is awake, diaphoretic, and confused. BGL is 54 mg/dL and they can swallow. You should:",
+    "options": [
+      "Give oral glucose (or other oral carbohydrate)",
+      "Give aspirin 160–325 mg",
+      "Assist with prescribed inhaler",
+      "Give oral glucose"
+    ],
+    "correctIndex": 0,
+    "explanation": "Conscious hypoglycemic patients who can swallow should receive oral carbohydrates."
+  },
+  {
+    "id": 322,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 61-year-old male is awake, diaphoretic, and confused. BGL is 46 mg/dL and they can swallow. You should:",
+    "options": [
+      "Give oral glucose",
+      "Provide high-flow oxygen and reassess",
+      "Give oral glucose (or other oral carbohydrate)",
+      "Assist with prescribed inhaler"
+    ],
+    "correctIndex": 2,
+    "explanation": "Conscious hypoglycemic patients who can swallow should receive oral carbohydrates."
+  },
+  {
+    "id": 323,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 37-year-old female is awake, diaphoretic, and confused. BGL is 58 mg/dL and they can swallow. You should:",
+    "options": [
+      "Place the patient supine and elevate legs",
+      "Give aspirin 160–325 mg",
+      "Insert an oropharyngeal airway",
+      "Give oral glucose (or other oral carbohydrate)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Conscious hypoglycemic patients who can swallow should receive oral carbohydrates."
+  },
+  {
+    "id": 324,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 70-year-old female is awake, diaphoretic, and confused. BGL is 40 mg/dL and they can swallow. You should:",
+    "options": [
+      "Rub extremities vigorously",
+      "Apply a tourniquet proximal to the wound",
+      "Give aspirin 160–325 mg",
+      "Give oral glucose (or other oral carbohydrate)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Conscious hypoglycemic patients who can swallow should receive oral carbohydrates."
+  },
+  {
+    "id": 325,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 29-year-old male is awake, diaphoretic, and confused. BGL is 52 mg/dL and they can swallow. You should:",
+    "options": [
+      "Give oral glucose (or other oral carbohydrate)",
+      "Administer nitroglycerin as prescribed",
+      "Give aspirin 160–325 mg",
+      "Give oral glucose"
+    ],
+    "correctIndex": 0,
+    "explanation": "Conscious hypoglycemic patients who can swallow should receive oral carbohydrates."
+  },
+  {
+    "id": 326,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 27-year-old male has life-threatening bleeding from an extremity. Direct pressure fails. You should:",
+    "options": [
+      "Provide BVM ventilations",
+      "Insert an oropharyngeal airway",
+      "Apply a tourniquet proximal to the wound",
+      "Give oral glucose"
+    ],
+    "correctIndex": 2,
+    "explanation": "Tourniquets are indicated when severe extremity bleeding is not controlled with direct pressure."
+  },
+  {
+    "id": 327,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 44-year-old female has life-threatening bleeding from an extremity. Direct pressure fails. You should:",
+    "options": [
+      "Provide BVM ventilations",
+      "Insert an oropharyngeal airway",
+      "Apply a tourniquet proximal to the wound",
+      "Assist with prescribed inhaler"
+    ],
+    "correctIndex": 2,
+    "explanation": "Tourniquets are indicated when severe extremity bleeding is not controlled with direct pressure."
+  },
+  {
+    "id": 328,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 59-year-old male has life-threatening bleeding from an extremity. Direct pressure fails. You should:",
+    "options": [
+      "Provide BVM ventilations",
+      "Apply direct pressure only and wait",
+      "Encourage the patient to walk to the ambulance",
+      "Apply a tourniquet proximal to the wound"
+    ],
+    "correctIndex": 3,
+    "explanation": "Tourniquets are indicated when severe extremity bleeding is not controlled with direct pressure."
+  },
+  {
+    "id": 329,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 33-year-old female has life-threatening bleeding from an extremity. Direct pressure fails. You should:",
+    "options": [
+      "Give oral glucose",
+      "Apply a tourniquet proximal to the wound",
+      "Cool the burn briefly and cover with a dry sterile dressing",
+      "Provide BVM ventilations"
+    ],
+    "correctIndex": 1,
+    "explanation": "Tourniquets are indicated when severe extremity bleeding is not controlled with direct pressure."
+  },
+  {
+    "id": 330,
+    "level": "EMT",
+    "category": "Patient Treatment",
+    "text": "A 72-year-old male has life-threatening bleeding from an extremity. Direct pressure fails. You should:",
+    "options": [
+      "Administer nitroglycerin as prescribed",
+      "Delay treatment until hospital",
+      "Apply a tourniquet proximal to the wound",
+      "Give oral glucose"
+    ],
+    "correctIndex": 2,
+    "explanation": "Tourniquets are indicated when severe extremity bleeding is not controlled with direct pressure."
+  },
+  {
+    "id": 331,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "You find a 62-year-old male unresponsive, apneic, and pulseless. Your next action is to:",
+    "options": [
+      "Place the patient supine immediately",
+      "Assist ventilations with a BVM and oxygen",
+      "Perform a detailed head-to-toe exam",
+      "Begin CPR and apply the AED as soon as possible"
+    ],
+    "correctIndex": 3,
+    "explanation": "In cardiac arrest, start CPR immediately and use an AED early."
+  },
+  {
+    "id": 332,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "You find a 45-year-old female unresponsive, apneic, and pulseless. Your next action is to:",
+    "options": [
+      "Assist ventilations with a BVM and oxygen",
+      "Obtain a full SAMPLE history",
+      "Check blood pressure first",
+      "Begin CPR and apply the AED as soon as possible"
+    ],
+    "correctIndex": 3,
+    "explanation": "In cardiac arrest, start CPR immediately and use an AED early."
+  },
+  {
+    "id": 333,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "You find a 73-year-old male unresponsive, apneic, and pulseless. Your next action is to:",
+    "options": [
+      "Place the patient supine immediately",
+      "Assist ventilations with a BVM and oxygen",
+      "Begin CPR and apply the AED as soon as possible",
+      "Obtain a full SAMPLE history"
+    ],
+    "correctIndex": 2,
+    "explanation": "In cardiac arrest, start CPR immediately and use an AED early."
+  },
+  {
+    "id": 334,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "You find a 58-year-old female unresponsive, apneic, and pulseless. Your next action is to:",
+    "options": [
+      "Maintain position of comfort and provide oxygen with minimal agitation",
+      "Assist ventilations with a BVM and oxygen",
+      "Begin CPR and apply the AED as soon as possible",
+      "Administer oral glucose immediately"
+    ],
+    "correctIndex": 2,
+    "explanation": "In cardiac arrest, start CPR immediately and use an AED early."
+  },
+  {
+    "id": 335,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "You find a 39-year-old male unresponsive, apneic, and pulseless. Your next action is to:",
+    "options": [
+      "Suction the airway and reposition",
+      "Control the major bleeding immediately",
+      "Maintain position of comfort and provide oxygen with minimal agitation",
+      "Begin CPR and apply the AED as soon as possible"
+    ],
+    "correctIndex": 3,
+    "explanation": "In cardiac arrest, start CPR immediately and use an AED early."
+  },
+  {
+    "id": 336,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 26-year-old male is unresponsive but has a pulse. They have snoring respirations. You should first:",
+    "options": [
+      "Control the major bleeding immediately",
+      "Open the airway (jaw-thrust if trauma suspected)",
+      "Perform a detailed head-to-toe exam",
+      "Apply a cervical collar before airway assessment"
+    ],
+    "correctIndex": 1,
+    "explanation": "Airway is the priority when a patient with a pulse is not protecting their airway."
+  },
+  {
+    "id": 337,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 55-year-old female is unresponsive but has a pulse. They have snoring respirations. You should first:",
+    "options": [
+      "Administer oral glucose immediately",
+      "Apply a cervical collar before airway assessment",
+      "Assist ventilations with a BVM and oxygen",
+      "Open the airway (jaw-thrust if trauma suspected)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Airway is the priority when a patient with a pulse is not protecting their airway."
+  },
+  {
+    "id": 338,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 7-year-old male is unresponsive but has a pulse. They have snoring respirations. You should first:",
+    "options": [
+      "Open the airway (jaw-thrust if trauma suspected)",
+      "Control the major bleeding immediately",
+      "Administer oral glucose immediately",
+      "Obtain a full SAMPLE history"
+    ],
+    "correctIndex": 0,
+    "explanation": "Airway is the priority when a patient with a pulse is not protecting their airway."
+  },
+  {
+    "id": 339,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 81-year-old female is unresponsive but has a pulse. They have snoring respirations. You should first:",
+    "options": [
+      "Administer oral glucose immediately",
+      "Begin CPR and apply the AED as soon as possible",
+      "Perform a detailed head-to-toe exam",
+      "Open the airway (jaw-thrust if trauma suspected)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Airway is the priority when a patient with a pulse is not protecting their airway."
+  },
+  {
+    "id": 340,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 33-year-old male is unresponsive but has a pulse. They have snoring respirations. You should first:",
+    "options": [
+      "Check blood pressure first",
+      "Place the patient supine immediately",
+      "Control the major bleeding immediately",
+      "Open the airway (jaw-thrust if trauma suspected)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Airway is the priority when a patient with a pulse is not protecting their airway."
+  },
+  {
+    "id": 341,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 31-year-old male has massive external bleeding from the thigh and is pale and confused. You should FIRST:",
+    "options": [
+      "Administer oral glucose immediately",
+      "Transport without reassessment",
+      "Open the airway (jaw-thrust if trauma suspected)",
+      "Control the major bleeding immediately"
+    ],
+    "correctIndex": 3,
+    "explanation": "Massive hemorrhage is an immediate life threat and is managed early."
+  },
+  {
+    "id": 342,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 66-year-old female has massive external bleeding from the thigh and is pale and confused. You should FIRST:",
+    "options": [
+      "Check blood pressure first",
+      "Control the major bleeding immediately",
+      "Suction the airway and reposition",
+      "Begin CPR and apply the AED as soon as possible"
+    ],
+    "correctIndex": 1,
+    "explanation": "Massive hemorrhage is an immediate life threat and is managed early."
+  },
+  {
+    "id": 343,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 19-year-old male has massive external bleeding from the thigh and is pale and confused. You should FIRST:",
+    "options": [
+      "Maintain position of comfort and provide oxygen with minimal agitation",
+      "Suction the airway and reposition",
+      "Control the major bleeding immediately",
+      "Transport without reassessment"
+    ],
+    "correctIndex": 2,
+    "explanation": "Massive hemorrhage is an immediate life threat and is managed early."
+  },
+  {
+    "id": 344,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 52-year-old female has massive external bleeding from the thigh and is pale and confused. You should FIRST:",
+    "options": [
+      "Perform a detailed head-to-toe exam",
+      "Open the airway (jaw-thrust if trauma suspected)",
+      "Suction the airway and reposition",
+      "Control the major bleeding immediately"
+    ],
+    "correctIndex": 3,
+    "explanation": "Massive hemorrhage is an immediate life threat and is managed early."
+  },
+  {
+    "id": 345,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 27-year-old male has massive external bleeding from the thigh and is pale and confused. You should FIRST:",
+    "options": [
+      "Begin CPR and apply the AED as soon as possible",
+      "Transport without reassessment",
+      "Administer oral glucose immediately",
+      "Control the major bleeding immediately"
+    ],
+    "correctIndex": 3,
+    "explanation": "Massive hemorrhage is an immediate life threat and is managed early."
+  },
+  {
+    "id": 346,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 48-year-old male is breathing 6/min with shallow chest rise and poor air movement. You should:",
+    "options": [
+      "Begin CPR and apply the AED as soon as possible",
+      "Place the patient supine immediately",
+      "Perform a detailed head-to-toe exam",
+      "Assist ventilations with a BVM and high-flow oxygen"
+    ],
+    "correctIndex": 3,
+    "explanation": "Inadequate ventilation requires assisted ventilations, not just oxygen."
+  },
+  {
+    "id": 347,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 83-year-old female is breathing 8/min with shallow chest rise and poor air movement. You should:",
+    "options": [
+      "Transport without reassessment",
+      "Obtain a full SAMPLE history",
+      "Assist ventilations with a BVM and high-flow oxygen",
+      "Maintain position of comfort and provide oxygen with minimal agitation"
+    ],
+    "correctIndex": 2,
+    "explanation": "Inadequate ventilation requires assisted ventilations, not just oxygen."
+  },
+  {
+    "id": 348,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 12-year-old female is breathing 7/min with shallow chest rise and poor air movement. You should:",
+    "options": [
+      "Administer oral glucose immediately",
+      "Control the major bleeding immediately",
+      "Assist ventilations with a BVM and high-flow oxygen",
+      "Apply a cervical collar before airway assessment"
+    ],
+    "correctIndex": 2,
+    "explanation": "Inadequate ventilation requires assisted ventilations, not just oxygen."
+  },
+  {
+    "id": 349,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 60-year-old male is breathing 5/min with shallow chest rise and poor air movement. You should:",
+    "options": [
+      "Open the airway (jaw-thrust if trauma suspected)",
+      "Assist ventilations with a BVM and high-flow oxygen",
+      "Check blood pressure first",
+      "Maintain position of comfort and provide oxygen with minimal agitation"
+    ],
+    "correctIndex": 1,
+    "explanation": "Inadequate ventilation requires assisted ventilations, not just oxygen."
+  },
+  {
+    "id": 350,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 22-year-old female is breathing 6/min with shallow chest rise and poor air movement. You should:",
+    "options": [
+      "Assist ventilations with a BVM and high-flow oxygen",
+      "Suction the airway and reposition",
+      "Administer oral glucose immediately",
+      "Apply a cervical collar before airway assessment"
+    ],
+    "correctIndex": 0,
+    "explanation": "Inadequate ventilation requires assisted ventilations, not just oxygen."
+  },
+  {
+    "id": 351,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A child is sitting in tripod, drooling, and has inspiratory stridor. The priority is to: (Variant 1)",
+    "options": [
+      "Obtain a full SAMPLE history",
+      "Apply a cervical collar before airway assessment",
+      "Maintain position of comfort and provide oxygen with minimal agitation",
+      "Transport without reassessment"
+    ],
+    "correctIndex": 2,
+    "explanation": "Possible upper-airway obstruction; avoid agitation and do not manipulate the airway."
+  },
+  {
+    "id": 352,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A child is sitting in tripod, drooling, and has inspiratory stridor. The priority is to: (Variant 2)",
+    "options": [
+      "Begin CPR and apply the AED as soon as possible",
+      "Administer oral glucose immediately",
+      "Transport without reassessment",
+      "Maintain position of comfort and provide oxygen with minimal agitation"
+    ],
+    "correctIndex": 3,
+    "explanation": "Possible upper-airway obstruction; avoid agitation and do not manipulate the airway."
+  },
+  {
+    "id": 353,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A child is sitting in tripod, drooling, and has inspiratory stridor. The priority is to: (Variant 3)",
+    "options": [
+      "Transport without reassessment",
+      "Maintain position of comfort and provide oxygen with minimal agitation",
+      "Control the major bleeding immediately",
+      "Administer oral glucose immediately"
+    ],
+    "correctIndex": 1,
+    "explanation": "Possible upper-airway obstruction; avoid agitation and do not manipulate the airway."
+  },
+  {
+    "id": 354,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A child is sitting in tripod, drooling, and has inspiratory stridor. The priority is to: (Variant 4)",
+    "options": [
+      "Control the major bleeding immediately",
+      "Place the patient supine immediately",
+      "Administer oral glucose immediately",
+      "Maintain position of comfort and provide oxygen with minimal agitation"
+    ],
+    "correctIndex": 3,
+    "explanation": "Possible upper-airway obstruction; avoid agitation and do not manipulate the airway."
+  },
+  {
+    "id": 355,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A child is sitting in tripod, drooling, and has inspiratory stridor. The priority is to: (Variant 5)",
+    "options": [
+      "Open the airway (jaw-thrust if trauma suspected)",
+      "Transport without reassessment",
+      "Maintain position of comfort and provide oxygen with minimal agitation",
+      "Suction the airway and reposition"
+    ],
+    "correctIndex": 2,
+    "explanation": "Possible upper-airway obstruction; avoid agitation and do not manipulate the airway."
+  },
+  {
+    "id": 356,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 33-year-old female has signs of shock (cool skin, weak radial pulse) after ABCs are addressed. Next you should:",
+    "options": [
+      "Check blood pressure first",
+      "Suction the airway and reposition",
+      "Treat for shock and transport",
+      "Open the airway (jaw-thrust if trauma suspected)"
+    ],
+    "correctIndex": 2,
+    "explanation": "After ABCs, support circulation, prevent heat loss, and transport promptly."
+  },
+  {
+    "id": 357,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 76-year-old male has signs of shock (cool skin, weak radial pulse) after ABCs are addressed. Next you should:",
+    "options": [
+      "Begin CPR and apply the AED as soon as possible",
+      "Treat for shock and transport",
+      "Place the patient supine immediately",
+      "Obtain a full SAMPLE history"
+    ],
+    "correctIndex": 1,
+    "explanation": "After ABCs, support circulation, prevent heat loss, and transport promptly."
+  },
+  {
+    "id": 358,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 15-year-old female has signs of shock (cool skin, weak radial pulse) after ABCs are addressed. Next you should:",
+    "options": [
+      "Transport without reassessment",
+      "Control the major bleeding immediately",
+      "Treat for shock and transport",
+      "Maintain position of comfort and provide oxygen with minimal agitation"
+    ],
+    "correctIndex": 2,
+    "explanation": "After ABCs, support circulation, prevent heat loss, and transport promptly."
+  },
+  {
+    "id": 359,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 58-year-old male has signs of shock (cool skin, weak radial pulse) after ABCs are addressed. Next you should:",
+    "options": [
+      "Apply a cervical collar before airway assessment",
+      "Control the major bleeding immediately",
+      "Treat for shock and transport",
+      "Place the patient supine immediately"
+    ],
+    "correctIndex": 2,
+    "explanation": "After ABCs, support circulation, prevent heat loss, and transport promptly."
+  },
+  {
+    "id": 360,
+    "level": "EMT",
+    "category": "Primary Assessment",
+    "text": "A 42-year-old female has signs of shock (cool skin, weak radial pulse) after ABCs are addressed. Next you should:",
+    "options": [
+      "Treat for shock and transport",
+      "Control the major bleeding immediately",
+      "Check blood pressure first",
+      "Perform a detailed head-to-toe exam"
+    ],
+    "correctIndex": 0,
+    "explanation": "After ABCs, support circulation, prevent heat loss, and transport promptly."
+  },
+  {
+    "id": 361,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Absent breath sounds on one side with hypotension and tracheal deviation MOST strongly suggests: (Variant 1)",
+    "options": [
+      "Septic shock",
+      "Tension pneumothorax",
+      "Internal hemorrhage",
+      "Opioid overdose"
+    ],
+    "correctIndex": 1,
+    "explanation": "Hypotension with unilateral absent sounds and tracheal deviation indicates tension physiology."
+  },
+  {
+    "id": 362,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Absent breath sounds on one side with hypotension and tracheal deviation MOST strongly suggests: (Variant 2)",
+    "options": [
+      "Basilar skull fracture",
+      "Flail chest",
+      "Pulmonary embolism",
+      "Tension pneumothorax"
+    ],
+    "correctIndex": 3,
+    "explanation": "Hypotension with unilateral absent sounds and tracheal deviation indicates tension physiology."
+  },
+  {
+    "id": 363,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Absent breath sounds on one side with hypotension and tracheal deviation MOST strongly suggests: (Variant 3)",
+    "options": [
+      "Diabetic ketoacidosis (DKA)",
+      "COPD exacerbation",
+      "Cardiac tamponade",
+      "Tension pneumothorax"
+    ],
+    "correctIndex": 3,
+    "explanation": "Hypotension with unilateral absent sounds and tracheal deviation indicates tension physiology."
+  },
+  {
+    "id": 364,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Absent breath sounds on one side with hypotension and tracheal deviation MOST strongly suggests: (Variant 4)",
+    "options": [
+      "Tension pneumothorax",
+      "Internal hemorrhage",
+      "Asthma exacerbation",
+      "Myocardial ischemia"
+    ],
+    "correctIndex": 0,
+    "explanation": "Hypotension with unilateral absent sounds and tracheal deviation indicates tension physiology."
+  },
+  {
+    "id": 365,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Absent breath sounds on one side with hypotension and tracheal deviation MOST strongly suggests: (Variant 5)",
+    "options": [
+      "Tension pneumothorax",
+      "Opioid overdose",
+      "Flail chest",
+      "Pulmonary embolism"
+    ],
+    "correctIndex": 0,
+    "explanation": "Hypotension with unilateral absent sounds and tracheal deviation indicates tension physiology."
+  },
+  {
+    "id": 366,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "JVD, hypotension, and muffled heart tones after chest trauma suggests: (Variant 1)",
+    "options": [
+      "Flail chest",
+      "Septic shock",
+      "Cardiac tamponade",
+      "Myocardial ischemia"
+    ],
+    "correctIndex": 2,
+    "explanation": "Beck’s triad (JVD, hypotension, muffled tones) suggests tamponade."
+  },
+  {
+    "id": 367,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "JVD, hypotension, and muffled heart tones after chest trauma suggests: (Variant 2)",
+    "options": [
+      "Pulmonary embolism",
+      "Myocardial ischemia",
+      "Septic shock",
+      "Cardiac tamponade"
+    ],
+    "correctIndex": 3,
+    "explanation": "Beck’s triad (JVD, hypotension, muffled tones) suggests tamponade."
+  },
+  {
+    "id": 368,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "JVD, hypotension, and muffled heart tones after chest trauma suggests: (Variant 3)",
+    "options": [
+      "Diabetic ketoacidosis (DKA)",
+      "Tension pneumothorax",
+      "Cardiac tamponade",
+      "Internal hemorrhage"
+    ],
+    "correctIndex": 2,
+    "explanation": "Beck’s triad (JVD, hypotension, muffled tones) suggests tamponade."
+  },
+  {
+    "id": 369,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "JVD, hypotension, and muffled heart tones after chest trauma suggests: (Variant 4)",
+    "options": [
+      "Asthma exacerbation",
+      "Diabetic ketoacidosis (DKA)",
+      "Cardiac tamponade",
+      "COPD exacerbation"
+    ],
+    "correctIndex": 2,
+    "explanation": "Beck’s triad (JVD, hypotension, muffled tones) suggests tamponade."
+  },
+  {
+    "id": 370,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "JVD, hypotension, and muffled heart tones after chest trauma suggests: (Variant 5)",
+    "options": [
+      "COPD exacerbation",
+      "Myocardial ischemia",
+      "Cardiac tamponade",
+      "Acute stroke"
+    ],
+    "correctIndex": 2,
+    "explanation": "Beck’s triad (JVD, hypotension, muffled tones) suggests tamponade."
+  },
+  {
+    "id": 371,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Bruising behind the ear (Battle sign) after head injury suggests: (Variant 1)",
+    "options": [
+      "Tension pneumothorax",
+      "Internal hemorrhage",
+      "Diabetic ketoacidosis (DKA)",
+      "Basilar skull fracture"
+    ],
+    "correctIndex": 3,
+    "explanation": "Battle sign/raccoon eyes can indicate a basilar skull fracture."
+  },
+  {
+    "id": 372,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Bruising behind the ear (Battle sign) after head injury suggests: (Variant 2)",
+    "options": [
+      "Internal hemorrhage",
+      "Opioid overdose",
+      "Tension pneumothorax",
+      "Basilar skull fracture"
+    ],
+    "correctIndex": 3,
+    "explanation": "Battle sign/raccoon eyes can indicate a basilar skull fracture."
+  },
+  {
+    "id": 373,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Bruising behind the ear (Battle sign) after head injury suggests: (Variant 3)",
+    "options": [
+      "Basilar skull fracture",
+      "Asthma exacerbation",
+      "COPD exacerbation",
+      "Cardiac tamponade"
+    ],
+    "correctIndex": 0,
+    "explanation": "Battle sign/raccoon eyes can indicate a basilar skull fracture."
+  },
+  {
+    "id": 374,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Bruising behind the ear (Battle sign) after head injury suggests: (Variant 4)",
+    "options": [
+      "Pulmonary embolism",
+      "Septic shock",
+      "Basilar skull fracture",
+      "Tension pneumothorax"
+    ],
+    "correctIndex": 2,
+    "explanation": "Battle sign/raccoon eyes can indicate a basilar skull fracture."
+  },
+  {
+    "id": 375,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Bruising behind the ear (Battle sign) after head injury suggests: (Variant 5)",
+    "options": [
+      "Cardiac tamponade",
+      "Asthma exacerbation",
+      "Internal hemorrhage",
+      "Basilar skull fracture"
+    ],
+    "correctIndex": 3,
+    "explanation": "Battle sign/raccoon eyes can indicate a basilar skull fracture."
+  },
+  {
+    "id": 376,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Deep, rapid respirations with fruity breath odor most suggests: (Variant 1)",
+    "options": [
+      "Myocardial ischemia",
+      "Pulmonary embolism",
+      "Diabetic ketoacidosis (DKA)",
+      "Tension pneumothorax"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kussmaul respirations and fruity breath suggest metabolic acidosis from DKA."
+  },
+  {
+    "id": 377,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Deep, rapid respirations with fruity breath odor most suggests: (Variant 2)",
+    "options": [
+      "COPD exacerbation",
+      "Diabetic ketoacidosis (DKA)",
+      "Pulmonary embolism",
+      "Internal hemorrhage"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kussmaul respirations and fruity breath suggest metabolic acidosis from DKA."
+  },
+  {
+    "id": 378,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Deep, rapid respirations with fruity breath odor most suggests: (Variant 3)",
+    "options": [
+      "Cardiac tamponade",
+      "COPD exacerbation",
+      "Diabetic ketoacidosis (DKA)",
+      "Tension pneumothorax"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kussmaul respirations and fruity breath suggest metabolic acidosis from DKA."
+  },
+  {
+    "id": 379,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Deep, rapid respirations with fruity breath odor most suggests: (Variant 4)",
+    "options": [
+      "Internal hemorrhage",
+      "Simple pneumothorax",
+      "Basilar skull fracture",
+      "Diabetic ketoacidosis (DKA)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Kussmaul respirations and fruity breath suggest metabolic acidosis from DKA."
+  },
+  {
+    "id": 380,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Deep, rapid respirations with fruity breath odor most suggests: (Variant 5)",
+    "options": [
+      "Myocardial ischemia",
+      "Internal hemorrhage",
+      "Simple pneumothorax",
+      "Diabetic ketoacidosis (DKA)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Kussmaul respirations and fruity breath suggest metabolic acidosis from DKA."
+  },
+  {
+    "id": 381,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Paradoxical chest wall movement after blunt trauma suggests: (Variant 1)",
+    "options": [
+      "Acute stroke",
+      "Flail chest",
+      "Septic shock",
+      "COPD exacerbation"
+    ],
+    "correctIndex": 1,
+    "explanation": "A flail segment moves opposite the rest of the chest due to multiple rib fractures."
+  },
+  {
+    "id": 382,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Paradoxical chest wall movement after blunt trauma suggests: (Variant 2)",
+    "options": [
+      "Flail chest",
+      "Opioid overdose",
+      "Acute stroke",
+      "Asthma exacerbation"
+    ],
+    "correctIndex": 0,
+    "explanation": "A flail segment moves opposite the rest of the chest due to multiple rib fractures."
+  },
+  {
+    "id": 383,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Paradoxical chest wall movement after blunt trauma suggests: (Variant 3)",
+    "options": [
+      "COPD exacerbation",
+      "Flail chest",
+      "Internal hemorrhage",
+      "Acute stroke"
+    ],
+    "correctIndex": 1,
+    "explanation": "A flail segment moves opposite the rest of the chest due to multiple rib fractures."
+  },
+  {
+    "id": 384,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Paradoxical chest wall movement after blunt trauma suggests: (Variant 4)",
+    "options": [
+      "Flail chest",
+      "Diabetic ketoacidosis (DKA)",
+      "Asthma exacerbation",
+      "Acute stroke"
+    ],
+    "correctIndex": 0,
+    "explanation": "A flail segment moves opposite the rest of the chest due to multiple rib fractures."
+  },
+  {
+    "id": 385,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Paradoxical chest wall movement after blunt trauma suggests: (Variant 5)",
+    "options": [
+      "Diabetic ketoacidosis (DKA)",
+      "Opioid overdose",
+      "Internal hemorrhage",
+      "Flail chest"
+    ],
+    "correctIndex": 3,
+    "explanation": "A flail segment moves opposite the rest of the chest due to multiple rib fractures."
+  },
+  {
+    "id": 386,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Facial droop with arm drift and abnormal speech is MOST concerning for: (Variant 1)",
+    "options": [
+      "Septic shock",
+      "COPD exacerbation",
+      "Acute stroke",
+      "Pulmonary embolism"
+    ],
+    "correctIndex": 2,
+    "explanation": "FAST findings indicate possible acute stroke and require rapid transport to a stroke center."
+  },
+  {
+    "id": 387,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Facial droop with arm drift and abnormal speech is MOST concerning for: (Variant 2)",
+    "options": [
+      "Tension pneumothorax",
+      "Cardiac tamponade",
+      "Acute stroke",
+      "Flail chest"
+    ],
+    "correctIndex": 2,
+    "explanation": "FAST findings indicate possible acute stroke and require rapid transport to a stroke center."
+  },
+  {
+    "id": 388,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Facial droop with arm drift and abnormal speech is MOST concerning for: (Variant 3)",
+    "options": [
+      "COPD exacerbation",
+      "Pulmonary embolism",
+      "Acute stroke",
+      "Opioid overdose"
+    ],
+    "correctIndex": 2,
+    "explanation": "FAST findings indicate possible acute stroke and require rapid transport to a stroke center."
+  },
+  {
+    "id": 389,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Facial droop with arm drift and abnormal speech is MOST concerning for: (Variant 4)",
+    "options": [
+      "Asthma exacerbation",
+      "Septic shock",
+      "Opioid overdose",
+      "Acute stroke"
+    ],
+    "correctIndex": 3,
+    "explanation": "FAST findings indicate possible acute stroke and require rapid transport to a stroke center."
+  },
+  {
+    "id": 390,
+    "level": "EMT",
+    "category": "Secondary Assessment",
+    "text": "Facial droop with arm drift and abnormal speech is MOST concerning for: (Variant 5)",
+    "options": [
+      "Diabetic ketoacidosis (DKA)",
+      "COPD exacerbation",
+      "Tension pneumothorax",
+      "Acute stroke"
+    ],
+    "correctIndex": 3,
+    "explanation": "FAST findings indicate possible acute stroke and require rapid transport to a stroke center."
+  },
+  {
+    "id": 391,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "At a chemical spill with victims down and a strong odor, you should: (Variant 1)",
+    "options": [
+      "Determine number of patients and request resources",
+      "Approach from downwind to read placards",
+      "Stage at a safe distance upwind and request HazMat",
+      "Enter quickly to begin triage"
+    ],
+    "correctIndex": 2,
+    "explanation": "Do not enter a HazMat scene; stage upwind/uphill until safe."
+  },
+  {
+    "id": 392,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "At a chemical spill with victims down and a strong odor, you should: (Variant 2)",
+    "options": [
+      "Stage at a safe distance upwind and request HazMat",
+      "Enter quickly to begin triage",
+      "Ignore hazards and begin assessment",
+      "Approach from downwind to read placards"
+    ],
+    "correctIndex": 0,
+    "explanation": "Do not enter a HazMat scene; stage upwind/uphill until safe."
+  },
+  {
+    "id": 393,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "At a chemical spill with victims down and a strong odor, you should: (Variant 3)",
+    "options": [
+      "Determine number of patients and request resources",
+      "Park the ambulance close for rapid access",
+      "Stage at a safe distance upwind and request HazMat",
+      "Ensure scene safety before patient contact"
+    ],
+    "correctIndex": 2,
+    "explanation": "Do not enter a HazMat scene; stage upwind/uphill until safe."
+  },
+  {
+    "id": 394,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "At a chemical spill with victims down and a strong odor, you should: (Variant 4)",
+    "options": [
+      "Use appropriate PPE/BSI",
+      "Ensure scene safety before patient contact",
+      "Determine number of patients and request resources",
+      "Stage at a safe distance upwind and request HazMat"
+    ],
+    "correctIndex": 3,
+    "explanation": "Do not enter a HazMat scene; stage upwind/uphill until safe."
+  },
+  {
+    "id": 395,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "At a chemical spill with victims down and a strong odor, you should: (Variant 5)",
+    "options": [
+      "Approach from downwind to read placards",
+      "Park the ambulance close for rapid access",
+      "Stage at a safe distance upwind and request HazMat",
+      "Use appropriate PPE/BSI"
+    ],
+    "correctIndex": 2,
+    "explanation": "Do not enter a HazMat scene; stage upwind/uphill until safe."
+  },
+  {
+    "id": 396,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "A bystander reports the patient has a weapon and is threatening others. You should: (Variant 1)",
+    "options": [
+      "Stage at a safe distance upwind and request HazMat",
+      "Stage and wait for law enforcement to secure the scene",
+      "Request additional units early",
+      "Ensure scene safety before patient contact"
+    ],
+    "correctIndex": 1,
+    "explanation": "Do not enter an unsafe scene; wait until it is secured."
+  },
+  {
+    "id": 397,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "A bystander reports the patient has a weapon and is threatening others. You should: (Variant 2)",
+    "options": [
+      "Approach from downwind to read placards",
+      "Use appropriate PPE/BSI",
+      "Stage and wait for law enforcement to secure the scene",
+      "Stage at a safe distance upwind and request HazMat"
+    ],
+    "correctIndex": 2,
+    "explanation": "Do not enter an unsafe scene; wait until it is secured."
+  },
+  {
+    "id": 398,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "A bystander reports the patient has a weapon and is threatening others. You should: (Variant 3)",
+    "options": [
+      "Stage and wait for law enforcement to secure the scene",
+      "Assume the scene is safe if quiet",
+      "Keep everyone away and wait for the utility company",
+      "Use appropriate PPE/BSI"
+    ],
+    "correctIndex": 0,
+    "explanation": "Do not enter an unsafe scene; wait until it is secured."
+  },
+  {
+    "id": 399,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "A bystander reports the patient has a weapon and is threatening others. You should: (Variant 4)",
+    "options": [
+      "Stage and wait for law enforcement to secure the scene",
+      "Determine number of patients and request resources",
+      "Park the ambulance close for rapid access",
+      "Request additional units early"
+    ],
+    "correctIndex": 0,
+    "explanation": "Do not enter an unsafe scene; wait until it is secured."
+  },
+  {
+    "id": 400,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "A bystander reports the patient has a weapon and is threatening others. You should: (Variant 5)",
+    "options": [
+      "Ensure scene safety before patient contact",
+      "Request additional units early",
+      "Park the ambulance close for rapid access",
+      "Stage and wait for law enforcement to secure the scene"
+    ],
+    "correctIndex": 3,
+    "explanation": "Do not enter an unsafe scene; wait until it is secured."
+  },
+  {
+    "id": 401,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "A downed power line is across a vehicle with a patient inside. The safest action is to: (Variant 1)",
+    "options": [
+      "Assume the scene is safe if quiet",
+      "Keep everyone away and wait for the utility company",
+      "Stage at a safe distance upwind and request HazMat",
+      "Use appropriate PPE/BSI"
+    ],
+    "correctIndex": 1,
+    "explanation": "Downed lines can energize the car/ground; wait for confirmation power is off."
+  },
+  {
+    "id": 402,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "A downed power line is across a vehicle with a patient inside. The safest action is to: (Variant 2)",
+    "options": [
+      "Keep everyone away and wait for the utility company",
+      "Assume the scene is safe if quiet",
+      "Park the ambulance close for rapid access",
+      "Enter quickly to begin triage"
+    ],
+    "correctIndex": 0,
+    "explanation": "Downed lines can energize the car/ground; wait for confirmation power is off."
+  },
+  {
+    "id": 403,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "A downed power line is across a vehicle with a patient inside. The safest action is to: (Variant 3)",
+    "options": [
+      "Request additional units early",
+      "Park the ambulance close for rapid access",
+      "Stage at a safe distance upwind and request HazMat",
+      "Keep everyone away and wait for the utility company"
+    ],
+    "correctIndex": 3,
+    "explanation": "Downed lines can energize the car/ground; wait for confirmation power is off."
+  },
+  {
+    "id": 404,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "A downed power line is across a vehicle with a patient inside. The safest action is to: (Variant 4)",
+    "options": [
+      "Stage and wait for law enforcement to secure the scene",
+      "Approach from downwind to read placards",
+      "Enter quickly to begin triage",
+      "Keep everyone away and wait for the utility company"
+    ],
+    "correctIndex": 3,
+    "explanation": "Downed lines can energize the car/ground; wait for confirmation power is off."
+  },
+  {
+    "id": 405,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "A downed power line is across a vehicle with a patient inside. The safest action is to: (Variant 5)",
+    "options": [
+      "Determine number of patients and request resources",
+      "Park the ambulance close for rapid access",
+      "Stage at a safe distance upwind and request HazMat",
+      "Keep everyone away and wait for the utility company"
+    ],
+    "correctIndex": 3,
+    "explanation": "Downed lines can energize the car/ground; wait for confirmation power is off."
+  },
+  {
+    "id": 406,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "In a multi-patient incident, after BSI/scene safety your next step is to: (Variant 1)",
+    "options": [
+      "Approach from downwind to read placards",
+      "Determine the number of patients and request appropriate resources",
+      "Ensure scene safety before patient contact",
+      "Park the ambulance close for rapid access"
+    ],
+    "correctIndex": 1,
+    "explanation": "Early resource requests and patient count are essential for scene control."
+  },
+  {
+    "id": 407,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "In a multi-patient incident, after BSI/scene safety your next step is to: (Variant 2)",
+    "options": [
+      "Ignore hazards and begin assessment",
+      "Use appropriate PPE/BSI",
+      "Determine the number of patients and request appropriate resources",
+      "Stage at a safe distance upwind and request HazMat"
+    ],
+    "correctIndex": 2,
+    "explanation": "Early resource requests and patient count are essential for scene control."
+  },
+  {
+    "id": 408,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "In a multi-patient incident, after BSI/scene safety your next step is to: (Variant 3)",
+    "options": [
+      "Enter quickly to begin triage",
+      "Stage and wait for law enforcement to secure the scene",
+      "Ensure scene safety before patient contact",
+      "Determine the number of patients and request appropriate resources"
+    ],
+    "correctIndex": 3,
+    "explanation": "Early resource requests and patient count are essential for scene control."
+  },
+  {
+    "id": 409,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "In a multi-patient incident, after BSI/scene safety your next step is to: (Variant 4)",
+    "options": [
+      "Stage and wait for law enforcement to secure the scene",
+      "Determine the number of patients and request appropriate resources",
+      "Assume the scene is safe if quiet",
+      "Request additional units early"
+    ],
+    "correctIndex": 1,
+    "explanation": "Early resource requests and patient count are essential for scene control."
+  },
+  {
+    "id": 410,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "In a multi-patient incident, after BSI/scene safety your next step is to: (Variant 5)",
+    "options": [
+      "Ignore hazards and begin assessment",
+      "Stage at a safe distance upwind and request HazMat",
+      "Ensure scene safety before patient contact",
+      "Determine the number of patients and request appropriate resources"
+    ],
+    "correctIndex": 3,
+    "explanation": "Early resource requests and patient count are essential for scene control."
+  },
+  {
+    "id": 411,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "Shattered windshield and a deformed steering wheel suggest high risk of: (Variant 1)",
+    "options": [
+      "Assume the scene is safe if quiet",
+      "Ensure scene safety before patient contact",
+      "Request additional units early",
+      "Head and chest injuries"
+    ],
+    "correctIndex": 3,
+    "explanation": "These findings indicate significant energy transfer and possible serious trauma."
+  },
+  {
+    "id": 412,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "Shattered windshield and a deformed steering wheel suggest high risk of: (Variant 2)",
+    "options": [
+      "Head and chest injuries",
+      "Park the ambulance close for rapid access",
+      "Keep everyone away and wait for the utility company",
+      "Stage at a safe distance upwind and request HazMat"
+    ],
+    "correctIndex": 0,
+    "explanation": "These findings indicate significant energy transfer and possible serious trauma."
+  },
+  {
+    "id": 413,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "Shattered windshield and a deformed steering wheel suggest high risk of: (Variant 3)",
+    "options": [
+      "Park the ambulance close for rapid access",
+      "Determine number of patients and request resources",
+      "Use appropriate PPE/BSI",
+      "Head and chest injuries"
+    ],
+    "correctIndex": 3,
+    "explanation": "These findings indicate significant energy transfer and possible serious trauma."
+  },
+  {
+    "id": 414,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "Shattered windshield and a deformed steering wheel suggest high risk of: (Variant 4)",
+    "options": [
+      "Use appropriate PPE/BSI",
+      "Park the ambulance close for rapid access",
+      "Stage and wait for law enforcement to secure the scene",
+      "Head and chest injuries"
+    ],
+    "correctIndex": 3,
+    "explanation": "These findings indicate significant energy transfer and possible serious trauma."
+  },
+  {
+    "id": 415,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "Shattered windshield and a deformed steering wheel suggest high risk of: (Variant 5)",
+    "options": [
+      "Ensure scene safety before patient contact",
+      "Enter quickly to begin triage",
+      "Head and chest injuries",
+      "Keep everyone away and wait for the utility company"
+    ],
+    "correctIndex": 2,
+    "explanation": "These findings indicate significant energy transfer and possible serious trauma."
+  },
+  {
+    "id": 416,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "An NFPA 704 placard shows a red 4. This indicates: (Variant 1)",
+    "options": [
+      "Use appropriate PPE/BSI",
+      "Stage and wait for law enforcement to secure the scene",
+      "Extreme flammability hazard",
+      "Ignore hazards and begin assessment"
+    ],
+    "correctIndex": 2,
+    "explanation": "NFPA red = flammability; 4 is the highest hazard."
+  },
+  {
+    "id": 417,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "An NFPA 704 placard shows a red 4. This indicates: (Variant 2)",
+    "options": [
+      "Stage and wait for law enforcement to secure the scene",
+      "Determine number of patients and request resources",
+      "Assume the scene is safe if quiet",
+      "Extreme flammability hazard"
+    ],
+    "correctIndex": 3,
+    "explanation": "NFPA red = flammability; 4 is the highest hazard."
+  },
+  {
+    "id": 418,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "An NFPA 704 placard shows a red 4. This indicates: (Variant 3)",
+    "options": [
+      "Keep everyone away and wait for the utility company",
+      "Enter quickly to begin triage",
+      "Extreme flammability hazard",
+      "Assume the scene is safe if quiet"
+    ],
+    "correctIndex": 2,
+    "explanation": "NFPA red = flammability; 4 is the highest hazard."
+  },
+  {
+    "id": 419,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "An NFPA 704 placard shows a red 4. This indicates: (Variant 4)",
+    "options": [
+      "Enter quickly to begin triage",
+      "Extreme flammability hazard",
+      "Ensure scene safety before patient contact",
+      "Approach from downwind to read placards"
+    ],
+    "correctIndex": 1,
+    "explanation": "NFPA red = flammability; 4 is the highest hazard."
+  },
+  {
+    "id": 420,
+    "level": "EMT",
+    "category": "Scene Size-Up",
+    "text": "An NFPA 704 placard shows a red 4. This indicates: (Variant 5)",
+    "options": [
+      "Assume the scene is safe if quiet",
+      "Use appropriate PPE/BSI",
+      "Extreme flammability hazard",
+      "Request additional units early"
+    ],
+    "correctIndex": 2,
+    "explanation": "NFPA red = flammability; 4 is the highest hazard."
+  },
+  {
+    "id": 421,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "An alert, oriented adult refuses transport after risks are explained. The MOST important next step is to: (Variant 1)",
+    "options": [
+      "HIPAA/patient confidentiality",
+      "Give a structured radio report (age/sex, complaint, vitals, treatment)",
+      "Incident Commander",
+      "Document refusal thoroughly and have the patient sign"
+    ],
+    "correctIndex": 3,
+    "explanation": "Refusals carry high liability; document capacity, risks, and understanding."
+  },
+  {
+    "id": 422,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "An alert, oriented adult refuses transport after risks are explained. The MOST important next step is to: (Variant 2)",
+    "options": [
+      "Abandonment",
+      "Leave without documenting",
+      "Document refusal thoroughly and have the patient sign",
+      "Incident Commander"
+    ],
+    "correctIndex": 2,
+    "explanation": "Refusals carry high liability; document capacity, risks, and understanding."
+  },
+  {
+    "id": 423,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "An alert, oriented adult refuses transport after risks are explained. The MOST important next step is to: (Variant 3)",
+    "options": [
+      "Give a structured radio report (age/sex, complaint, vitals, treatment)",
+      "Act outside scope to help faster",
+      "Drive with due regard and control intersections",
+      "Document refusal thoroughly and have the patient sign"
+    ],
+    "correctIndex": 3,
+    "explanation": "Refusals carry high liability; document capacity, risks, and understanding."
+  },
+  {
+    "id": 424,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "An alert, oriented adult refuses transport after risks are explained. The MOST important next step is to: (Variant 4)",
+    "options": [
+      "Abandonment",
+      "HIPAA/patient confidentiality",
+      "Withhold CPR per valid DNR but provide comfort care",
+      "Document refusal thoroughly and have the patient sign"
+    ],
+    "correctIndex": 3,
+    "explanation": "Refusals carry high liability; document capacity, risks, and understanding."
+  },
+  {
+    "id": 425,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "An alert, oriented adult refuses transport after risks are explained. The MOST important next step is to: (Variant 5)",
+    "options": [
+      "Implied consent",
+      "Incident Commander",
+      "Leave without documenting",
+      "Document refusal thoroughly and have the patient sign"
+    ],
+    "correctIndex": 3,
+    "explanation": "Refusals carry high liability; document capacity, risks, and understanding."
+  },
+  {
+    "id": 426,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "An unconscious crash patient needs emergency care. Consent is best described as:",
+    "options": [
+      "Give a structured radio report (age/sex, complaint, vitals, treatment)",
+      "Incident Commander",
+      "Implied consent",
+      "Delay reporting an exposure"
+    ],
+    "correctIndex": 2,
+    "explanation": "Unconscious patients needing emergency care are treated under implied consent."
+  },
+  {
+    "id": 427,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "An unconscious crash patient needs emergency care. Consent is best described as: [Q427]",
+    "options": [
+      "Act outside scope to help faster",
+      "Document refusal thoroughly and have the patient sign",
+      "HIPAA/patient confidentiality",
+      "Implied consent"
+    ],
+    "correctIndex": 3,
+    "explanation": "Unconscious patients needing emergency care are treated under implied consent."
+  },
+  {
+    "id": 428,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "An unconscious crash patient needs emergency care. Consent is best described as: [Q428]",
+    "options": [
+      "Implied consent",
+      "Document refusal thoroughly and have the patient sign",
+      "Incident Commander",
+      "Give a structured radio report (age/sex, complaint, vitals, treatment)"
+    ],
+    "correctIndex": 0,
+    "explanation": "Unconscious patients needing emergency care are treated under implied consent."
+  },
+  {
+    "id": 429,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "An unconscious crash patient needs emergency care. Consent is best described as: [Q429]",
+    "options": [
+      "HIPAA/patient confidentiality",
+      "Implied consent",
+      "Abandonment",
+      "Give a structured radio report (age/sex, complaint, vitals, treatment)"
+    ],
+    "correctIndex": 1,
+    "explanation": "Unconscious patients needing emergency care are treated under implied consent."
+  },
+  {
+    "id": 430,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "An unconscious crash patient needs emergency care. Consent is best described as: [Q430]",
+    "options": [
+      "HIPAA/patient confidentiality",
+      "Implied consent",
+      "Give a structured radio report (age/sex, complaint, vitals, treatment)",
+      "Abandonment"
+    ],
+    "correctIndex": 1,
+    "explanation": "Unconscious patients needing emergency care are treated under implied consent."
+  },
+  {
+    "id": 431,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "Leaving a patient after initiating care without appropriate transfer to equal/higher care is called: (Variant 1)",
+    "options": [
+      "Share patient info with family without permission",
+      "Incident Commander",
+      "Abandonment",
+      "Drive with due regard and control intersections"
+    ],
+    "correctIndex": 2,
+    "explanation": "Abandonment is terminating care without proper transfer."
+  },
+  {
+    "id": 432,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "Leaving a patient after initiating care without appropriate transfer to equal/higher care is called: (Variant 2)",
+    "options": [
+      "HIPAA/patient confidentiality",
+      "Implied consent",
+      "Share patient info with family without permission",
+      "Abandonment"
+    ],
+    "correctIndex": 3,
+    "explanation": "Abandonment is terminating care without proper transfer."
+  },
+  {
+    "id": 433,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "Leaving a patient after initiating care without appropriate transfer to equal/higher care is called: (Variant 3)",
+    "options": [
+      "Drive with due regard and control intersections",
+      "Abandonment",
+      "HIPAA/patient confidentiality",
+      "Share patient info with family without permission"
+    ],
+    "correctIndex": 1,
+    "explanation": "Abandonment is terminating care without proper transfer."
+  },
+  {
+    "id": 434,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "Leaving a patient after initiating care without appropriate transfer to equal/higher care is called: (Variant 4)",
+    "options": [
+      "HIPAA/patient confidentiality",
+      "Implied consent",
+      "Leave without documenting",
+      "Abandonment"
+    ],
+    "correctIndex": 3,
+    "explanation": "Abandonment is terminating care without proper transfer."
+  },
+  {
+    "id": 435,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "Leaving a patient after initiating care without appropriate transfer to equal/higher care is called: (Variant 5)",
+    "options": [
+      "Implied consent",
+      "Drive with due regard and control intersections",
+      "Abandonment",
+      "Share patient info with family without permission"
+    ],
+    "correctIndex": 2,
+    "explanation": "Abandonment is terminating care without proper transfer."
+  },
+  {
+    "id": 436,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "Sharing patient information with someone not involved in care violates: (Variant 1)",
+    "options": [
+      "HIPAA/patient confidentiality",
+      "Delay reporting an exposure",
+      "Withhold CPR per valid DNR but provide comfort care",
+      "Share patient info with family without permission"
+    ],
+    "correctIndex": 0,
+    "explanation": "Protected health information must be kept confidential except for care needs."
+  },
+  {
+    "id": 437,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "Sharing patient information with someone not involved in care violates: (Variant 2)",
+    "options": [
+      "Delay reporting an exposure",
+      "HIPAA/patient confidentiality",
+      "Abandonment",
+      "Document refusal thoroughly and have the patient sign"
+    ],
+    "correctIndex": 1,
+    "explanation": "Protected health information must be kept confidential except for care needs."
+  },
+  {
+    "id": 438,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "Sharing patient information with someone not involved in care violates: (Variant 3)",
+    "options": [
+      "HIPAA/patient confidentiality",
+      "Document refusal thoroughly and have the patient sign",
+      "Act outside scope to help faster",
+      "Incident Commander"
+    ],
+    "correctIndex": 0,
+    "explanation": "Protected health information must be kept confidential except for care needs."
+  },
+  {
+    "id": 439,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "Sharing patient information with someone not involved in care violates: (Variant 4)",
+    "options": [
+      "Share patient info with family without permission",
+      "Delay reporting an exposure",
+      "Abandonment",
+      "HIPAA/patient confidentiality"
+    ],
+    "correctIndex": 3,
+    "explanation": "Protected health information must be kept confidential except for care needs."
+  },
+  {
+    "id": 440,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "Sharing patient information with someone not involved in care violates: (Variant 5)",
+    "options": [
+      "Implied consent",
+      "Leave without documenting",
+      "HIPAA/patient confidentiality",
+      "Act outside scope to help faster"
+    ],
+    "correctIndex": 2,
+    "explanation": "Protected health information must be kept confidential except for care needs."
+  },
+  {
+    "id": 441,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "The MOST effective way to reduce ambulance crash risk at intersections during emergency response is to: (Variant 1)",
+    "options": [
+      "Share patient info with family without permission",
+      "Implied consent",
+      "Drive with due regard and control intersections (stop as required)",
+      "HIPAA/patient confidentiality"
+    ],
+    "correctIndex": 2,
+    "explanation": "Most serious EMS crashes occur at intersections; due regard reduces risk."
+  },
+  {
+    "id": 442,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "The MOST effective way to reduce ambulance crash risk at intersections during emergency response is to: (Variant 2)",
+    "options": [
+      "Implied consent",
+      "Give a structured radio report (age/sex, complaint, vitals, treatment)",
+      "Abandonment",
+      "Drive with due regard and control intersections (stop as required)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Most serious EMS crashes occur at intersections; due regard reduces risk."
+  },
+  {
+    "id": 443,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "The MOST effective way to reduce ambulance crash risk at intersections during emergency response is to: (Variant 3)",
+    "options": [
+      "Document refusal thoroughly and have the patient sign",
+      "Drive with due regard and control intersections (stop as required)",
+      "Incident Commander",
+      "Leave without documenting"
+    ],
+    "correctIndex": 1,
+    "explanation": "Most serious EMS crashes occur at intersections; due regard reduces risk."
+  },
+  {
+    "id": 444,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "The MOST effective way to reduce ambulance crash risk at intersections during emergency response is to: (Variant 4)",
+    "options": [
+      "Incident Commander",
+      "Drive with due regard and control intersections (stop as required)",
+      "Drive with due regard and control intersections",
+      "HIPAA/patient confidentiality"
+    ],
+    "correctIndex": 1,
+    "explanation": "Most serious EMS crashes occur at intersections; due regard reduces risk."
+  },
+  {
+    "id": 445,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "The MOST effective way to reduce ambulance crash risk at intersections during emergency response is to: (Variant 5)",
+    "options": [
+      "Delay reporting an exposure",
+      "Act outside scope to help faster",
+      "Drive with due regard and control intersections (stop as required)",
+      "Drive with due regard and control intersections"
+    ],
+    "correctIndex": 2,
+    "explanation": "Most serious EMS crashes occur at intersections; due regard reduces risk."
+  },
+  {
+    "id": 446,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "In the Incident Command System, the person responsible for overall incident management is the: (Variant 1)",
+    "options": [
+      "Drive with due regard and control intersections",
+      "Delay reporting an exposure",
+      "Incident Commander",
+      "Abandonment"
+    ],
+    "correctIndex": 2,
+    "explanation": "The Incident Commander has overall responsibility and authority at the incident."
+  },
+  {
+    "id": 447,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "In the Incident Command System, the person responsible for overall incident management is the: (Variant 2)",
+    "options": [
+      "Drive with due regard and control intersections",
+      "Document refusal thoroughly and have the patient sign",
+      "Share patient info with family without permission",
+      "Incident Commander"
+    ],
+    "correctIndex": 3,
+    "explanation": "The Incident Commander has overall responsibility and authority at the incident."
+  },
+  {
+    "id": 448,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "In the Incident Command System, the person responsible for overall incident management is the: (Variant 3)",
+    "options": [
+      "Implied consent",
+      "Withhold CPR per valid DNR but provide comfort care",
+      "Incident Commander",
+      "Give a structured radio report (age/sex, complaint, vitals, treatment)"
+    ],
+    "correctIndex": 2,
+    "explanation": "The Incident Commander has overall responsibility and authority at the incident."
+  },
+  {
+    "id": 449,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "In the Incident Command System, the person responsible for overall incident management is the: (Variant 4)",
+    "options": [
+      "Abandonment",
+      "Document refusal thoroughly and have the patient sign",
+      "Incident Commander",
+      "Leave without documenting"
+    ],
+    "correctIndex": 2,
+    "explanation": "The Incident Commander has overall responsibility and authority at the incident."
+  },
+  {
+    "id": 450,
+    "level": "EMT",
+    "category": "EMS Operations",
+    "text": "In the Incident Command System, the person responsible for overall incident management is the: (Variant 5)",
+    "options": [
+      "Act outside scope to help faster",
+      "Incident Commander",
+      "Document refusal thoroughly and have the patient sign",
+      "Leave without documenting"
+    ],
+    "correctIndex": 1,
+    "explanation": "The Incident Commander has overall responsibility and authority at the incident."
+  },
+  {
+    "id": 451,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A 66-year-old male has fever, suspected infection, and hypotension 84/50. After oxygen, the priority is:",
+    "options": [
+      "Give magnesium sulfate",
+      "Give sodium bicarbonate",
+      "IV fluid resuscitation with reassessment",
+      "Delay treatment until hospital"
+    ],
+    "correctIndex": 2,
+    "explanation": "Septic shock requires early fluids to restore perfusion."
+  },
+  {
+    "id": 452,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A 43-year-old female has fever, suspected infection, and hypotension 88/56. After oxygen, the priority is:",
+    "options": [
+      "Assist ventilations and monitor EtCO2",
+      "Calcium (chloride/gluconate) for membrane stabilization",
+      "IV fluid resuscitation with reassessment",
+      "Start a beta-blocker"
+    ],
+    "correctIndex": 2,
+    "explanation": "Septic shock requires early fluids to restore perfusion."
+  },
+  {
+    "id": 453,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A 71-year-old female has fever, suspected infection, and hypotension 90/52. After oxygen, the priority is:",
+    "options": [
+      "IV fluid resuscitation with reassessment",
+      "Calcium (chloride/gluconate) for membrane stabilization",
+      "Give magnesium sulfate",
+      "Give sodium bicarbonate"
+    ],
+    "correctIndex": 0,
+    "explanation": "Septic shock requires early fluids to restore perfusion."
+  },
+  {
+    "id": 454,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A 58-year-old male has fever, suspected infection, and hypotension 82/48. After oxygen, the priority is:",
+    "options": [
+      "Start a beta-blocker",
+      "Give furosemide immediately",
+      "IV fluid resuscitation with reassessment",
+      "Assist ventilations and monitor EtCO2"
+    ],
+    "correctIndex": 2,
+    "explanation": "Septic shock requires early fluids to restore perfusion."
+  },
+  {
+    "id": 455,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A 35-year-old female has fever, suspected infection, and hypotension 86/54. After oxygen, the priority is:",
+    "options": [
+      "Give sodium bicarbonate",
+      "Assist ventilations and monitor EtCO2",
+      "IV fluid resuscitation with reassessment",
+      "Give magnesium sulfate"
+    ],
+    "correctIndex": 2,
+    "explanation": "Septic shock requires early fluids to restore perfusion."
+  },
+  {
+    "id": 456,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A dialysis patient has peaked T waves and a widening QRS. Immediate stabilizing medication is: (Variant 1)",
+    "options": [
+      "Delay treatment until hospital",
+      "Give furosemide immediately",
+      "Calcium (chloride/gluconate) for membrane stabilization",
+      "Give sodium bicarbonate"
+    ],
+    "correctIndex": 2,
+    "explanation": "Calcium stabilizes the myocardium in life-threatening hyperkalemia."
+  },
+  {
+    "id": 457,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A dialysis patient has peaked T waves and a widening QRS. Immediate stabilizing medication is: (Variant 2)",
+    "options": [
+      "Give magnesium sulfate",
+      "Assist ventilations and monitor EtCO2",
+      "Give adenosine",
+      "Calcium (chloride/gluconate) for membrane stabilization"
+    ],
+    "correctIndex": 3,
+    "explanation": "Calcium stabilizes the myocardium in life-threatening hyperkalemia."
+  },
+  {
+    "id": 458,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A dialysis patient has peaked T waves and a widening QRS. Immediate stabilizing medication is: (Variant 3)",
+    "options": [
+      "Administer nitroglycerin for hypotension",
+      "Calcium (chloride/gluconate) for membrane stabilization",
+      "Delay treatment until hospital",
+      "IV fluid resuscitation with reassessment"
+    ],
+    "correctIndex": 1,
+    "explanation": "Calcium stabilizes the myocardium in life-threatening hyperkalemia."
+  },
+  {
+    "id": 459,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A dialysis patient has peaked T waves and a widening QRS. Immediate stabilizing medication is: (Variant 4)",
+    "options": [
+      "Administer nitroglycerin for hypotension",
+      "Assist ventilations and monitor EtCO2",
+      "Calcium (chloride/gluconate) for membrane stabilization",
+      "Start epinephrine infusion / repeat IM epi and give IV fluids"
+    ],
+    "correctIndex": 2,
+    "explanation": "Calcium stabilizes the myocardium in life-threatening hyperkalemia."
+  },
+  {
+    "id": 460,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A dialysis patient has peaked T waves and a widening QRS. Immediate stabilizing medication is: (Variant 5)",
+    "options": [
+      "Start epinephrine infusion / repeat IM epi and give IV fluids",
+      "Give adenosine",
+      "Treat hypoglycemia and reassess neuro status",
+      "Calcium (chloride/gluconate) for membrane stabilization"
+    ],
+    "correctIndex": 3,
+    "explanation": "Calcium stabilizes the myocardium in life-threatening hyperkalemia."
+  },
+  {
+    "id": 461,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A suspected stroke patient has last known well <1 hour but BGL 54 mg/dL. Next step is to:",
+    "options": [
+      "Start epinephrine infusion / repeat IM epi and give IV fluids",
+      "Give sodium bicarbonate",
+      "Give magnesium sulfate",
+      "Treat hypoglycemia and reassess neuro status"
+    ],
+    "correctIndex": 3,
+    "explanation": "Hypoglycemia can mimic stroke; correct glucose promptly while expediting care."
+  },
+  {
+    "id": 462,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A suspected stroke patient has last known well <1 hour but BGL 48 mg/dL. Next step is to:",
+    "options": [
+      "Give furosemide immediately",
+      "Give sodium bicarbonate",
+      "Start epinephrine infusion / repeat IM epi and give IV fluids",
+      "Treat hypoglycemia and reassess neuro status"
+    ],
+    "correctIndex": 3,
+    "explanation": "Hypoglycemia can mimic stroke; correct glucose promptly while expediting care."
+  },
+  {
+    "id": 463,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A suspected stroke patient has last known well <1 hour but BGL 58 mg/dL. Next step is to:",
+    "options": [
+      "Give sodium bicarbonate",
+      "Treat hypoglycemia and reassess neuro status",
+      "Administer nitroglycerin for hypotension",
+      "Give magnesium sulfate"
+    ],
+    "correctIndex": 1,
+    "explanation": "Hypoglycemia can mimic stroke; correct glucose promptly while expediting care."
+  },
+  {
+    "id": 464,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A suspected stroke patient has last known well <1 hour but BGL 44 mg/dL. Next step is to:",
+    "options": [
+      "Calcium (chloride/gluconate) for membrane stabilization",
+      "Start epinephrine infusion / repeat IM epi and give IV fluids",
+      "Start a beta-blocker",
+      "Treat hypoglycemia and reassess neuro status"
+    ],
+    "correctIndex": 3,
+    "explanation": "Hypoglycemia can mimic stroke; correct glucose promptly while expediting care."
+  },
+  {
+    "id": 465,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A suspected stroke patient has last known well <1 hour but BGL 52 mg/dL. Next step is to:",
+    "options": [
+      "Give furosemide immediately",
+      "Give magnesium sulfate",
+      "Treat hypoglycemia and reassess neuro status",
+      "Administer nitroglycerin for hypotension"
+    ],
+    "correctIndex": 2,
+    "explanation": "Hypoglycemia can mimic stroke; correct glucose promptly while expediting care."
+  },
+  {
+    "id": 466,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A COPD patient is somnolent with EtCO2 62 mmHg. Best initial intervention is:",
+    "options": [
+      "Give furosemide immediately",
+      "Start a beta-blocker",
+      "Assist ventilations and monitor EtCO2",
+      "Start epinephrine infusion / repeat IM epi and give IV fluids"
+    ],
+    "correctIndex": 2,
+    "explanation": "Hypercapnic ventilatory failure needs ventilatory support; avoid hyperventilation."
+  },
+  {
+    "id": 467,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A COPD patient is somnolent with EtCO2 68 mmHg. Best initial intervention is:",
+    "options": [
+      "Treat hypoglycemia and reassess neuro status",
+      "Give adenosine",
+      "IV fluid resuscitation with reassessment",
+      "Assist ventilations and monitor EtCO2"
+    ],
+    "correctIndex": 3,
+    "explanation": "Hypercapnic ventilatory failure needs ventilatory support; avoid hyperventilation."
+  },
+  {
+    "id": 468,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A COPD patient is somnolent with EtCO2 70 mmHg. Best initial intervention is:",
+    "options": [
+      "Start a beta-blocker",
+      "Start epinephrine infusion / repeat IM epi and give IV fluids",
+      "Assist ventilations and monitor EtCO2",
+      "Calcium (chloride/gluconate) for membrane stabilization"
+    ],
+    "correctIndex": 2,
+    "explanation": "Hypercapnic ventilatory failure needs ventilatory support; avoid hyperventilation."
+  },
+  {
+    "id": 469,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A COPD patient is somnolent with EtCO2 60 mmHg. Best initial intervention is:",
+    "options": [
+      "Delay treatment until hospital",
+      "Calcium (chloride/gluconate) for membrane stabilization",
+      "Assist ventilations and monitor EtCO2",
+      "Give adenosine"
+    ],
+    "correctIndex": 2,
+    "explanation": "Hypercapnic ventilatory failure needs ventilatory support; avoid hyperventilation."
+  },
+  {
+    "id": 470,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "A COPD patient is somnolent with EtCO2 66 mmHg. Best initial intervention is:",
+    "options": [
+      "Give magnesium sulfate",
+      "Give adenosine",
+      "Give sodium bicarbonate",
+      "Assist ventilations and monitor EtCO2"
+    ],
+    "correctIndex": 3,
+    "explanation": "Hypercapnic ventilatory failure needs ventilatory support; avoid hyperventilation."
+  },
+  {
+    "id": 471,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "Anaphylaxis persists with hypotension after IM epinephrine. Next best treatment is: (Variant 1)",
+    "options": [
+      "Administer nitroglycerin for hypotension",
+      "Give furosemide immediately",
+      "Delay treatment until hospital",
+      "Start epinephrine infusion / repeat IM epi and give IV fluids"
+    ],
+    "correctIndex": 3,
+    "explanation": "Refractory anaphylactic shock requires more epinephrine and volume resuscitation."
+  },
+  {
+    "id": 472,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "Anaphylaxis persists with hypotension after IM epinephrine. Next best treatment is: (Variant 2)",
+    "options": [
+      "Give adenosine",
+      "Treat hypoglycemia and reassess neuro status",
+      "Start epinephrine infusion / repeat IM epi and give IV fluids",
+      "Give sodium bicarbonate"
+    ],
+    "correctIndex": 2,
+    "explanation": "Refractory anaphylactic shock requires more epinephrine and volume resuscitation."
+  },
+  {
+    "id": 473,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "Anaphylaxis persists with hypotension after IM epinephrine. Next best treatment is: (Variant 3)",
+    "options": [
+      "Start epinephrine infusion / repeat IM epi and give IV fluids",
+      "Administer nitroglycerin for hypotension",
+      "Give sodium bicarbonate",
+      "Assist ventilations and monitor EtCO2"
+    ],
+    "correctIndex": 0,
+    "explanation": "Refractory anaphylactic shock requires more epinephrine and volume resuscitation."
+  },
+  {
+    "id": 474,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "Anaphylaxis persists with hypotension after IM epinephrine. Next best treatment is: (Variant 4)",
+    "options": [
+      "Assist ventilations and monitor EtCO2",
+      "Start a beta-blocker",
+      "Start epinephrine infusion / repeat IM epi and give IV fluids",
+      "Delay treatment until hospital"
+    ],
+    "correctIndex": 2,
+    "explanation": "Refractory anaphylactic shock requires more epinephrine and volume resuscitation."
+  },
+  {
+    "id": 475,
+    "level": "Paramedic",
+    "category": "Clinical Judgment",
+    "text": "Anaphylaxis persists with hypotension after IM epinephrine. Next best treatment is: (Variant 5)",
+    "options": [
+      "Administer nitroglycerin for hypotension",
+      "Start epinephrine infusion / repeat IM epi and give IV fluids",
+      "Start a beta-blocker",
+      "Give sodium bicarbonate"
+    ],
+    "correctIndex": 1,
+    "explanation": "Refractory anaphylactic shock requires more epinephrine and volume resuscitation."
+  },
+  {
+    "id": 476,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "After intubation, the MOST reliable confirmation of tracheal placement is: (Variant 1)",
+    "options": [
+      "Pulse oximetry improvement",
+      "Place an OPA without suction",
+      "Ventilate about 10/min with chest rise",
+      "Continuous waveform capnography"
+    ],
+    "correctIndex": 3,
+    "explanation": "Waveform ETCO2 is the most reliable confirmation and ongoing monitor of ventilation."
+  },
+  {
+    "id": 477,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "After intubation, the MOST reliable confirmation of tracheal placement is: (Variant 2)",
+    "options": [
+      "Auscultation only",
+      "EtCO2 10–20 mmHg is normal",
+      "Suction the airway and reposition",
+      "Continuous waveform capnography"
+    ],
+    "correctIndex": 3,
+    "explanation": "Waveform ETCO2 is the most reliable confirmation and ongoing monitor of ventilation."
+  },
+  {
+    "id": 478,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "After intubation, the MOST reliable confirmation of tracheal placement is: (Variant 3)",
+    "options": [
+      "Auscultation only",
+      "Normal EtCO2 35–45 mmHg",
+      "EtCO2 10–20 mmHg is normal",
+      "Continuous waveform capnography"
+    ],
+    "correctIndex": 3,
+    "explanation": "Waveform ETCO2 is the most reliable confirmation and ongoing monitor of ventilation."
+  },
+  {
+    "id": 479,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "After intubation, the MOST reliable confirmation of tracheal placement is: (Variant 4)",
+    "options": [
+      "Pulse oximetry improvement",
+      "Fogging in the tube",
+      "Place an OPA without suction",
+      "Continuous waveform capnography"
+    ],
+    "correctIndex": 3,
+    "explanation": "Waveform ETCO2 is the most reliable confirmation and ongoing monitor of ventilation."
+  },
+  {
+    "id": 480,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "After intubation, the MOST reliable confirmation of tracheal placement is: (Variant 5)",
+    "options": [
+      "Prepare cricothyrotomy per protocol",
+      "Ventilate 30/min regardless of chest rise",
+      "Nasotracheal intubation in facial trauma",
+      "Continuous waveform capnography"
+    ],
+    "correctIndex": 3,
+    "explanation": "Waveform ETCO2 is the most reliable confirmation and ongoing monitor of ventilation."
+  },
+  {
+    "id": 481,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "For an adult with a pulse being ventilated, a recommended ventilation rate is: (Variant 1)",
+    "options": [
+      "Normal EtCO2 35–45 mmHg",
+      "Ventilate about 10/min with chest rise",
+      "Ventilate 30/min regardless of chest rise",
+      "Continuous waveform capnography"
+    ],
+    "correctIndex": 1,
+    "explanation": "Avoid hyperventilation; target ~10 breaths/min in adults with a pulse."
+  },
+  {
+    "id": 482,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "For an adult with a pulse being ventilated, a recommended ventilation rate is: (Variant 2)",
+    "options": [
+      "Place an OPA without suction",
+      "Ventilate about 10/min with chest rise",
+      "EtCO2 10–20 mmHg is normal",
+      "Continuous waveform capnography"
+    ],
+    "correctIndex": 1,
+    "explanation": "Avoid hyperventilation; target ~10 breaths/min in adults with a pulse."
+  },
+  {
+    "id": 483,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "For an adult with a pulse being ventilated, a recommended ventilation rate is: (Variant 3)",
+    "options": [
+      "EtCO2 10–20 mmHg is normal",
+      "Nasotracheal intubation in facial trauma",
+      "Ventilate about 10/min with chest rise",
+      "Auscultation only"
+    ],
+    "correctIndex": 2,
+    "explanation": "Avoid hyperventilation; target ~10 breaths/min in adults with a pulse."
+  },
+  {
+    "id": 484,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "For an adult with a pulse being ventilated, a recommended ventilation rate is: (Variant 4)",
+    "options": [
+      "Continuous waveform capnography",
+      "Ventilate about 10/min with chest rise",
+      "Suction the airway and reposition",
+      "Auscultation only"
+    ],
+    "correctIndex": 1,
+    "explanation": "Avoid hyperventilation; target ~10 breaths/min in adults with a pulse."
+  },
+  {
+    "id": 485,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "For an adult with a pulse being ventilated, a recommended ventilation rate is: (Variant 5)",
+    "options": [
+      "Ventilate about 10/min with chest rise",
+      "Continuous waveform capnography",
+      "Ventilate 30/min regardless of chest rise",
+      "Pulse oximetry improvement"
+    ],
+    "correctIndex": 0,
+    "explanation": "Avoid hyperventilation; target ~10 breaths/min in adults with a pulse."
+  },
+  {
+    "id": 486,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "A patient has massive facial trauma and you cannot ventilate or intubate. Definitive airway option is: (Variant 1)",
+    "options": [
+      "Prepare cricothyrotomy per protocol",
+      "Pulse oximetry improvement",
+      "EtCO2 10–20 mmHg is normal",
+      "Continuous waveform capnography"
+    ],
+    "correctIndex": 0,
+    "explanation": "Cannot intubate/cannot ventilate requires a surgical airway when indicated and trained."
+  },
+  {
+    "id": 487,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "A patient has massive facial trauma and you cannot ventilate or intubate. Definitive airway option is: (Variant 2)",
+    "options": [
+      "Ventilate 30/min regardless of chest rise",
+      "Auscultation only",
+      "Fogging in the tube",
+      "Prepare cricothyrotomy per protocol"
+    ],
+    "correctIndex": 3,
+    "explanation": "Cannot intubate/cannot ventilate requires a surgical airway when indicated and trained."
+  },
+  {
+    "id": 488,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "A patient has massive facial trauma and you cannot ventilate or intubate. Definitive airway option is: (Variant 3)",
+    "options": [
+      "Nasotracheal intubation in facial trauma",
+      "Prepare cricothyrotomy per protocol",
+      "Pulse oximetry improvement",
+      "EtCO2 10–20 mmHg is normal"
+    ],
+    "correctIndex": 1,
+    "explanation": "Cannot intubate/cannot ventilate requires a surgical airway when indicated and trained."
+  },
+  {
+    "id": 489,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "A patient has massive facial trauma and you cannot ventilate or intubate. Definitive airway option is: (Variant 4)",
+    "options": [
+      "Ventilate about 10/min with chest rise",
+      "Normal EtCO2 35–45 mmHg",
+      "Nasotracheal intubation in facial trauma",
+      "Prepare cricothyrotomy per protocol"
+    ],
+    "correctIndex": 3,
+    "explanation": "Cannot intubate/cannot ventilate requires a surgical airway when indicated and trained."
+  },
+  {
+    "id": 490,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "A patient has massive facial trauma and you cannot ventilate or intubate. Definitive airway option is: (Variant 5)",
+    "options": [
+      "EtCO2 10–20 mmHg is normal",
+      "Auscultation only",
+      "Place an OPA without suction",
+      "Prepare cricothyrotomy per protocol"
+    ],
+    "correctIndex": 3,
+    "explanation": "Cannot intubate/cannot ventilate requires a surgical airway when indicated and trained."
+  },
+  {
+    "id": 491,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "The target EtCO2 range for a well-perfused ventilated adult is generally: (Variant 1)",
+    "options": [
+      "Auscultation only",
+      "Prepare cricothyrotomy per protocol",
+      "Normal EtCO2 35–45 mmHg",
+      "Pulse oximetry improvement"
+    ],
+    "correctIndex": 2,
+    "explanation": "Normal ETCO2 is typically ~35–45 mmHg; interpret with clinical context."
+  },
+  {
+    "id": 492,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "The target EtCO2 range for a well-perfused ventilated adult is generally: (Variant 2)",
+    "options": [
+      "Continuous waveform capnography",
+      "Normal EtCO2 35–45 mmHg",
+      "Pulse oximetry improvement",
+      "Nasotracheal intubation in facial trauma"
+    ],
+    "correctIndex": 1,
+    "explanation": "Normal ETCO2 is typically ~35–45 mmHg; interpret with clinical context."
+  },
+  {
+    "id": 493,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "The target EtCO2 range for a well-perfused ventilated adult is generally: (Variant 3)",
+    "options": [
+      "Fogging in the tube",
+      "Pulse oximetry improvement",
+      "Normal EtCO2 35–45 mmHg",
+      "Ventilate 30/min regardless of chest rise"
+    ],
+    "correctIndex": 2,
+    "explanation": "Normal ETCO2 is typically ~35–45 mmHg; interpret with clinical context."
+  },
+  {
+    "id": 494,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "The target EtCO2 range for a well-perfused ventilated adult is generally: (Variant 4)",
+    "options": [
+      "Continuous waveform capnography",
+      "Ventilate about 10/min with chest rise",
+      "Normal EtCO2 35–45 mmHg",
+      "Auscultation only"
+    ],
+    "correctIndex": 2,
+    "explanation": "Normal ETCO2 is typically ~35–45 mmHg; interpret with clinical context."
+  },
+  {
+    "id": 495,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "The target EtCO2 range for a well-perfused ventilated adult is generally: (Variant 5)",
+    "options": [
+      "Continuous waveform capnography",
+      "Pulse oximetry improvement",
+      "Nasotracheal intubation in facial trauma",
+      "Normal EtCO2 35–45 mmHg"
+    ],
+    "correctIndex": 3,
+    "explanation": "Normal ETCO2 is typically ~35–45 mmHg; interpret with clinical context."
+  },
+  {
+    "id": 496,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "Copious secretions prevent ventilation. Your immediate action is to: (Variant 1)",
+    "options": [
+      "Normal EtCO2 35–45 mmHg",
+      "Prepare cricothyrotomy per protocol",
+      "Fogging in the tube",
+      "Suction the airway and reposition"
+    ],
+    "correctIndex": 3,
+    "explanation": "Clear the airway first to allow effective ventilation or advanced airway placement."
+  },
+  {
+    "id": 497,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "Copious secretions prevent ventilation. Your immediate action is to: (Variant 2)",
+    "options": [
+      "Suction the airway and reposition",
+      "Ventilate 30/min regardless of chest rise",
+      "Fogging in the tube",
+      "EtCO2 10–20 mmHg is normal"
+    ],
+    "correctIndex": 0,
+    "explanation": "Clear the airway first to allow effective ventilation or advanced airway placement."
+  },
+  {
+    "id": 498,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "Copious secretions prevent ventilation. Your immediate action is to: (Variant 3)",
+    "options": [
+      "EtCO2 10–20 mmHg is normal",
+      "Ventilate 30/min regardless of chest rise",
+      "Auscultation only",
+      "Suction the airway and reposition"
+    ],
+    "correctIndex": 3,
+    "explanation": "Clear the airway first to allow effective ventilation or advanced airway placement."
+  },
+  {
+    "id": 499,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "Copious secretions prevent ventilation. Your immediate action is to: (Variant 4)",
+    "options": [
+      "Nasotracheal intubation in facial trauma",
+      "Ventilate about 10/min with chest rise",
+      "Auscultation only",
+      "Suction the airway and reposition"
+    ],
+    "correctIndex": 3,
+    "explanation": "Clear the airway first to allow effective ventilation or advanced airway placement."
+  },
+  {
+    "id": 500,
+    "level": "Paramedic",
+    "category": "Airway",
+    "text": "Copious secretions prevent ventilation. Your immediate action is to: (Variant 5)",
+    "options": [
+      "Prepare cricothyrotomy per protocol",
+      "Normal EtCO2 35–45 mmHg",
+      "Auscultation only",
+      "Suction the airway and reposition"
+    ],
+    "correctIndex": 3,
+    "explanation": "Clear the airway first to allow effective ventilation or advanced airway placement."
+  },
+  {
+    "id": 501,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "ST elevation in leads II, III, and aVF indicates an: (Variant 1)",
+    "options": [
+      "Atropine then pacing if ineffective",
+      "Atropine for SVT",
+      "Inferior wall STEMI",
+      "Amiodarone for shockable arrest after epi/shocks"
+    ],
+    "correctIndex": 2,
+    "explanation": "Inferior STEMI is classically ST elevation in II, III, aVF."
+  },
+  {
+    "id": 502,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "ST elevation in leads II, III, and aVF indicates an: (Variant 2)",
+    "options": [
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest",
+      "Amiodarone for shockable arrest after epi/shocks",
+      "Inferior wall STEMI",
+      "Diltiazem bolus for unstable rhythm"
+    ],
+    "correctIndex": 2,
+    "explanation": "Inferior STEMI is classically ST elevation in II, III, aVF."
+  },
+  {
+    "id": 503,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "ST elevation in leads II, III, and aVF indicates an: (Variant 3)",
+    "options": [
+      "Amiodarone for shockable arrest after epi/shocks",
+      "Defibrillate for pulseless VF/VT",
+      "Inferior wall STEMI",
+      "Atropine then pacing if ineffective"
+    ],
+    "correctIndex": 2,
+    "explanation": "Inferior STEMI is classically ST elevation in II, III, aVF."
+  },
+  {
+    "id": 504,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "ST elevation in leads II, III, and aVF indicates an: (Variant 4)",
+    "options": [
+      "Nitroglycerin SL for VF",
+      "Atropine for SVT",
+      "Defibrillate for pulseless VF/VT",
+      "Inferior wall STEMI"
+    ],
+    "correctIndex": 3,
+    "explanation": "Inferior STEMI is classically ST elevation in II, III, aVF."
+  },
+  {
+    "id": 505,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "ST elevation in leads II, III, and aVF indicates an: (Variant 5)",
+    "options": [
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest",
+      "Inferior wall STEMI",
+      "Nitroglycerin SL for VF",
+      "Defibrillate for pulseless VF/VT"
+    ],
+    "correctIndex": 1,
+    "explanation": "Inferior STEMI is classically ST elevation in II, III, aVF."
+  },
+  {
+    "id": 506,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Stable regular narrow-complex SVT at 190 bpm: first-line medication is: (Variant 1)",
+    "options": [
+      "Synchronized cardioversion for unstable tachycardia",
+      "Nitroglycerin SL for VF",
+      "Adenosine after vagal maneuvers",
+      "Atropine then pacing if ineffective"
+    ],
+    "correctIndex": 2,
+    "explanation": "Stable regular SVT is treated with vagal maneuvers then adenosine per ACLS/protocol."
+  },
+  {
+    "id": 507,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Stable regular narrow-complex SVT at 190 bpm: first-line medication is: (Variant 2)",
+    "options": [
+      "Defibrillate for pulseless VF/VT",
+      "Inferior wall STEMI",
+      "Adenosine after vagal maneuvers",
+      "Diltiazem bolus for unstable rhythm"
+    ],
+    "correctIndex": 2,
+    "explanation": "Stable regular SVT is treated with vagal maneuvers then adenosine per ACLS/protocol."
+  },
+  {
+    "id": 508,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Stable regular narrow-complex SVT at 190 bpm: first-line medication is: (Variant 3)",
+    "options": [
+      "Atropine then pacing if ineffective",
+      "Defibrillate for pulseless VF/VT",
+      "Adenosine after vagal maneuvers",
+      "Nitroglycerin SL for VF"
+    ],
+    "correctIndex": 2,
+    "explanation": "Stable regular SVT is treated with vagal maneuvers then adenosine per ACLS/protocol."
+  },
+  {
+    "id": 509,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Stable regular narrow-complex SVT at 190 bpm: first-line medication is: (Variant 4)",
+    "options": [
+      "Atropine then pacing if ineffective",
+      "Nitroglycerin SL for VF",
+      "Adenosine after vagal maneuvers",
+      "Atropine for SVT"
+    ],
+    "correctIndex": 2,
+    "explanation": "Stable regular SVT is treated with vagal maneuvers then adenosine per ACLS/protocol."
+  },
+  {
+    "id": 510,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Stable regular narrow-complex SVT at 190 bpm: first-line medication is: (Variant 5)",
+    "options": [
+      "Amiodarone for shockable arrest after epi/shocks",
+      "Adenosine after vagal maneuvers",
+      "Atropine then pacing if ineffective",
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest"
+    ],
+    "correctIndex": 1,
+    "explanation": "Stable regular SVT is treated with vagal maneuvers then adenosine per ACLS/protocol."
+  },
+  {
+    "id": 511,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Symptomatic bradycardia (HR 38) with hypotension and altered mental status: first-line is: (Variant 1)",
+    "options": [
+      "Atropine then pacing if ineffective",
+      "Amiodarone for shockable arrest after epi/shocks",
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest",
+      "Defibrillate for pulseless VF/VT"
+    ],
+    "correctIndex": 0,
+    "explanation": "Unstable bradycardia: atropine first when appropriate, then pacing/pressors per ACLS."
+  },
+  {
+    "id": 512,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Symptomatic bradycardia (HR 38) with hypotension and altered mental status: first-line is: (Variant 2)",
+    "options": [
+      "Nitroglycerin SL for VF",
+      "Defibrillate for pulseless VF/VT",
+      "Diltiazem bolus for unstable rhythm",
+      "Atropine then pacing if ineffective"
+    ],
+    "correctIndex": 3,
+    "explanation": "Unstable bradycardia: atropine first when appropriate, then pacing/pressors per ACLS."
+  },
+  {
+    "id": 513,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Symptomatic bradycardia (HR 38) with hypotension and altered mental status: first-line is: (Variant 3)",
+    "options": [
+      "Atropine for SVT",
+      "Defibrillate for pulseless VF/VT",
+      "Nitroglycerin SL for VF",
+      "Atropine then pacing if ineffective"
+    ],
+    "correctIndex": 3,
+    "explanation": "Unstable bradycardia: atropine first when appropriate, then pacing/pressors per ACLS."
+  },
+  {
+    "id": 514,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Symptomatic bradycardia (HR 38) with hypotension and altered mental status: first-line is: (Variant 4)",
+    "options": [
+      "Nitroglycerin SL for VF",
+      "Defibrillate for pulseless VF/VT",
+      "Atropine then pacing if ineffective",
+      "Amiodarone for shockable arrest after epi/shocks"
+    ],
+    "correctIndex": 2,
+    "explanation": "Unstable bradycardia: atropine first when appropriate, then pacing/pressors per ACLS."
+  },
+  {
+    "id": 515,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Symptomatic bradycardia (HR 38) with hypotension and altered mental status: first-line is: (Variant 5)",
+    "options": [
+      "Atropine then pacing if ineffective",
+      "Nitroglycerin SL for VF",
+      "Amiodarone for shockable arrest after epi/shocks",
+      "Magnesium sulfate"
+    ],
+    "correctIndex": 0,
+    "explanation": "Unstable bradycardia: atropine first when appropriate, then pacing/pressors per ACLS."
+  },
+  {
+    "id": 516,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Polymorphic VT with prolonged QT (torsades): drug of choice is: (Variant 1)",
+    "options": [
+      "Inferior wall STEMI",
+      "Magnesium sulfate",
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest",
+      "Amiodarone for shockable arrest after epi/shocks"
+    ],
+    "correctIndex": 1,
+    "explanation": "Magnesium treats torsades; defibrillate if pulseless/unstable."
+  },
+  {
+    "id": 517,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Polymorphic VT with prolonged QT (torsades): drug of choice is: (Variant 2)",
+    "options": [
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest",
+      "Amiodarone for shockable arrest after epi/shocks",
+      "Magnesium sulfate",
+      "Adenosine after vagal maneuvers"
+    ],
+    "correctIndex": 2,
+    "explanation": "Magnesium treats torsades; defibrillate if pulseless/unstable."
+  },
+  {
+    "id": 518,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Polymorphic VT with prolonged QT (torsades): drug of choice is: (Variant 3)",
+    "options": [
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest",
+      "Synchronized cardioversion for unstable tachycardia",
+      "Magnesium sulfate",
+      "Atropine then pacing if ineffective"
+    ],
+    "correctIndex": 2,
+    "explanation": "Magnesium treats torsades; defibrillate if pulseless/unstable."
+  },
+  {
+    "id": 519,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Polymorphic VT with prolonged QT (torsades): drug of choice is: (Variant 4)",
+    "options": [
+      "Adenosine after vagal maneuvers",
+      "Magnesium sulfate",
+      "Nitroglycerin SL for VF",
+      "Inferior wall STEMI"
+    ],
+    "correctIndex": 1,
+    "explanation": "Magnesium treats torsades; defibrillate if pulseless/unstable."
+  },
+  {
+    "id": 520,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Polymorphic VT with prolonged QT (torsades): drug of choice is: (Variant 5)",
+    "options": [
+      "Defibrillate for pulseless VF/VT",
+      "Inferior wall STEMI",
+      "Magnesium sulfate",
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest"
+    ],
+    "correctIndex": 2,
+    "explanation": "Magnesium treats torsades; defibrillate if pulseless/unstable."
+  },
+  {
+    "id": 521,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Pulseless VF/VT after CPR and defibrillation: next medication priority is: (Variant 1)",
+    "options": [
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest",
+      "Diltiazem bolus for unstable rhythm",
+      "Nitroglycerin SL for VF",
+      "Atropine for SVT"
+    ],
+    "correctIndex": 0,
+    "explanation": "In shockable arrest, epinephrine is given after initial shocks/CPR per ACLS sequence."
+  },
+  {
+    "id": 522,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Pulseless VF/VT after CPR and defibrillation: next medication priority is: (Variant 2)",
+    "options": [
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest",
+      "Adenosine after vagal maneuvers",
+      "Amiodarone for shockable arrest after epi/shocks",
+      "Nitroglycerin SL for VF"
+    ],
+    "correctIndex": 0,
+    "explanation": "In shockable arrest, epinephrine is given after initial shocks/CPR per ACLS sequence."
+  },
+  {
+    "id": 523,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Pulseless VF/VT after CPR and defibrillation: next medication priority is: (Variant 3)",
+    "options": [
+      "Diltiazem bolus for unstable rhythm",
+      "Inferior wall STEMI",
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest",
+      "Nitroglycerin SL for VF"
+    ],
+    "correctIndex": 2,
+    "explanation": "In shockable arrest, epinephrine is given after initial shocks/CPR per ACLS sequence."
+  },
+  {
+    "id": 524,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Pulseless VF/VT after CPR and defibrillation: next medication priority is: (Variant 4)",
+    "options": [
+      "Defibrillate for pulseless VF/VT",
+      "Adenosine after vagal maneuvers",
+      "Inferior wall STEMI",
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest"
+    ],
+    "correctIndex": 3,
+    "explanation": "In shockable arrest, epinephrine is given after initial shocks/CPR per ACLS sequence."
+  },
+  {
+    "id": 525,
+    "level": "Paramedic",
+    "category": "Cardiology",
+    "text": "Pulseless VF/VT after CPR and defibrillation: next medication priority is: (Variant 5)",
+    "options": [
+      "Magnesium sulfate",
+      "Atropine then pacing if ineffective",
+      "Epinephrine 1 mg IV/IO q3–5 min in arrest",
+      "Atropine for SVT"
+    ],
+    "correctIndex": 2,
+    "explanation": "In shockable arrest, epinephrine is given after initial shocks/CPR per ACLS sequence."
+  },
+  {
+    "id": 526,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Trauma patient is tachycardic, hypotensive, and cool/clammy. Most likely shock type is: (Variant 1)",
+    "options": [
+      "Tourniquet for life-threatening extremity bleed",
+      "Neurogenic shock",
+      "Hemorrhagic shock",
+      "Give oral fluids"
+    ],
+    "correctIndex": 2,
+    "explanation": "Trauma + hypotension + cool clammy skin is hemorrhagic shock until proven otherwise."
+  },
+  {
+    "id": 527,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Trauma patient is tachycardic, hypotensive, and cool/clammy. Most likely shock type is: (Variant 2)",
+    "options": [
+      "Pelvic binder and treat shock",
+      "Tourniquet for life-threatening extremity bleed",
+      "Apply nitroglycerin",
+      "Hemorrhagic shock"
+    ],
+    "correctIndex": 3,
+    "explanation": "Trauma + hypotension + cool clammy skin is hemorrhagic shock until proven otherwise."
+  },
+  {
+    "id": 528,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Trauma patient is tachycardic, hypotensive, and cool/clammy. Most likely shock type is: (Variant 3)",
+    "options": [
+      "Tourniquet for life-threatening extremity bleed",
+      "Control bleeding and rapid transport",
+      "Hemorrhagic shock",
+      "Neurogenic shock"
+    ],
+    "correctIndex": 2,
+    "explanation": "Trauma + hypotension + cool clammy skin is hemorrhagic shock until proven otherwise."
+  },
+  {
+    "id": 529,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Trauma patient is tachycardic, hypotensive, and cool/clammy. Most likely shock type is: (Variant 4)",
+    "options": [
+      "Have patient ambulate",
+      "Neurogenic shock",
+      "Hemorrhagic shock",
+      "Apply nitroglycerin"
+    ],
+    "correctIndex": 2,
+    "explanation": "Trauma + hypotension + cool clammy skin is hemorrhagic shock until proven otherwise."
+  },
+  {
+    "id": 530,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Trauma patient is tachycardic, hypotensive, and cool/clammy. Most likely shock type is: (Variant 5)",
+    "options": [
+      "Give oral fluids",
+      "Hemorrhagic shock",
+      "Apply nitroglycerin",
+      "Parkland formula (4 mL×kg×%TBSA)"
+    ],
+    "correctIndex": 1,
+    "explanation": "Trauma + hypotension + cool clammy skin is hemorrhagic shock until proven otherwise."
+  },
+  {
+    "id": 531,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Penetrating trauma with hypotension: prehospital priority is: (Variant 1)",
+    "options": [
+      "Have patient ambulate",
+      "Parkland formula (4 mL×kg×%TBSA)",
+      "Pelvic binder and treat shock",
+      "Control bleeding and rapid transport"
+    ],
+    "correctIndex": 3,
+    "explanation": "Definitive hemorrhage control is surgical; minimize scene time."
+  },
+  {
+    "id": 532,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Penetrating trauma with hypotension: prehospital priority is: (Variant 2)",
+    "options": [
+      "Apply nitroglycerin",
+      "Give oral fluids",
+      "Control bleeding and rapid transport",
+      "Parkland formula (4 mL×kg×%TBSA)"
+    ],
+    "correctIndex": 2,
+    "explanation": "Definitive hemorrhage control is surgical; minimize scene time."
+  },
+  {
+    "id": 533,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Penetrating trauma with hypotension: prehospital priority is: (Variant 3)",
+    "options": [
+      "Neurogenic shock",
+      "Apply nitroglycerin",
+      "Control bleeding and rapid transport",
+      "Tourniquet for life-threatening extremity bleed"
+    ],
+    "correctIndex": 2,
+    "explanation": "Definitive hemorrhage control is surgical; minimize scene time."
+  },
+  {
+    "id": 534,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Penetrating trauma with hypotension: prehospital priority is: (Variant 4)",
+    "options": [
+      "Parkland formula (4 mL×kg×%TBSA)",
+      "Give oral fluids",
+      "Delay transport for prolonged IV therapy",
+      "Control bleeding and rapid transport"
+    ],
+    "correctIndex": 3,
+    "explanation": "Definitive hemorrhage control is surgical; minimize scene time."
+  },
+  {
+    "id": 535,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Penetrating trauma with hypotension: prehospital priority is: (Variant 5)",
+    "options": [
+      "Parkland formula (4 mL×kg×%TBSA)",
+      "Pelvic binder and treat shock",
+      "Control bleeding and rapid transport",
+      "Tourniquet for life-threatening extremity bleed"
+    ],
+    "correctIndex": 2,
+    "explanation": "Definitive hemorrhage control is surgical; minimize scene time."
+  },
+  {
+    "id": 536,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Needle decompression for tension pneumothorax is commonly performed at: (Variant 1)",
+    "options": [
+      "Have patient ambulate",
+      "Apply nitroglycerin",
+      "Delay transport for prolonged IV therapy",
+      "Needle decompression (2nd ICS MCL or 4th/5th A/MAL per protocol)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Common decompression sites vary by protocol; use approved landmarks."
+  },
+  {
+    "id": 537,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Needle decompression for tension pneumothorax is commonly performed at: (Variant 2)",
+    "options": [
+      "Hemorrhagic shock",
+      "Needle decompression (2nd ICS MCL or 4th/5th A/MAL per protocol)",
+      "Have patient ambulate",
+      "Pelvic binder and treat shock"
+    ],
+    "correctIndex": 1,
+    "explanation": "Common decompression sites vary by protocol; use approved landmarks."
+  },
+  {
+    "id": 538,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Needle decompression for tension pneumothorax is commonly performed at: (Variant 3)",
+    "options": [
+      "Give oral fluids",
+      "Pelvic binder and treat shock",
+      "Parkland formula (4 mL×kg×%TBSA)",
+      "Needle decompression (2nd ICS MCL or 4th/5th A/MAL per protocol)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Common decompression sites vary by protocol; use approved landmarks."
+  },
+  {
+    "id": 539,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Needle decompression for tension pneumothorax is commonly performed at: (Variant 4)",
+    "options": [
+      "Pelvic binder and treat shock",
+      "Give oral fluids",
+      "Needle decompression (2nd ICS MCL or 4th/5th A/MAL per protocol)",
+      "Hemorrhagic shock"
+    ],
+    "correctIndex": 2,
+    "explanation": "Common decompression sites vary by protocol; use approved landmarks."
+  },
+  {
+    "id": 540,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Needle decompression for tension pneumothorax is commonly performed at: (Variant 5)",
+    "options": [
+      "Hemorrhagic shock",
+      "Neurogenic shock",
+      "Tourniquet for life-threatening extremity bleed",
+      "Needle decompression (2nd ICS MCL or 4th/5th A/MAL per protocol)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Common decompression sites vary by protocol; use approved landmarks."
+  },
+  {
+    "id": 541,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Pelvic fracture with hypotension: best immediate stabilization is: (Variant 1)",
+    "options": [
+      "Pelvic binder and treat shock",
+      "Apply nitroglycerin",
+      "Neurogenic shock",
+      "Delay transport for prolonged IV therapy"
+    ],
+    "correctIndex": 0,
+    "explanation": "Binders reduce pelvic volume and bleeding; treat shock and transport."
+  },
+  {
+    "id": 542,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Pelvic fracture with hypotension: best immediate stabilization is: (Variant 2)",
+    "options": [
+      "Delay transport for prolonged IV therapy",
+      "Neurogenic shock",
+      "Pelvic binder and treat shock",
+      "Give oral fluids"
+    ],
+    "correctIndex": 2,
+    "explanation": "Binders reduce pelvic volume and bleeding; treat shock and transport."
+  },
+  {
+    "id": 543,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Pelvic fracture with hypotension: best immediate stabilization is: (Variant 3)",
+    "options": [
+      "Apply nitroglycerin",
+      "Hemorrhagic shock",
+      "Pelvic binder and treat shock",
+      "Give oral fluids"
+    ],
+    "correctIndex": 2,
+    "explanation": "Binders reduce pelvic volume and bleeding; treat shock and transport."
+  },
+  {
+    "id": 544,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Pelvic fracture with hypotension: best immediate stabilization is: (Variant 4)",
+    "options": [
+      "Hemorrhagic shock",
+      "Control bleeding and rapid transport",
+      "Pelvic binder and treat shock",
+      "Give oral fluids"
+    ],
+    "correctIndex": 2,
+    "explanation": "Binders reduce pelvic volume and bleeding; treat shock and transport."
+  },
+  {
+    "id": 545,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Pelvic fracture with hypotension: best immediate stabilization is: (Variant 5)",
+    "options": [
+      "Hemorrhagic shock",
+      "Apply nitroglycerin",
+      "Pelvic binder and treat shock",
+      "Neurogenic shock"
+    ],
+    "correctIndex": 2,
+    "explanation": "Binders reduce pelvic volume and bleeding; treat shock and transport."
+  },
+  {
+    "id": 546,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Hypotension with bradycardia and warm dry skin after spinal injury suggests: (Variant 1)",
+    "options": [
+      "Tourniquet for life-threatening extremity bleed",
+      "Pelvic binder and treat shock",
+      "Neurogenic shock",
+      "Needle decompression (2nd ICS MCL or 4th/5th A/MAL per protocol)"
+    ],
+    "correctIndex": 2,
+    "explanation": "Loss of sympathetic tone causes hypotension with bradycardia in neurogenic shock."
+  },
+  {
+    "id": 547,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Hypotension with bradycardia and warm dry skin after spinal injury suggests: (Variant 2)",
+    "options": [
+      "Control bleeding and rapid transport",
+      "Delay transport for prolonged IV therapy",
+      "Neurogenic shock",
+      "Apply nitroglycerin"
+    ],
+    "correctIndex": 2,
+    "explanation": "Loss of sympathetic tone causes hypotension with bradycardia in neurogenic shock."
+  },
+  {
+    "id": 548,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Hypotension with bradycardia and warm dry skin after spinal injury suggests: (Variant 3)",
+    "options": [
+      "Pelvic binder and treat shock",
+      "Have patient ambulate",
+      "Neurogenic shock",
+      "Hemorrhagic shock"
+    ],
+    "correctIndex": 2,
+    "explanation": "Loss of sympathetic tone causes hypotension with bradycardia in neurogenic shock."
+  },
+  {
+    "id": 549,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Hypotension with bradycardia and warm dry skin after spinal injury suggests: (Variant 4)",
+    "options": [
+      "Pelvic binder and treat shock",
+      "Tourniquet for life-threatening extremity bleed",
+      "Neurogenic shock",
+      "Control bleeding and rapid transport"
+    ],
+    "correctIndex": 2,
+    "explanation": "Loss of sympathetic tone causes hypotension with bradycardia in neurogenic shock."
+  },
+  {
+    "id": 550,
+    "level": "Paramedic",
+    "category": "Trauma",
+    "text": "Hypotension with bradycardia and warm dry skin after spinal injury suggests: (Variant 5)",
+    "options": [
+      "Hemorrhagic shock",
+      "Give oral fluids",
+      "Neurogenic shock",
+      "Control bleeding and rapid transport"
+    ],
+    "correctIndex": 2,
+    "explanation": "Loss of sympathetic tone causes hypotension with bradycardia in neurogenic shock."
+  },
+  {
+    "id": 551,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Pregnant patient (third trimester) seizes with severe hypertension: drug of choice is: (Variant 1)",
+    "options": [
+      "Start compressions before ventilation for newborn HR 80",
+      "Adenosine for eclampsia",
+      "Magnesium sulfate for eclampsia",
+      "Fundal massage for postpartum hemorrhage"
+    ],
+    "correctIndex": 2,
+    "explanation": "Eclampsia is treated with magnesium sulfate to prevent recurrent seizures."
+  },
+  {
+    "id": 552,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Pregnant patient (third trimester) seizes with severe hypertension: drug of choice is: (Variant 2)",
+    "options": [
+      "Fundal massage for postpartum hemorrhage",
+      "Start compressions before ventilation for newborn HR 80",
+      "Avoid airway manipulation (possible epiglottitis)",
+      "Magnesium sulfate for eclampsia"
+    ],
+    "correctIndex": 3,
+    "explanation": "Eclampsia is treated with magnesium sulfate to prevent recurrent seizures."
+  },
+  {
+    "id": 553,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Pregnant patient (third trimester) seizes with severe hypertension: drug of choice is: (Variant 3)",
+    "options": [
+      "Inspect throat with tongue depressor",
+      "Give oral glucose to seizing patient",
+      "Start compressions before ventilation for newborn HR 80",
+      "Magnesium sulfate for eclampsia"
+    ],
+    "correctIndex": 3,
+    "explanation": "Eclampsia is treated with magnesium sulfate to prevent recurrent seizures."
+  },
+  {
+    "id": 554,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Pregnant patient (third trimester) seizes with severe hypertension: drug of choice is: (Variant 4)",
+    "options": [
+      "Longer-acting anticonvulsant after benzos (per protocol)",
+      "Start compressions before ventilation for newborn HR 80",
+      "PPV for newborn HR <100",
+      "Magnesium sulfate for eclampsia"
+    ],
+    "correctIndex": 3,
+    "explanation": "Eclampsia is treated with magnesium sulfate to prevent recurrent seizures."
+  },
+  {
+    "id": 555,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Pregnant patient (third trimester) seizes with severe hypertension: drug of choice is: (Variant 5)",
+    "options": [
+      "Magnesium sulfate for eclampsia",
+      "Start compressions before ventilation for newborn HR 80",
+      "Fundal massage for postpartum hemorrhage",
+      "Adenosine for eclampsia"
+    ],
+    "correctIndex": 0,
+    "explanation": "Eclampsia is treated with magnesium sulfate to prevent recurrent seizures."
+  },
+  {
+    "id": 556,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "After delivery, heavy bleeding with a boggy uterus: first-line is: (Variant 1)",
+    "options": [
+      "PPV for newborn HR <100",
+      "Give oral glucose to seizing patient",
+      "Adenosine for eclampsia",
+      "Fundal massage for postpartum hemorrhage"
+    ],
+    "correctIndex": 3,
+    "explanation": "Uterine atony causes postpartum hemorrhage; massage helps the uterus contract."
+  },
+  {
+    "id": 557,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "After delivery, heavy bleeding with a boggy uterus: first-line is: (Variant 2)",
+    "options": [
+      "Aspirin for seizure",
+      "Adenosine for eclampsia",
+      "Fundal massage for postpartum hemorrhage",
+      "Magnesium sulfate for eclampsia"
+    ],
+    "correctIndex": 2,
+    "explanation": "Uterine atony causes postpartum hemorrhage; massage helps the uterus contract."
+  },
+  {
+    "id": 558,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "After delivery, heavy bleeding with a boggy uterus: first-line is: (Variant 3)",
+    "options": [
+      "Adenosine for eclampsia",
+      "Aspirin for seizure",
+      "Avoid airway manipulation (possible epiglottitis)",
+      "Fundal massage for postpartum hemorrhage"
+    ],
+    "correctIndex": 3,
+    "explanation": "Uterine atony causes postpartum hemorrhage; massage helps the uterus contract."
+  },
+  {
+    "id": 559,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "After delivery, heavy bleeding with a boggy uterus: first-line is: (Variant 4)",
+    "options": [
+      "Avoid airway manipulation (possible epiglottitis)",
+      "Adenosine for eclampsia",
+      "Fundal massage for postpartum hemorrhage",
+      "Longer-acting anticonvulsant after benzos (per protocol)"
+    ],
+    "correctIndex": 2,
+    "explanation": "Uterine atony causes postpartum hemorrhage; massage helps the uterus contract."
+  },
+  {
+    "id": 560,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "After delivery, heavy bleeding with a boggy uterus: first-line is: (Variant 5)",
+    "options": [
+      "PPV for newborn HR <100",
+      "Adenosine for eclampsia",
+      "Fundal massage for postpartum hemorrhage",
+      "Inspect throat with tongue depressor"
+    ],
+    "correctIndex": 2,
+    "explanation": "Uterine atony causes postpartum hemorrhage; massage helps the uterus contract."
+  },
+  {
+    "id": 561,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Newborn is apneic with heart rate 80. Next step is to: (Variant 1)",
+    "options": [
+      "Give oral glucose to seizing patient",
+      "Fundal massage for postpartum hemorrhage",
+      "Adenosine for eclampsia",
+      "PPV for newborn HR <100"
+    ],
+    "correctIndex": 3,
+    "explanation": "Neonatal resuscitation: HR <100 requires effective ventilation first."
+  },
+  {
+    "id": 562,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Newborn is apneic with heart rate 80. Next step is to: (Variant 2)",
+    "options": [
+      "Aspirin for seizure",
+      "Adenosine for eclampsia",
+      "Longer-acting anticonvulsant after benzos (per protocol)",
+      "PPV for newborn HR <100"
+    ],
+    "correctIndex": 3,
+    "explanation": "Neonatal resuscitation: HR <100 requires effective ventilation first."
+  },
+  {
+    "id": 563,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Newborn is apneic with heart rate 80. Next step is to: (Variant 3)",
+    "options": [
+      "PPV for newborn HR <100",
+      "Magnesium sulfate for eclampsia",
+      "Fundal massage for postpartum hemorrhage",
+      "Longer-acting anticonvulsant after benzos (per protocol)"
+    ],
+    "correctIndex": 0,
+    "explanation": "Neonatal resuscitation: HR <100 requires effective ventilation first."
+  },
+  {
+    "id": 564,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Newborn is apneic with heart rate 80. Next step is to: (Variant 4)",
+    "options": [
+      "Magnesium sulfate for eclampsia",
+      "Longer-acting anticonvulsant after benzos (per protocol)",
+      "Aspirin for seizure",
+      "PPV for newborn HR <100"
+    ],
+    "correctIndex": 3,
+    "explanation": "Neonatal resuscitation: HR <100 requires effective ventilation first."
+  },
+  {
+    "id": 565,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Newborn is apneic with heart rate 80. Next step is to: (Variant 5)",
+    "options": [
+      "Aspirin for seizure",
+      "Inspect throat with tongue depressor",
+      "PPV for newborn HR <100",
+      "Start compressions before ventilation for newborn HR 80"
+    ],
+    "correctIndex": 2,
+    "explanation": "Neonatal resuscitation: HR <100 requires effective ventilation first."
+  },
+  {
+    "id": 566,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Child with drooling, fever, tripod, and stridor: best approach is to: (Variant 1)",
+    "options": [
+      "Inspect throat with tongue depressor",
+      "Avoid airway manipulation (possible epiglottitis)",
+      "Adenosine for eclampsia",
+      "PPV for newborn HR <100"
+    ],
+    "correctIndex": 1,
+    "explanation": "Do not agitate or inspect the throat; maintain comfort and oxygenate."
+  },
+  {
+    "id": 567,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Child with drooling, fever, tripod, and stridor: best approach is to: (Variant 2)",
+    "options": [
+      "Avoid airway manipulation (possible epiglottitis)",
+      "Fundal massage for postpartum hemorrhage",
+      "Longer-acting anticonvulsant after benzos (per protocol)",
+      "PPV for newborn HR <100"
+    ],
+    "correctIndex": 0,
+    "explanation": "Do not agitate or inspect the throat; maintain comfort and oxygenate."
+  },
+  {
+    "id": 568,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Child with drooling, fever, tripod, and stridor: best approach is to: (Variant 3)",
+    "options": [
+      "Avoid airway manipulation (possible epiglottitis)",
+      "Start compressions before ventilation for newborn HR 80",
+      "PPV for newborn HR <100",
+      "Magnesium sulfate for eclampsia"
+    ],
+    "correctIndex": 0,
+    "explanation": "Do not agitate or inspect the throat; maintain comfort and oxygenate."
+  },
+  {
+    "id": 569,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Child with drooling, fever, tripod, and stridor: best approach is to: (Variant 4)",
+    "options": [
+      "Fundal massage for postpartum hemorrhage",
+      "Longer-acting anticonvulsant after benzos (per protocol)",
+      "Avoid airway manipulation (possible epiglottitis)",
+      "Inspect throat with tongue depressor"
+    ],
+    "correctIndex": 2,
+    "explanation": "Do not agitate or inspect the throat; maintain comfort and oxygenate."
+  },
+  {
+    "id": 570,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Child with drooling, fever, tripod, and stridor: best approach is to: (Variant 5)",
+    "options": [
+      "Avoid airway manipulation (possible epiglottitis)",
+      "Longer-acting anticonvulsant after benzos (per protocol)",
+      "Inspect throat with tongue depressor",
+      "PPV for newborn HR <100"
+    ],
+    "correctIndex": 0,
+    "explanation": "Do not agitate or inspect the throat; maintain comfort and oxygenate."
+  },
+  {
+    "id": 571,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Status epilepticus continues after benzodiazepines: next medication class often considered is: (Variant 1)",
+    "options": [
+      "Aspirin for seizure",
+      "PPV for newborn HR <100",
+      "Adenosine for eclampsia",
+      "Longer-acting anticonvulsant after benzos (per protocol)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Benzos stop seizures acutely; longer-acting agents help prevent recurrence per protocol."
+  },
+  {
+    "id": 572,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Status epilepticus continues after benzodiazepines: next medication class often considered is: (Variant 2)",
+    "options": [
+      "Avoid airway manipulation (possible epiglottitis)",
+      "Inspect throat with tongue depressor",
+      "Longer-acting anticonvulsant after benzos (per protocol)",
+      "Fundal massage for postpartum hemorrhage"
+    ],
+    "correctIndex": 2,
+    "explanation": "Benzos stop seizures acutely; longer-acting agents help prevent recurrence per protocol."
+  },
+  {
+    "id": 573,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Status epilepticus continues after benzodiazepines: next medication class often considered is: (Variant 3)",
+    "options": [
+      "Fundal massage for postpartum hemorrhage",
+      "Aspirin for seizure",
+      "Adenosine for eclampsia",
+      "Longer-acting anticonvulsant after benzos (per protocol)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Benzos stop seizures acutely; longer-acting agents help prevent recurrence per protocol."
+  },
+  {
+    "id": 574,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Status epilepticus continues after benzodiazepines: next medication class often considered is: (Variant 4)",
+    "options": [
+      "Magnesium sulfate for eclampsia",
+      "Fundal massage for postpartum hemorrhage",
+      "PPV for newborn HR <100",
+      "Longer-acting anticonvulsant after benzos (per protocol)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Benzos stop seizures acutely; longer-acting agents help prevent recurrence per protocol."
+  },
+  {
+    "id": 575,
+    "level": "Paramedic",
+    "category": "Medical & OBGYN",
+    "text": "Status epilepticus continues after benzodiazepines: next medication class often considered is: (Variant 5)",
+    "options": [
+      "Start compressions before ventilation for newborn HR 80",
+      "Magnesium sulfate for eclampsia",
+      "Fundal massage for postpartum hemorrhage",
+      "Longer-acting anticonvulsant after benzos (per protocol)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Benzos stop seizures acutely; longer-acting agents help prevent recurrence per protocol."
+  },
+  {
+    "id": 576,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "Wrong medication dose was given. The BEST action is to: (Variant 1)",
+    "options": [
+      "Use non-structured handoff only",
+      "Hide the error to avoid liability",
+      "Delay 12-lead until hospital",
+      "Treat patient, notify medical control, and document/report the error"
+    ],
+    "correctIndex": 3,
+    "explanation": "Patient safety first; notify appropriate channels and document accurately."
+  },
+  {
+    "id": 577,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "Wrong medication dose was given. The BEST action is to: (Variant 2)",
+    "options": [
+      "Hide the error to avoid liability",
+      "Early 12-lead acquisition and STEMI notification",
+      "Contact medical control for protocol deviation and document",
+      "Treat patient, notify medical control, and document/report the error"
+    ],
+    "correctIndex": 3,
+    "explanation": "Patient safety first; notify appropriate channels and document accurately."
+  },
+  {
+    "id": 578,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "Wrong medication dose was given. The BEST action is to: (Variant 3)",
+    "options": [
+      "Use non-structured handoff only",
+      "Early 12-lead acquisition and STEMI notification",
+      "Treat patient, notify medical control, and document/report the error",
+      "Share meds between crews without documentation"
+    ],
+    "correctIndex": 2,
+    "explanation": "Patient safety first; notify appropriate channels and document accurately."
+  },
+  {
+    "id": 579,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "Wrong medication dose was given. The BEST action is to: (Variant 4)",
+    "options": [
+      "Delay 12-lead until hospital",
+      "Secure and document controlled substances per policy",
+      "Treat patient, notify medical control, and document/report the error",
+      "Use non-structured handoff only"
+    ],
+    "correctIndex": 2,
+    "explanation": "Patient safety first; notify appropriate channels and document accurately."
+  },
+  {
+    "id": 580,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "Wrong medication dose was given. The BEST action is to: (Variant 5)",
+    "options": [
+      "Secure and document controlled substances per policy",
+      "JumpSTART pediatric MCI triage",
+      "Provide care outside protocol without documentation",
+      "Treat patient, notify medical control, and document/report the error"
+    ],
+    "correctIndex": 3,
+    "explanation": "Patient safety first; notify appropriate channels and document accurately."
+  },
+  {
+    "id": 581,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "Controlled substances on an ALS unit should be: (Variant 1)",
+    "options": [
+      "JumpSTART pediatric MCI triage",
+      "Contact medical control for protocol deviation and document",
+      "Use non-structured handoff only",
+      "Secure and document controlled substances per policy"
+    ],
+    "correctIndex": 3,
+    "explanation": "Controlled meds require secure storage and strict accountability."
+  },
+  {
+    "id": 582,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "Controlled substances on an ALS unit should be: (Variant 2)",
+    "options": [
+      "Delay 12-lead until hospital",
+      "Early 12-lead acquisition and STEMI notification",
+      "Secure and document controlled substances per policy",
+      "Hide the error to avoid liability"
+    ],
+    "correctIndex": 2,
+    "explanation": "Controlled meds require secure storage and strict accountability."
+  },
+  {
+    "id": 583,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "Controlled substances on an ALS unit should be: (Variant 3)",
+    "options": [
+      "Use non-structured handoff only",
+      "Treat patient, notify medical control, and document/report the error",
+      "Secure and document controlled substances per policy",
+      "Delay 12-lead until hospital"
+    ],
+    "correctIndex": 2,
+    "explanation": "Controlled meds require secure storage and strict accountability."
+  },
+  {
+    "id": 584,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "Controlled substances on an ALS unit should be: (Variant 4)",
+    "options": [
+      "Provide care outside protocol without documentation",
+      "Treat patient, notify medical control, and document/report the error",
+      "Secure and document controlled substances per policy",
+      "Hide the error to avoid liability"
+    ],
+    "correctIndex": 2,
+    "explanation": "Controlled meds require secure storage and strict accountability."
+  },
+  {
+    "id": 585,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "Controlled substances on an ALS unit should be: (Variant 5)",
+    "options": [
+      "JumpSTART pediatric MCI triage",
+      "Share meds between crews without documentation",
+      "Secure and document controlled substances per policy",
+      "Provide care outside protocol without documentation"
+    ],
+    "correctIndex": 2,
+    "explanation": "Controlled meds require secure storage and strict accountability."
+  },
+  {
+    "id": 586,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "To improve STEMI outcomes, the most important EMS action is: (Variant 1)",
+    "options": [
+      "Secure and document controlled substances per policy",
+      "Early 12-lead acquisition and STEMI notification",
+      "Treat patient, notify medical control, and document/report the error",
+      "Hide the error to avoid liability"
+    ],
+    "correctIndex": 1,
+    "explanation": "Early ECG and pre-notification reduce time to reperfusion."
+  },
+  {
+    "id": 587,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "To improve STEMI outcomes, the most important EMS action is: (Variant 2)",
+    "options": [
+      "Treat patient, notify medical control, and document/report the error",
+      "Delay 12-lead until hospital",
+      "Share meds between crews without documentation",
+      "Early 12-lead acquisition and STEMI notification"
+    ],
+    "correctIndex": 3,
+    "explanation": "Early ECG and pre-notification reduce time to reperfusion."
+  },
+  {
+    "id": 588,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "To improve STEMI outcomes, the most important EMS action is: (Variant 3)",
+    "options": [
+      "Contact medical control for protocol deviation and document",
+      "Use non-structured handoff only",
+      "Early 12-lead acquisition and STEMI notification",
+      "Delay 12-lead until hospital"
+    ],
+    "correctIndex": 2,
+    "explanation": "Early ECG and pre-notification reduce time to reperfusion."
+  },
+  {
+    "id": 589,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "To improve STEMI outcomes, the most important EMS action is: (Variant 4)",
+    "options": [
+      "JumpSTART pediatric MCI triage",
+      "Hide the error to avoid liability",
+      "Treat patient, notify medical control, and document/report the error",
+      "Early 12-lead acquisition and STEMI notification"
+    ],
+    "correctIndex": 3,
+    "explanation": "Early ECG and pre-notification reduce time to reperfusion."
+  },
+  {
+    "id": 590,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "To improve STEMI outcomes, the most important EMS action is: (Variant 5)",
+    "options": [
+      "Hide the error to avoid liability",
+      "Treat patient, notify medical control, and document/report the error",
+      "Provide care outside protocol without documentation",
+      "Early 12-lead acquisition and STEMI notification"
+    ],
+    "correctIndex": 3,
+    "explanation": "Early ECG and pre-notification reduce time to reperfusion."
+  },
+  {
+    "id": 591,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "In an MCI, pediatric triage method commonly used is: (Variant 1)",
+    "options": [
+      "Early 12-lead acquisition and STEMI notification",
+      "JumpSTART pediatric MCI triage",
+      "Provide care outside protocol without documentation",
+      "Contact medical control for protocol deviation and document"
+    ],
+    "correctIndex": 1,
+    "explanation": "JumpSTART adapts triage for pediatric physiology."
+  },
+  {
+    "id": 592,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "In an MCI, pediatric triage method commonly used is: (Variant 2)",
+    "options": [
+      "Secure and document controlled substances per policy",
+      "Hide the error to avoid liability",
+      "JumpSTART pediatric MCI triage",
+      "Share meds between crews without documentation"
+    ],
+    "correctIndex": 2,
+    "explanation": "JumpSTART adapts triage for pediatric physiology."
+  },
+  {
+    "id": 593,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "In an MCI, pediatric triage method commonly used is: (Variant 3)",
+    "options": [
+      "Contact medical control for protocol deviation and document",
+      "Provide care outside protocol without documentation",
+      "JumpSTART pediatric MCI triage",
+      "Early 12-lead acquisition and STEMI notification"
+    ],
+    "correctIndex": 2,
+    "explanation": "JumpSTART adapts triage for pediatric physiology."
+  },
+  {
+    "id": 594,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "In an MCI, pediatric triage method commonly used is: (Variant 4)",
+    "options": [
+      "Use non-structured handoff only",
+      "Secure and document controlled substances per policy",
+      "Share meds between crews without documentation",
+      "JumpSTART pediatric MCI triage"
+    ],
+    "correctIndex": 3,
+    "explanation": "JumpSTART adapts triage for pediatric physiology."
+  },
+  {
+    "id": 595,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "In an MCI, pediatric triage method commonly used is: (Variant 5)",
+    "options": [
+      "Early 12-lead acquisition and STEMI notification",
+      "Share meds between crews without documentation",
+      "JumpSTART pediatric MCI triage",
+      "Contact medical control for protocol deviation and document"
+    ],
+    "correctIndex": 2,
+    "explanation": "JumpSTART adapts triage for pediatric physiology."
+  },
+  {
+    "id": 596,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "If you must deviate from protocol due to unusual circumstances, you should: (Variant 1)",
+    "options": [
+      "Provide care outside protocol without documentation",
+      "JumpSTART pediatric MCI triage",
+      "Hide the error to avoid liability",
+      "Contact medical control for protocol deviation and document"
+    ],
+    "correctIndex": 3,
+    "explanation": "Protocol deviations require medical direction when possible and clear documentation."
+  },
+  {
+    "id": 597,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "If you must deviate from protocol due to unusual circumstances, you should: (Variant 2)",
+    "options": [
+      "Provide care outside protocol without documentation",
+      "Hide the error to avoid liability",
+      "Share meds between crews without documentation",
+      "Contact medical control for protocol deviation and document"
+    ],
+    "correctIndex": 3,
+    "explanation": "Protocol deviations require medical direction when possible and clear documentation."
+  },
+  {
+    "id": 598,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "If you must deviate from protocol due to unusual circumstances, you should: (Variant 3)",
+    "options": [
+      "Treat patient, notify medical control, and document/report the error",
+      "Early 12-lead acquisition and STEMI notification",
+      "Contact medical control for protocol deviation and document",
+      "Share meds between crews without documentation"
+    ],
+    "correctIndex": 2,
+    "explanation": "Protocol deviations require medical direction when possible and clear documentation."
+  },
+  {
+    "id": 599,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "If you must deviate from protocol due to unusual circumstances, you should: (Variant 4)",
+    "options": [
+      "Secure and document controlled substances per policy",
+      "Treat patient, notify medical control, and document/report the error",
+      "Contact medical control for protocol deviation and document",
+      "Hide the error to avoid liability"
+    ],
+    "correctIndex": 2,
+    "explanation": "Protocol deviations require medical direction when possible and clear documentation."
+  },
+  {
+    "id": 600,
+    "level": "Paramedic",
+    "category": "EMS Operations",
+    "text": "If you must deviate from protocol due to unusual circumstances, you should: (Variant 5)",
+    "options": [
+      "Secure and document controlled substances per policy",
+      "Use non-structured handoff only",
+      "Share meds between crews without documentation",
+      "Contact medical control for protocol deviation and document"
+    ],
+    "correctIndex": 3,
+    "explanation": "Protocol deviations require medical direction when possible and clear documentation."
+  }
 ];
