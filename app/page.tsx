@@ -79,7 +79,7 @@ export default function Home() {
           transition={{ delay: 0.12 }}
           className="mt-8"
         >
-          <div className="rounded-2xl bg-slate-900/40 border border-white/10 p-5 backdrop-blur-sm">
+          <div className="rounded-2xl bg-slate-900/40 border border-white/10 p-5 backdrop-blur-sm relative overflow-hidden">
             {/* subtle glow based on level */}
             <div className={`absolute inset-0 -z-10 blur-[120px] rounded-2xl ${accent.glow}`} />
 
