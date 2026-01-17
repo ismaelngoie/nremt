@@ -12,105 +12,2126 @@ export type Question = {
 
 export const questions: Question[] = [
   // ================= EMT CATEGORIES =================
-  
   // 1. Patient Treatment
   {
-    id: 101, level: "EMT", category: "Patient Treatment",
-    text: "A 45-year-old male is complaining of chest pain. He has a prescription for nitroglycerin. His BP is 98/60. You should:",
-    options: ["Administer the nitroglycerin", "Contact medical control", "Withhold the medication", "Administer aspirin only"],
-    correctIndex: 2,
-    explanation: "Nitroglycerin is generally contraindicated if the systolic BP is below 100 mmHg due to the risk of severe hypotension."
+    id: 1, level: "EMT", category: "Patient Treatment",
+    text: "A 58-year-old with crushing chest pain is alert, not allergic, and has no signs of bleeding. The best initial medication is:",
+    options: ["Aspirin (chewed), if allowed by protocol", "Oral glucose gel", "Epinephrine auto-injector", "Nitroglycerin regardless of BP"],
+    correctIndex: 0,
+    explanation: "Aspirin reduces platelet aggregation in suspected ACS; give if no contraindication and per protocol."
   },
-  
+  {
+    id: 2, level: "EMT", category: "Patient Treatment",
+    text: "A 46-year-old took sildenafil 2 hours ago and now has chest pain. He has nitroglycerin prescribed. You should:",
+    options: ["Give nitroglycerin only if pain is 10/10", "Withhold nitroglycerin and contact medical control", "Assist with nitroglycerin immediately", "Give nitroglycerin if HR is above 60"],
+    correctIndex: 1,
+    explanation: "PDE-5 inhibitors plus nitro can cause dangerous hypotension; follow protocol/medical control."
+  },
+  {
+    id: 3, level: "EMT", category: "Patient Treatment",
+    text: "A patient is wheezing with a history of asthma and has a prescribed MDI. After oxygen, you should:",
+    options: ["Apply a traction splint", "Give activated charcoal", "Assist with the patient's prescribed inhaler", "Place the patient in Trendelenburg"],
+    correctIndex: 2,
+    explanation: "An MDI bronchodilator can relieve bronchospasm when prescribed and the patient can use it."
+  },
+  {
+    id: 4, level: "EMT", category: "Patient Treatment",
+    text: "A 6-year-old has hives, wheezing, and lip swelling after peanut exposure. The priority treatment is:",
+    options: ["Delay care until rash resolves", "Give aspirin", "Assist with an epinephrine auto-injector, if available/prescribed", "Give oral glucose"],
+    correctIndex: 2,
+    explanation: "Anaphylaxis threatens airway and breathing; epinephrine is first-line per protocol."
+  },
+  {
+    id: 5, level: "EMT", category: "Patient Treatment",
+    text: "A diabetic patient is awake but confused with cool, clammy skin. BGL is 48 mg/dL. You should:",
+    options: ["Give water only", "Administer oral glucose if they can swallow", "Force food despite inability to swallow", "Delay treatment until at the hospital"],
+    correctIndex: 1,
+    explanation: "Symptomatic hypoglycemia needs rapid glucose; only give orally if the gag reflex and swallowing are intact."
+  },
+  {
+    id: 6, level: "EMT", category: "Patient Treatment",
+    text: "A suspected opioid overdose patient has slow, shallow respirations (6/min) and pinpoint pupils. First priority is:",
+    options: ["Ventilate with a BVM and oxygen", "Give aspirin", "Induce vomiting", "Give oral glucose"],
+    correctIndex: 0,
+    explanation: "Airway and ventilation come first; naloxone is adjunct after you support breathing."
+  },
+  {
+    id: 7, level: "EMT", category: "Patient Treatment",
+    text: "After BVM ventilation, you administer naloxone for a suspected opioid overdose. The patient becomes agitated. Next, you should:",
+    options: ["Reassess airway/breathing and be prepared for vomiting", "Let the patient walk around", "Remove oxygen to calm them", "Give another full dose immediately"],
+    correctIndex: 0,
+    explanation: "Naloxone can cause sudden withdrawal and vomiting; protect airway and reassess ventilation."
+  },
+  {
+    id: 8, level: "EMT", category: "Patient Treatment",
+    text: "A patient has heavy external bleeding from the forearm. Direct pressure fails. Next step is:",
+    options: ["Massage the bleeding site", "Apply a tourniquet proximal to the bleeding", "Apply heat to the wound", "Elevate only and wait"],
+    correctIndex: 1,
+    explanation: "For life-threatening extremity bleeding not controlled by pressure, use a tourniquet."
+  },
+  {
+    id: 9, level: "EMT", category: "Patient Treatment",
+    text: "A closed femur fracture is suspected with deformity and severe pain. You should:",
+    options: ["Delay splinting until hospital", "Encourage the patient to walk", "Immobilize the limb and consider a traction splint per protocol", "Push the bone back in"],
+    correctIndex: 2,
+    explanation: "Immobilization limits bleeding/pain; traction splints can reduce femur fracture complications when indicated."
+  },
+  {
+    id: 10, level: "EMT", category: "Patient Treatment",
+    text: "A patient with burns has clothing stuck to the skin. You should:",
+    options: ["Apply butter/ointment", "Peel the clothing off", "Cut around the stuck clothing and cover burns with dry sterile dressing", "Break large blisters"],
+    correctIndex: 2,
+    explanation: "Remove loose clothing/jewelry, but don't pull adhered material; cover with dry sterile dressings."
+  },
+  {
+    id: 11, level: "EMT", category: "Patient Treatment",
+    text: "A patient is in shock (cool, pale, tachycardic) after trauma. Best EMT treatment is:",
+    options: ["Control bleeding, keep warm, and transport rapidly", "Give large amounts of water", "Apply ice packs to the torso", "Delay transport for a full history"],
+    correctIndex: 0,
+    explanation: "EMTs treat shock by stopping bleeding, preventing heat loss, and minimizing scene time."
+  },
+  {
+    id: 12, level: "EMT", category: "Patient Treatment",
+    text: "A patient is having an active generalized seizure. Your best action is to:",
+    options: ["Insert a tongue depressor", "Protect from injury and maintain airway after seizure stops", "Restrain the patient's arms", "Give oral fluids"],
+    correctIndex: 1,
+    explanation: "Do not put anything in the mouth or restrain; focus on safety and airway/oxygenation."
+  },
+  {
+    id: 13, level: "EMT", category: "Patient Treatment",
+    text: "A heat stroke patient is hot, altered, and has dry skin. Most appropriate action is:",
+    options: ["Delay cooling until ED", "Give a warm blanket and wait", "Encourage jogging to sweat", "Begin rapid cooling and transport"],
+    correctIndex: 3,
+    explanation: "Heat stroke is life-threatening; aggressive cooling and rapid transport are critical."
+  },
+  {
+    id: 14, level: "EMT", category: "Patient Treatment",
+    text: "A hypothermic patient is bradycardic and shivering. You should:",
+    options: ["Allow walking to generate heat", "Rub the extremities vigorously", "Handle gently and prevent further heat loss", "Give alcohol to warm them"],
+    correctIndex: 2,
+    explanation: "Rough handling can trigger dysrhythmias; focus on insulation and gentle care."
+  },
+  {
+    id: 15, level: "EMT", category: "Patient Treatment",
+    text: "A patient is vomiting and has trouble handling secretions. The best airway tool is:",
+    options: ["Nebulized albuterol", "Suction", "Traction splint", "Oropharyngeal airway only"],
+    correctIndex: 1,
+    explanation: "Suction clears fluids to maintain airway patency; use before adjuncts when needed."
+  },
+  {
+    id: 16, level: "EMT", category: "Patient Treatment",
+    text: "An adult choking victim cannot speak or cough. Appropriate treatment is:",
+    options: ["Give water to wash it down", "Abdominal thrusts until obstruction clears or they become unresponsive", "Place in recovery position and wait", "Back blows only"],
+    correctIndex: 1,
+    explanation: "For conscious adults with severe airway obstruction, use abdominal thrusts."
+  },
+  {
+    id: 17, level: "EMT", category: "Patient Treatment",
+    text: "An infant is choking and cannot cry. You should:",
+    options: ["Use abdominal thrusts", "Give rescue breaths only", "Give back slaps and chest thrusts", "Do a blind finger sweep"],
+    correctIndex: 2,
+    explanation: "Infants are treated with back slaps and chest thrusts; avoid abdominal thrusts and blind sweeps."
+  },
+  {
+    id: 18, level: "EMT", category: "Patient Treatment",
+    text: "A patient with suspected stroke has symptom onset 45 minutes ago. Your priority is to:",
+    options: ["Rapidly transport and note last known well time", "Give nitroglycerin", "Treat with oral glucose without checking BGL", "Delay transport for a long interview"],
+    correctIndex: 0,
+    explanation: "Stroke care is time-dependent; document last known well and transport to an appropriate facility."
+  },
+  {
+    id: 19, level: "EMT", category: "Patient Treatment",
+    text: "A patient has epistaxis (nosebleed) without trauma. Best care is:",
+    options: ["Pinch the nostrils and lean the patient forward", "Apply a tourniquet", "Pack the nose deeply with gauze", "Lean the patient back"],
+    correctIndex: 0,
+    explanation: "Leaning forward prevents blood from entering the airway and stomach; apply direct pressure to the nostrils."
+  },
+  {
+    id: 20, level: "EMT", category: "Patient Treatment",
+    text: "A patient with suspected spinal injury is vomiting. Best position is:",
+    options: ["Remove the cervical collar", "Sit them upright without support", "Leave them supine and wait", "Log roll as a unit to clear the airway while maintaining spinal alignment"],
+    correctIndex: 3,
+    explanation: "Airway is priority; log roll maintains spinal precautions while clearing vomit."
+  },
+  {
+    id: 21, level: "EMT", category: "Patient Treatment",
+    text: "A COPD patient is in moderate distress with SpO2 86%. Best oxygen approach is:",
+    options: ["Withhold oxygen to avoid hypoventilation", "Titrate oxygen to improve oxygenation (aim per protocol)", "Give only room air", "Give 100% oxygen and do not reassess"],
+    correctIndex: 1,
+    explanation: "COPD patients need oxygen; titrate and reassess while monitoring mental status and ventilation."
+  },
+  {
+    id: 22, level: "EMT", category: "Patient Treatment",
+    text: "A child with croup has a barking cough and stridor. Best EMT care is:",
+    options: ["Keep the child calm and provide humidified oxygen if available", "Give aspirin", "Inspect the throat with a tongue blade", "Force the child to lie flat"],
+    correctIndex: 0,
+    explanation: "Agitation can worsen upper-airway obstruction; avoid upsetting the child."
+  },
+  {
+    id: 23, level: "EMT", category: "Patient Treatment",
+    text: "A suspected poisoning patient is awake and alert. The first step is to:",
+    options: ["Give alcohol to dilute it", "Delay care until symptoms appear", "Identify the substance and contact poison control/medical direction", "Give ipecac to induce vomiting"],
+    correctIndex: 2,
+    explanation: "Management depends on the toxin; get information and follow medical direction."
+  },
+  {
+    id: 24, level: "EMT", category: "Patient Treatment",
+    text: "A patient with a penetrating object in the abdomen should have it:",
+    options: ["Removed immediately", "Stabilized in place with bulky dressings", "Pushed deeper to stop bleeding", "Ignored during transport"],
+    correctIndex: 1,
+    explanation: "Do not remove impaled objects; stabilize to prevent movement and bleeding."
+  },
+  {
+    id: 25, level: "EMT", category: "Patient Treatment",
+    text: "A patient has an open chest wound with sucking sound. You should:",
+    options: ["Pack with gauze tightly", "Leave it open to 'let air out'", "Apply an occlusive dressing secured on three sides if taught by protocol", "Apply a tourniquet around the chest"],
+    correctIndex: 2,
+    explanation: "An occlusive dressing limits air entry; a flutter valve concept helps reduce tension physiology."
+  },
+  {
+    id: 26, level: "EMT", category: "Patient Treatment",
+    text: "A suspected spinal injury patient is found seated in a vehicle and stable. You should:",
+    options: ["Maintain manual stabilization and follow local extrication/spinal motion restriction protocol", "Let them self-extricate without assessment", "Pull them out quickly by the arms", "Remove helmet and ignore c-spine"],
+    correctIndex: 0,
+    explanation: "Limit spinal movement during extrication; use appropriate technique and resources."
+  },
+  {
+    id: 27, level: "EMT", category: "Patient Treatment",
+    text: "A patient complains of allergic reaction but only has localized itching and no breathing issues. You should:",
+    options: ["Monitor, provide supportive care, and be ready to treat worsening symptoms", "Withhold oxygen regardless of status", "Give epinephrine immediately in all cases", "Force oral fluids"],
+    correctIndex: 0,
+    explanation: "Not all allergic reactions are anaphylaxis; watch for airway/breathing compromise."
+  },
+  {
+    id: 28, level: "EMT", category: "Patient Treatment",
+    text: "A patient with abdominal pain is found in the fetal position, guarding. Best EMT treatment is:",
+    options: ["Give food to settle the stomach", "Position of comfort and transport with ongoing reassessment", "Delay transport until pain stops", "Apply heat directly to abdomen"],
+    correctIndex: 1,
+    explanation: "Supportive care and rapid evaluation are key; avoid oral intake and repeated reassessments."
+  },
+  {
+    id: 29, level: "EMT", category: "Patient Treatment",
+    text: "A patient with severe shortness of breath and pink frothy sputum is conscious. Best immediate EMT intervention is:",
+    options: ["Place supine with legs elevated", "Apply CPAP if available and not contraindicated", "Encourage rapid deep breaths without support", "Give oral glucose"],
+    correctIndex: 1,
+    explanation: "CPAP improves oxygenation in pulmonary edema when the patient can tolerate it and protocols allow."
+  },
+  {
+    id: 30, level: "EMT", category: "Patient Treatment",
+    text: "A patient has a partial-thickness burn to the forearm. After cooling briefly, you should:",
+    options: ["Cover with a dry sterile dressing and prevent hypothermia", "Apply petroleum jelly", "Apply ice directly for 30 minutes", "Pop blisters to relieve pressure"],
+    correctIndex: 0,
+    explanation: "Cover burns to reduce contamination and pain; avoid ice and breaking blisters."
+  },
+
   // 2. Primary Assessment
   {
-    id: 102, level: "EMT", category: "Primary Assessment",
-    text: "You arrive to find a patient unresponsive. Your partner stabilizes the c-spine. Your next action is to:",
-    options: ["Check for a pulse", "Open the airway", "Look for major bleeding", "Assess breathing"],
+    id: 31, level: "EMT", category: "Primary Assessment",
+    text: "You arrive to a patient lying on the ground. The first step of the primary assessment is to:",
+    options: ["Ask bystanders what happened", "Take a full set of vitals", "Assess scene safety and apply PPE", "Start a head-to-toe exam"],
+    correctIndex: 2,
+    explanation: "Scene safety/BSI come first before patient contact."
+  },
+  {
+    id: 32, level: "EMT", category: "Primary Assessment",
+    text: "An unresponsive adult has no normal breathing. Next action is to:",
+    options: ["Give oral glucose", "Place in recovery position immediately", "Take a blood pressure", "Check pulse and begin CPR if pulseless (and use AED)"],
+    correctIndex: 3,
+    explanation: "For suspected cardiac arrest, assess breathing/pulse quickly and start CPR/AED."
+  },
+  {
+    id: 33, level: "EMT", category: "Primary Assessment",
+    text: "A trauma patient has massive leg bleeding. In the primary assessment you should first:",
+    options: ["Get a full medical history", "Control the hemorrhage", "Assess pupils", "Palpate the abdomen first"],
     correctIndex: 1,
-    explanation: "According to the CAB (Compressions, Airway, Breathing) sequence for cardiac arrest, you check a pulse. However, for a general primary assessment of a patient with a pulse, Airway is the first priority after safety/spine."
+    explanation: "Life-threatening bleeding is treated immediately, even before other steps."
+  },
+  {
+    id: 34, level: "EMT", category: "Primary Assessment",
+    text: "A patient responds only to painful stimuli. This is documented as:",
+    options: ["Unresponsive", "P on AVPU", "V on AVPU", "Alert"],
+    correctIndex: 1,
+    explanation: "AVPU: Alert, responds to Verbal, responds to Pain, Unresponsive."
+  },
+  {
+    id: 35, level: "EMT", category: "Primary Assessment",
+    text: "A patient with snoring respirations likely needs:",
+    options: ["Airway repositioning and an airway adjunct if appropriate", "Oral glucose", "A tourniquet to the neck", "A traction splint"],
+    correctIndex: 0,
+    explanation: "Snoring suggests partial obstruction by the tongue; open the airway."
+  },
+  {
+    id: 36, level: "EMT", category: "Primary Assessment",
+    text: "You suspect a cervical spine injury. The preferred manual airway maneuver is:",
+    options: ["Jaw-thrust (without head tilt)", "Hyperextend the neck", "Head-tilt chin-lift", "Sit the patient forward"],
+    correctIndex: 0,
+    explanation: "Jaw-thrust opens the airway while minimizing neck movement."
+  },
+  {
+    id: 37, level: "EMT", category: "Primary Assessment",
+    text: "A patient is breathing 8/min with shallow chest rise. Best immediate intervention is:",
+    options: ["Give a bronchodilator inhaler", "Offer water", "Assist ventilations with a BVM and oxygen", "Apply a hot pack"],
+    correctIndex: 2,
+    explanation: "Inadequate ventilation requires assisted breaths, not just oxygen."
+  },
+  {
+    id: 38, level: "EMT", category: "Primary Assessment",
+    text: "A patient has absent radial pulses and cool, clammy skin. This most strongly suggests:",
+    options: ["Hyperventilation syndrome", "Shock/poor perfusion", "Hypertension", "Normal perfusion"],
+    correctIndex: 1,
+    explanation: "Weak/absent peripheral pulses with cool skin indicates inadequate perfusion."
+  },
+  {
+    id: 39, level: "EMT", category: "Primary Assessment",
+    text: "During primary assessment, the 'C' in ABCs refers to:",
+    options: ["Consciousness only", "Capnography", "Circulation (pulse, perfusion, major bleeding)", "Cervical collar"],
+    correctIndex: 2,
+    explanation: "Circulation includes pulse quality, skin signs, and bleeding control."
+  },
+  {
+    id: 40, level: "EMT", category: "Primary Assessment",
+    text: "A responsive adult refuses assessment. Before leaving, you must first:",
+    options: ["Leave immediately without documentation", "Assess decision-making capacity and explain risks/benefits", "Call law enforcement to force care", "Take the refusal as valid without questions"],
+    correctIndex: 1,
+    explanation: "A valid refusal requires capacity, informed decision, and documentation."
+  },
+  {
+    id: 41, level: "EMT", category: "Primary Assessment",
+    text: "A patient is talking in full sentences but has labored breathing and retractions. This indicates:",
+    options: ["Only anxiety", "Normal breathing", "Immediate cardiac arrest", "Increased work of breathing (potential respiratory distress)"],
+    correctIndex: 3,
+    explanation: "Full sentences suggest good air exchange, but retractions/labored breathing are concerning."
+  },
+  {
+    id: 42, level: "EMT", category: "Primary Assessment",
+    text: "In a patient with suspected stroke, the primary assessment priority is:",
+    options: ["Give nitroglycerin", "Airway, breathing, and rapid transport (time sensitive)", "Delay transport to complete detailed neuro exam", "Administer antibiotics"],
+    correctIndex: 1,
+    explanation: "Stroke is time-dependent; stabilize ABCs and transport quickly."
+  },
+  {
+    id: 43, level: "EMT", category: "Primary Assessment",
+    text: "A child is lethargic with poor muscle tone. This is considered:",
+    options: ["Only a sleep issue", "An abnormal mental status requiring urgent evaluation", "Normal for toddlers", "A sign to delay transport"],
+    correctIndex: 1,
+    explanation: "Lethargy in pediatrics is concerning and can indicate hypoxia or shock."
+  },
+  {
+    id: 44, level: "EMT", category: "Primary Assessment",
+    text: "A patient has noisy high-pitched inspiratory sounds. This is most consistent with:",
+    options: ["Stridor (upper airway obstruction)", "Rales (fluid)", "Wheezing (lower airway)", "Rhales"],
+    correctIndex: 0,
+    explanation: "Stridor is an upper-airway sound and is an emergency."
+  },
+  {
+    id: 45, level: "EMT", category: "Primary Assessment",
+    text: "A patient's skin is hot and dry with tachycardia and altered mental status. You should suspect:",
+    options: ["Mild hypothermia", "Stable dehydration only", "Heat stroke and treat as a life threat", "Normal thermoregulation"],
+    correctIndex: 2,
+    explanation: "Hot/dry with AMS suggests failure to cool; rapid cooling and transport."
+  },
+  {
+    id: 46, level: "EMT", category: "Primary Assessment",
+    text: "A patient has an open airway but is cyanotic with SpO2 78%. The immediate action is to:",
+    options: ["Apply ice packs", "Provide high-concentration oxygen and support ventilation as needed", "Delay oxygen until blood pressure is taken", "Give oral glucose"],
+    correctIndex: 1,
+    explanation: "Severe hypoxia needs oxygen/ventilation support immediately."
+  },
+  {
+    id: 47, level: "EMT", category: "Primary Assessment",
+    text: "A trauma patient is alert but has rapid breathing and anxiety. You should first check:",
+    options: ["Their food allergies first", "Breathing adequacy and chest rise (not just rate)", "The patient's credit card", "Full abdominal history"],
+    correctIndex: 1,
+    explanation: "Rate alone can be misleading; assess depth, effort, and symmetry."
+  },
+  {
+    id: 48, level: "EMT", category: "Primary Assessment",
+    text: "An adult has a pulse but is unresponsive with vomit in the mouth. First action is to:",
+    options: ["Give aspirin", "Ask OPQRST questions", "Suction and position to protect the airway", "Start a traction splint"],
+    correctIndex: 2,
+    explanation: "Airway clearing is priority to prevent aspiration."
+  },
+  {
+    id: 49, level: "EMT", category: "Primary Assessment",
+    text: "During a primary assessment, a patient with absent breath sounds on one side after trauma suggests:",
+    options: ["A sprained ankle", "A normal finding", "Only a mild cough", "A serious chest injury requiring rapid transport and ALS"],
+    correctIndex: 3,
+    explanation: "Unilateral absent sounds after trauma can indicate pneumothorax/hemothorax."
+  },
+  {
+    id: 50, level: "EMT", category: "Primary Assessment",
+    text: "In the primary assessment, you find a patient with severe respiratory distress and altered mental status. This patient is:",
+    options: ["Not transportable", "High priority for rapid transport", "Stable because they are talking", "Low priority because they are awake"],
+    correctIndex: 1,
+    explanation: "Respiratory failure signs require rapid transport/ALS."
+  },
+  {
+    id: 51, level: "EMT", category: "Primary Assessment",
+    text: "A patient’s respirations are fast and deep after exertion, and they can speak normally. This is most consistent with:",
+    options: ["Apnea", "Hyperventilation from exertion/anxiety (still assess for other causes)", "Cardiac arrest", "Complete airway obstruction"],
+    correctIndex: 1,
+    explanation: "Speaking normally suggests airway is open; still evaluate for medical causes."
+  },
+  {
+    id: 52, level: "EMT", category: "Primary Assessment",
+    text: "In a trauma patient, the purpose of spinal motion restriction is to:",
+    options: ["Treat pain directly", "Minimize movement in patients at risk of spine injury", "Stop internal bleeding", "Replace oxygen therapy"],
+    correctIndex: 1,
+    explanation: "Spinal motion restriction reduces movement, not a treatment for bleeding/pain."
+  },
+  {
+    id: 53, level: "EMT", category: "Primary Assessment",
+    text: "A patient with suspected opioid overdose is breathing 4/min and has a pulse. Priority is:",
+    options: ["Wait for police", "Give aspirin", "Ventilations with BVM and oxygen", "Give naloxone first without ventilating"],
+    correctIndex: 2,
+    explanation: "Oxygenation/ventilation is the immediate lifesaving intervention."
+  },
+  {
+    id: 54, level: "EMT", category: "Primary Assessment",
+    text: "A patient's airway is clear, breathing is adequate, but they have uncontrolled arterial bleeding. You should:",
+    options: ["Take a temperature", "Control the bleeding immediately", "Apply oxygen and ignore bleeding", "Start a full head-to-toe exam"],
+    correctIndex: 1,
+    explanation: "Hemorrhage can rapidly cause shock; control it immediately."
+  },
+  {
+    id: 55, level: "EMT", category: "Primary Assessment",
+    text: "A patient is found hanging and has weak pulse and agonal respirations. Next step is to:",
+    options: ["Begin ventilations and follow resuscitation protocol (and request ALS)", "Assume death and do nothing", "Delay care for police report", "Give oral glucose"],
+    correctIndex: 0,
+    explanation: "Agonal respirations are ineffective; support airway/ventilations promptly."
+  },
+  {
+    id: 56, level: "EMT", category: "Primary Assessment",
+    text: "A patient is pale and diaphoretic with chest pain. In primary assessment, the most concerning finding is:",
+    options: ["A mild headache", "Normal skin color", "Altered mental status or hypotension", "Pain only"],
+    correctIndex: 2,
+    explanation: "Signs of poor perfusion (AMS, hypotension) indicate instability."
+  },
+  {
+    id: 57, level: "EMT", category: "Primary Assessment",
+    text: "When assessing breathing, the best method is to:",
+    options: ["Assess bowel sounds", "Count pulse only", "Look, listen, and feel for airflow and chest rise", "Check pupils"],
+    correctIndex: 2,
+    explanation: "Breathing assessment includes rate, depth, effort, and chest rise."
+  },
+  {
+    id: 58, level: "EMT", category: "Primary Assessment",
+    text: "A patient has a weak radial pulse at 130 and is cool and clammy. This indicates:",
+    options: ["Possible shock requiring rapid transport", "Normal athletic response", "Only dehydration without concern", "Hypertension crisis"],
+    correctIndex: 0,
+    explanation: "Tachycardia with poor skin signs suggests inadequate perfusion."
+  },
+  {
+    id: 59, level: "EMT", category: "Primary Assessment",
+    text: "A patient is alert but has severe facial burns and singed nasal hair. You should anticipate:",
+    options: ["Only a minor injury", "Immediate need for aspirin", "Airway swelling and early airway compromise (request ALS)", "No airway risk"],
+    correctIndex: 2,
+    explanation: "Inhalation injury can cause rapid edema; anticipate airway problems and transport."
+  },
+  {
+    id: 60, level: "EMT", category: "Primary Assessment",
+    text: "A patient has chest trauma and paradoxical chest movement. This suggests:",
+    options: ["Normal breathing pattern", "Flail chest and need for oxygen/ventilatory support", "Isolated ankle injury", "Simple rib bruise only"],
+    correctIndex: 1,
+    explanation: "Paradoxical motion indicates flail segment; support breathing and rapid transport."
   },
 
   // 3. Secondary Assessment
   {
-    id: 103, level: "EMT", category: "Secondary Assessment",
-    text: "During your physical exam, you note a 'crunching' sound when palpating the patient's neck. This is known as:",
-    options: ["Subcutaneous Emphysema", "Tracheal Deviation", "Jugular Vein Distention", "Stridor"],
+    id: 61, level: "EMT", category: "Secondary Assessment",
+    text: "In OPQRST, the letter 'P' asks about:",
+    options: ["Pulse quality", "Provocation/Palliation (what makes it better or worse)", "Past medical history", "Perforation risk"],
+    correctIndex: 1,
+    explanation: "OPQRST helps characterize pain; P is provocation/palliation."
+  },
+  {
+    id: 62, level: "EMT", category: "Secondary Assessment",
+    text: "In SAMPLE history, 'L' stands for:",
+    options: ["Last oral intake", "Lung sounds", "Location of pain", "Level of consciousness"],
     correctIndex: 0,
-    explanation: "Subcutaneous emphysema feels like 'Rice Krispies' under the skin and indicates air escaping from the airway or lungs into the soft tissue."
+    explanation: "SAMPLE: Signs/Symptoms, Allergies, Meds, Past history, Last oral intake, Events."
+  },
+  {
+    id: 63, level: "EMT", category: "Secondary Assessment",
+    text: "Crackles (rales) heard in both lungs are most associated with:",
+    options: ["Upper airway obstruction", "Fluid in the alveoli (e.g., CHF/pulmonary edema)", "Dehydration", "Bronchospasm only"],
+    correctIndex: 1,
+    explanation: "Crackles suggest fluid; wheezes suggest bronchospasm; stridor is upper airway."
+  },
+  {
+    id: 64, level: "EMT", category: "Secondary Assessment",
+    text: "Wheezing is most commonly caused by:",
+    options: ["Collapsed lung always", "Bronchospasm in the lower airways", "Nasal congestion", "Fluid overload only"],
+    correctIndex: 1,
+    explanation: "Wheezes are musical sounds from narrowed lower airways."
+  },
+  {
+    id: 65, level: "EMT", category: "Secondary Assessment",
+    text: "A high-pitched sound heard on inhalation over the neck is called:",
+    options: ["Rhonchi", "Stridor", "Gurgling", "Crackles"],
+    correctIndex: 1,
+    explanation: "Stridor indicates upper-airway narrowing and can be life-threatening."
+  },
+  {
+    id: 66, level: "EMT", category: "Secondary Assessment",
+    text: "'Rice Krispies' feeling under the skin after chest trauma is called:",
+    options: ["Subcutaneous emphysema", "JVD", "Crepitus from arthritis", "Ecchymosis"],
+    correctIndex: 0,
+    explanation: "Air in subcutaneous tissue feels crackly and suggests air leak."
+  },
+  {
+    id: 67, level: "EMT", category: "Secondary Assessment",
+    text: "Unequal pupils after head trauma may indicate:",
+    options: ["Normal aging", "Brain injury/increased intracranial pressure", "Simple dehydration", "Only hypoglycemia"],
+    correctIndex: 1,
+    explanation: "Pupil changes can be a sign of serious head injury or herniation."
+  },
+  {
+    id: 68, level: "EMT", category: "Secondary Assessment",
+    text: "Battle's sign and raccoon eyes suggest:",
+    options: ["Pulmonary edema", "Basilar skull fracture", "Simple nasal fracture only", "Abdominal bleeding"],
+    correctIndex: 1,
+    explanation: "These signs indicate skull base fracture and require careful handling."
+  },
+  {
+    id: 69, level: "EMT", category: "Secondary Assessment",
+    text: "Jugular vein distention with hypotension after trauma is most consistent with:",
+    options: ["Simple dehydration", "Obstructive shock (e.g., tension pneumothorax/cardiac tamponade)", "Neurogenic shock", "Heat exhaustion"],
+    correctIndex: 1,
+    explanation: "JVD + hypotension post-trauma suggests obstructive causes."
+  },
+  {
+    id: 70, level: "EMT", category: "Secondary Assessment",
+    text: "Tracheal deviation away from injured side may indicate:",
+    options: ["Stroke", "Asthma attack", "Tension pneumothorax", "Gastritis"],
+    correctIndex: 2,
+    explanation: "Tension pneumothorax can push the trachea away; treat as life threat."
+  },
+  {
+    id: 71, level: "EMT", category: "Secondary Assessment",
+    text: "Pain in the right lower quadrant with rebound tenderness suggests possible:",
+    options: ["Appendicitis", "Asthma", "Sprained wrist", "Stroke"],
+    correctIndex: 0,
+    explanation: "RLQ pain with rebound can indicate peritoneal irritation/appendicitis."
+  },
+  {
+    id: 72, level: "EMT", category: "Secondary Assessment",
+    text: "A patient's pulse is rapid and weak, and skin is cool and clammy. This most likely indicates:",
+    options: ["Compensated shock", "Normal perfusion", "Hyperthermia only", "Hypertension"],
+    correctIndex: 0,
+    explanation: "Tachycardia + poor skin signs suggests shock."
+  },
+  {
+    id: 73, level: "EMT", category: "Secondary Assessment",
+    text: "Capillary refill greater than 2 seconds in a child may indicate:",
+    options: ["Poor perfusion/shock", "High blood sugar", "Normal hydration", "A broken bone only"],
+    correctIndex: 0,
+    explanation: "Delayed cap refill can be a sign of poor circulation in pediatrics."
+  },
+  {
+    id: 74, level: "EMT", category: "Secondary Assessment",
+    text: "A patient with a history of diabetes is altered. During secondary assessment, the best quick test is:",
+    options: ["Check hearing", "Check urine color", "Check blood glucose", "Check dental alignment"],
+    correctIndex: 2,
+    explanation: "Hypoglycemia is reversible and must be ruled out in AMS."
+  },
+  {
+    id: 75, level: "EMT", category: "Secondary Assessment",
+    text: "The term 'DCAP-BTLS' stands for injuries found during:",
+    options: ["Radio report only", "A detailed physical exam", "Medication administration", "Ambulance driving"],
+    correctIndex: 1,
+    explanation: "DCAP-BTLS is a head-to-toe exam tool for trauma assessment."
+  },
+  {
+    id: 76, level: "EMT", category: "Secondary Assessment",
+    text: "If you find deformity and crepitus in a limb, you should suspect:",
+    options: ["A stroke", "A fracture", "A mild sprain only", "Normal finding"],
+    correctIndex: 1,
+    explanation: "Deformity/crepitus after trauma is consistent with fracture."
+  },
+  {
+    id: 77, level: "EMT", category: "Secondary Assessment",
+    text: "A patient's abdomen is rigid and board-like after trauma. This suggests:",
+    options: ["Simple constipation", "Only anxiety", "Possible internal bleeding/peritonitis", "Normal muscle tone"],
+    correctIndex: 2,
+    explanation: "Rigidity indicates irritation/bleeding and is concerning."
+  },
+  {
+    id: 78, level: "EMT", category: "Secondary Assessment",
+    text: "Kussmaul respirations (deep, rapid) are most associated with:",
+    options: ["Pulmonary edema only", "Metabolic acidosis (e.g., DKA)", "Opioid overdose", "Stroke only"],
+    correctIndex: 1,
+    explanation: "Kussmaul is compensatory breathing for acidosis."
+  },
+  {
+    id: 79, level: "EMT", category: "Secondary Assessment",
+    text: "A sweet/fruit odor on the breath with polyuria/polydipsia suggests:",
+    options: ["Heart attack", "Opioid overdose", "Diabetic ketoacidosis", "Allergic reaction"],
+    correctIndex: 2,
+    explanation: "Fruity breath and dehydration signs point to DKA."
+  },
+  {
+    id: 80, level: "EMT", category: "Secondary Assessment",
+    text: "A patient's skin is warm and flushed early in sepsis. This is described as:",
+    options: ["Cardiogenic shock pattern", "Distributive (septic) shock pattern", "Obstructive shock only", "Normal finding"],
+    correctIndex: 1,
+    explanation: "Early sepsis can present with warm skin and tachycardia before becoming cool."
+  },
+  {
+    id: 81, level: "EMT", category: "Secondary Assessment",
+    text: "In a trauma patient, blood pressure is 90/60 and pulse is 128. This indicates:",
+    options: ["Hypertension emergency", "Possible decompensated shock", "Only pain response", "Normal vital signs"],
+    correctIndex: 1,
+    explanation: "Hypotension with tachycardia in trauma suggests significant shock."
+  },
+  {
+    id: 82, level: "EMT", category: "Secondary Assessment",
+    text: "A patient has pelvic pain after MVC and unstable pelvis. Best action is to:",
+    options: ["Have the patient walk", "Ignore pelvic pain", "Stabilize the pelvis and minimize movement", "Rock the pelvis repeatedly"],
+    correctIndex: 2,
+    explanation: "Pelvic fractures can bleed massively; stabilize and avoid repeated manipulation."
+  },
+  {
+    id: 83, level: "EMT", category: "Secondary Assessment",
+    text: "A patient has wheezing that improves after inhaler use. Your reassessment should include:",
+    options: ["Only pupil size", "Work of breathing and lung sounds", "Only temperature", "Only ankle exam"],
+    correctIndex: 1,
+    explanation: "Always reassess respiratory effort, sounds, and oxygenation after treatment."
+  },
+  {
+    id: 84, level: "EMT", category: "Secondary Assessment",
+    text: "A patient has chest pain that is worse with inspiration and palpation. This is more suggestive of:",
+    options: ["Musculoskeletal pain (still rule out serious causes)", "Stroke", "Anaphylaxis", "STEMI for sure"],
+    correctIndex: 0,
+    explanation: "Pleuritic/reproducible pain is often musculoskeletal, but evaluate for PE/ACS."
+  },
+  {
+    id: 85, level: "EMT", category: "Secondary Assessment",
+    text: "The best way to quantify pain is to use:",
+    options: ["Blood glucose only", "A 0-10 pain scale", "Pupil size only", "Skin color only"],
+    correctIndex: 1,
+    explanation: "Pain scale helps track severity and response to treatment."
+  },
+  {
+    id: 86, level: "EMT", category: "Secondary Assessment",
+    text: "A patient is dizzy on standing and has dry mucous membranes. This suggests:",
+    options: ["Dehydration/hypovolemia", "Basilar skull fracture", "Hypertensive crisis", "Fluid overload"],
+    correctIndex: 0,
+    explanation: "Orthostatic symptoms and dryness point to low volume."
+  },
+  {
+    id: 87, level: "EMT", category: "Secondary Assessment",
+    text: "A patient has sudden severe headache 'worst of life' with vomiting. This could indicate:",
+    options: ["Sprained ankle", "Intracranial hemorrhage", "Simple tension headache only", "Appendicitis"],
+    correctIndex: 1,
+    explanation: "Thunderclap headache can indicate bleeding; treat as a neurologic emergency."
+  },
+  {
+    id: 88, level: "EMT", category: "Secondary Assessment",
+    text: "A patient with COPD has pink, frothy sputum. This is more consistent with:",
+    options: ["Dehydration", "Heat exhaustion", "Pulmonary edema/CHF", "Simple asthma"],
+    correctIndex: 2,
+    explanation: "Pink frothy sputum and crackles suggest pulmonary edema."
+  },
+  {
+    id: 89, level: "EMT", category: "Secondary Assessment",
+    text: "A patient's skin is cyanotic with normal breathing rate. Best interpretation is:",
+    options: ["No problem because rate is normal", "Only anxiety", "Oxygenation problem (assess SpO2 and airway/breathing effort)", "Only high blood pressure"],
+    correctIndex: 2,
+    explanation: "Normal rate does not guarantee adequate oxygenation; assess SpO2 and effort."
+  },
+  {
+    id: 90, level: "EMT", category: "Secondary Assessment",
+    text: "During reassessment, the most important action is to:",
+    options: ["Only document at the end", "Ignore changes if patient is talking", "Only ask new questions", "Repeat vital signs and evaluate response to interventions"],
+    correctIndex: 3,
+    explanation: "Trending vitals and symptoms tells you if your treatment is working."
   },
 
   // 4. Scene Size-Up
   {
-    id: 104, level: "EMT", category: "Scene Size-Up",
-    text: "You are approaching a vehicle accident. You see a diamond-shaped placard with the number '3' on the tanker. You should:",
-    options: ["Approach from upwind and uphill", "Approach to read the specific ID number", "Begin triage immediately", "Park the ambulance 50 feet away"],
+    id: 91, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive at a crash and see downed power lines on the vehicle. You should:",
+    options: ["Stage at a safe distance and wait for the utility company/fire", "Approach to assess the patient immediately", "Touch the line with a tool to move it", "Park under the lines to block traffic"],
     correctIndex: 0,
-    explanation: "A placard indicates hazardous materials. You must always stay upwind and uphill until the scene is declared safe by HazMat."
+    explanation: "Downed lines can energize the car/ground; keep clear until scene is secured."
+  },
+  {
+    id: 92, level: "EMT", category: "Scene Size-Up",
+    text: "At a scene, you smell gasoline and see a leak. Best action is to:",
+    options: ["Move to a safe area and request fire/rescue", "Ignore it if no flames", "Use a flare near the leak", "Start the engine to move the car"],
+    correctIndex: 0,
+    explanation: "Fuel vapors are explosive; control hazards and request appropriate resources."
+  },
+  {
+    id: 93, level: "EMT", category: "Scene Size-Up",
+    text: "You see a HazMat placard with a flame symbol and number 3. You should:",
+    options: ["Park 50 feet away on the downhill side", "Approach from upwind/uphill and wait for HazMat", "Enter to rescue immediately without PPE", "Walk closer to read the UN number"],
+    correctIndex: 1,
+    explanation: "HazMat scenes require distance and safe approach; stay upwind and uphill."
+  },
+  {
+    id: 94, level: "EMT", category: "Scene Size-Up",
+    text: "A patient is lying in a pool of unknown chemicals. You should first:",
+    options: ["Drag the patient out bare-handed", "Ventilate with BVM while kneeling in the liquid", "Avoid contact and request HazMat/decon", "Taste the substance"],
+    correctIndex: 2,
+    explanation: "Prevent responder contamination; scene safety first."
+  },
+  {
+    id: 95, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive at a shooting scene and the suspect location is unknown. You should:",
+    options: ["Stage and wait for law enforcement to secure the scene", "Enter quickly to start care", "Turn on sirens and approach the victim", "Pick up shell casings to clear the area"],
+    correctIndex: 0,
+    explanation: "An unsecured violent scene is unsafe; wait for law enforcement."
+  },
+  {
+    id: 96, level: "EMT", category: "Scene Size-Up",
+    text: "You respond to a house with possible carbon monoxide exposure. Best initial step is to:",
+    options: ["Use an open flame to 'test' air", "Ensure your crew safety and ventilate/evacuate if indicated", "Ignore CO if patient is awake", "Enter and stay inside to gather history"],
+    correctIndex: 1,
+    explanation: "CO is odorless and deadly; protect yourself and move patients to fresh air."
+  },
+  {
+    id: 97, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive at a multi-vehicle collision with 8 patients. Your first action is to:",
+    options: ["Request additional resources and begin triage", "Transport the least injured first", "Start a full head-to-toe on the first patient you see", "Wait for families to arrive"],
+    correctIndex: 0,
+    explanation: "Multiple patients require early resource request and triage."
+  },
+  {
+    id: 98, level: "EMT", category: "Scene Size-Up",
+    text: "A bystander states a patient fell 20 feet. This is most important for determining:",
+    options: ["Mechanism of injury and potential severity", "Preferred hospital", "Patient's insurance", "Medication allergies"],
+    correctIndex: 0,
+    explanation: "MOI guides suspicion for internal injury and need for rapid transport."
+  },
+  {
+    id: 99, level: "EMT", category: "Scene Size-Up",
+    text: "At an MVC, airbags deployed and the steering wheel is bent. This suggests:",
+    options: ["Only ankle injury risk", "Significant force and possible chest injury", "Low-speed minor injury only", "No injury risk"],
+    correctIndex: 1,
+    explanation: "Vehicle deformity indicates significant energy transfer and higher injury risk."
+  },
+  {
+    id: 100, level: "EMT", category: "Scene Size-Up",
+    text: "When arriving to a scene, the best way to prevent infection is:",
+    options: ["Use BSI/PPE based on exposure risk", "Reuse dirty gloves to save time", "Only wash hands after the call", "Skip gloves if patient looks clean"],
+    correctIndex: 0,
+    explanation: "BSI precautions reduce exposure to blood/body fluids."
+  },
+  {
+    id: 101, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive at a scene with an aggressive dog. Best action is to:",
+    options: ["Throw equipment at the dog", "Ensure scene safety and request animal control/law enforcement if needed", "Approach and try to pet the dog", "Ignore the dog and enter anyway"],
+    correctIndex: 1,
+    explanation: "Aggressive animals are a scene hazard; manage before patient contact."
+  },
+  {
+    id: 102, level: "EMT", category: "Scene Size-Up",
+    text: "On arrival, you see two vehicles and one patient walking around. Your first step is to:",
+    options: ["Move vehicles before counting patients", "Begin detailed assessment immediately", "Assume only one patient", "Determine number of patients and request needed resources"],
+    correctIndex: 3,
+    explanation: "Scene size-up includes number of patients and additional help."
+  },
+  {
+    id: 103, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive at a fall scene in a cluttered bathroom with water on the floor. You should:",
+    options: ["Ignore the slippery floor", "Identify hazards and make the area safe before patient movement", "Run into the room quickly", "Turn off lights to calm patient"],
+    correctIndex: 1,
+    explanation: "Prevent rescuer injury; address environmental hazards first."
+  },
+  {
+    id: 104, level: "EMT", category: "Scene Size-Up",
+    text: "A patient is trapped in a vehicle with smoke in the cabin. Best action is to:",
+    options: ["Request fire/rescue for extrication and manage airway once safe", "Use a lighter for visibility", "Enter through smoke without protection", "Wait in the ambulance without calling for help"],
+    correctIndex: 0,
+    explanation: "Fire/extrication resources are needed; safety first."
+  },
+  {
+    id: 105, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive to find a patient on a ladder that is unstable. You should:",
+    options: ["Tell the patient to jump", "Stabilize the scene and request rescue resources before access", "Shake the ladder to test it", "Climb quickly with equipment"],
+    correctIndex: 1,
+    explanation: "Prevent secondary injury; ensure safe access."
+  },
+  {
+    id: 106, level: "EMT", category: "Scene Size-Up",
+    text: "At a construction site, a patient is near moving machinery. You should:",
+    options: ["Stop the machinery and secure the scene if possible", "Stand in the blind spot of equipment", "Ignore workers' warnings", "Treat the patient while machinery runs"],
+    correctIndex: 0,
+    explanation: "Moving machinery is a major hazard; secure the area."
+  },
+  {
+    id: 107, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive and see a patient with severe bleeding while traffic is flowing nearby. First step is to:",
+    options: ["Walk into traffic to reach patient", "Protect the scene (traffic control) and request additional help", "Ignore traffic and treat", "Park in the travel lane without cones"],
+    correctIndex: 1,
+    explanation: "Traffic is a common EMS hazard; scene safety and visibility are critical."
+  },
+  {
+    id: 108, level: "EMT", category: "Scene Size-Up",
+    text: "A call comes in for an unconscious person in an apartment with drug paraphernalia visible. Your scene size-up should include:",
+    options: ["Letting bystanders dispose of evidence", "Refusing to enter ever", "Awareness of possible needles and law enforcement needs", "Ignoring needle risk"],
+    correctIndex: 2,
+    explanation: "Sharps risk and scene security are considerations; use PPE and request help if needed."
+  },
+  {
+    id: 109, level: "EMT", category: "Scene Size-Up",
+    text: "At an MCI, the first operational goal is to:",
+    options: ["Transport without triage", "Establish incident command and organize triage/treatment/transport", "Treat the first patient you touch only", "Wait for hospital direction"],
+    correctIndex: 1,
+    explanation: "ICS organizes resources and improves outcomes in MCIs."
+  },
+  {
+    id: 110, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive to a patient collapsed in a warehouse with strong chemical odor. Best initial action is to:",
+    options: ["Hold your breath and go in", "Stage and request HazMat; do not enter the hot zone", "Enter quickly with a surgical mask", "Send a bystander to rescue"],
+    correctIndex: 1,
+    explanation: "Do not enter unknown hazardous atmospheres; use HazMat protocols."
+  },
+  {
+    id: 111, level: "EMT", category: "Scene Size-Up",
+    text: "At a scene, bystanders are crowding and filming, interfering with care. Best action is to:",
+    options: ["Request law enforcement assistance and establish a safe work area", "Confiscate phones", "Ignore and continue without control", "Argue with the crowd while delaying care"],
+    correctIndex: 0,
+    explanation: "Scene control improves safety and patient care; involve law enforcement as needed."
+  },
+  {
+    id: 112, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive to a pediatric call and a parent is hysterical. Scene size-up priority is to:",
+    options: ["Tell the parent to leave or you won't treat", "Maintain calm communication and ensure a safe, controlled environment", "Ignore the parent completely", "Delay care until parent calms down alone"],
+    correctIndex: 1,
+    explanation: "Effective scene control includes communication to reduce chaos."
+  },
+  {
+    id: 113, level: "EMT", category: "Scene Size-Up",
+    text: "At a vehicle crash, you notice an undeployed airbag and the patient is still in the seat. You should:",
+    options: ["Cut the airbag open", "Disable the car by pulling random wires", "Avoid the airbag deployment zone during care/extrication", "Lean directly over the airbag"],
+    correctIndex: 2,
+    explanation: "Undeployed airbags can deploy and injure responders/patients."
+  },
+  {
+    id: 114, level: "EMT", category: "Scene Size-Up",
+    text: "A patient fell and may have neck pain. During scene size-up, you should consider:",
+    options: ["Only assessing the ankle", "Spinal precautions based on MOI and findings", "Ignoring c-spine because they're awake", "Transporting without assessment"],
+    correctIndex: 1,
+    explanation: "MOI and symptoms guide need for spinal motion restriction."
+  },
+  {
+    id: 115, level: "EMT", category: "Scene Size-Up",
+    text: "At a motor vehicle crash, there is broken glass and sharp metal. Best PPE addition is:",
+    options: ["Eye protection and heavy gloves as needed", "Only a cloth mask", "No PPE needed", "Open-toed shoes"],
+    correctIndex: 0,
+    explanation: "Protect against sharps and body fluids with appropriate PPE."
+  },
+  {
+    id: 116, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive to a home with hoarding conditions and narrow pathways. Best action is to:",
+    options: ["Plan safe egress/extrication and request additional help early", "Force a path quickly without planning", "Ignore the environment", "Carry the patient alone"],
+    correctIndex: 0,
+    explanation: "Difficult access requires planning and more resources for safe movement."
+  },
+  {
+    id: 117, level: "EMT", category: "Scene Size-Up",
+    text: "A patient is found at a party with multiple intoxicated people and escalating conflict. You should:",
+    options: ["Request law enforcement and stage until scene is safe", "Ignore the risk because it's medical", "Enter alone to take control", "Argue with intoxicated people"],
+    correctIndex: 0,
+    explanation: "Potential violence is a safety threat; wait for scene security."
+  },
+  {
+    id: 118, level: "EMT", category: "Scene Size-Up",
+    text: "At a scene with suspected child abuse, EMS should:",
+    options: ["Provide care and document objective findings; report per law/protocol", "Ignore findings to avoid conflict", "Confront the caregiver aggressively", "Only tell friends"],
+    correctIndex: 0,
+    explanation: "Mandatory reporting and objective documentation are required."
+  },
+  {
+    id: 119, level: "EMT", category: "Scene Size-Up",
+    text: "A patient collapses at a pool. During scene size-up, the most important immediate environmental concern is:",
+    options: ["Taking photos of the scene", "Water safety and safe access (avoid becoming a victim)", "Asking about insurance first", "Waiting for the lifeguard if patient is pulseless"],
+    correctIndex: 1,
+    explanation: "Rescuer safety and safe access are first; then rapid rescue and care."
+  },
+  {
+    id: 120, level: "EMT", category: "Scene Size-Up",
+    text: "You arrive at a farm and a patient is near a running grain auger. Your first action is to:",
+    options: ["Ignore the machinery because it's outdoors", "Shut down equipment and secure the scene before approach", "Reach in to pull the patient out", "Climb on equipment while it runs"],
+    correctIndex: 1,
+    explanation: "Farm machinery can entrap and amputate; stop hazards before contact."
   },
 
   // 5. EMS Operations
   {
-    id: 105, level: "EMT", category: "EMS Operations",
-    text: "Which of the following creates the highest risk of legal liability for an EMS provider?",
-    options: ["Patient Refusal of Care", "Vehicle accidents", "Medication errors", "HIPAA violations"],
+    id: 121, level: "EMT", category: "EMS Operations",
+    text: "A competent adult refuses transport after you explain risks. To reduce liability, you should:",
+    options: ["Leave without documentation", "Document the refusal, have a witness sign, and offer to call back if symptoms worsen", "Threaten arrest to force transport", "Take the patient's belongings as collateral"],
+    correctIndex: 1,
+    explanation: "Proper refusal includes capacity, informed decision, documentation, and witnesses."
+  },
+  {
+    id: 122, level: "EMT", category: "EMS Operations",
+    text: "Leaving a patient after starting care without equal or higher-level care taking over is called:",
+    options: ["Negligence", "Abandonment", "Assault", "Slander"],
+    correctIndex: 1,
+    explanation: "Abandonment is terminating care without ensuring continued care."
+  },
+  {
+    id: 123, level: "EMT", category: "EMS Operations",
+    text: "Providing care without consent to a competent adult can be considered:",
+    options: ["Negligence only", "Battery", "Defamation", "Duty to act"],
+    correctIndex: 1,
+    explanation: "Battery is unlawful physical contact; consent is required unless implied/unconscious."
+  },
+  {
+    id: 124, level: "EMT", category: "EMS Operations",
+    text: "Threatening a patient with harm to gain compliance is:",
+    options: ["Battery", "Assault", "Scope of practice", "Abandonment"],
+    correctIndex: 1,
+    explanation: "Assault is threat of harm; battery is actual contact."
+  },
+  {
+    id: 125, level: "EMT", category: "EMS Operations",
+    text: "Failing to act as a reasonable EMT would under similar circumstances is:",
+    options: ["Libel", "Negligence", "Good Samaritan", "Emancipation"],
+    correctIndex: 1,
+    explanation: "Negligence is breach of duty that results in harm."
+  },
+  {
+    id: 126, level: "EMT", category: "EMS Operations",
+    text: "The most important reason for thorough documentation is:",
+    options: ["It makes the call shorter", "It replaces patient assessment", "It is the legal record of your assessment and care", "It guarantees no lawsuits"],
+    correctIndex: 2,
+    explanation: "PCRs are legal documents; accurate objective charting matters."
+  },
+  {
+    id: 127, level: "EMT", category: "EMS Operations",
+    text: "You should use radio communications primarily to:",
+    options: ["Request resources and give concise patient reports", "Discuss gossip about the patient", "Debate protocols on air", "Share patient's social security number"],
     correctIndex: 0,
-    explanation: "Patient refusals constitute the highest liability risk because you are leaving a potentially sick or injured person on scene without care."
+    explanation: "Radio should be professional, concise, and protect privacy."
+  },
+  {
+    id: 128, level: "EMT", category: "EMS Operations",
+    text: "A patient's protected health information should be shared only:",
+    options: ["With family without permission always", "With those directly involved in care or as required by law", "On social media if no name is used", "With any bystander who asks"],
+    correctIndex: 1,
+    explanation: "HIPAA requires limiting disclosure to necessary parties."
+  },
+  {
+    id: 129, level: "EMT", category: "EMS Operations",
+    text: "Standard Precautions means you treat all blood/body fluids as:",
+    options: ["Not infectious if the patient is family", "Safe if it looks clean", "Potentially infectious", "Only infectious if the patient has HIV"],
+    correctIndex: 2,
+    explanation: "Assume infectious risk and use PPE appropriately."
+  },
+  {
+    id: 130, level: "EMT", category: "EMS Operations",
+    text: "The most effective way to prevent infection spread is:",
+    options: ["Skipping cleaning if you're busy", "Hand hygiene", "Only using perfume", "Wearing two pairs of boots"],
+    correctIndex: 1,
+    explanation: "Handwashing/hand sanitizer is the cornerstone of infection control."
+  },
+  {
+    id: 131, level: "EMT", category: "EMS Operations",
+    text: "When moving a patient, the best technique is to:",
+    options: ["Lift with your legs and keep the load close", "Lift with a rounded back", "Twist at the waist while lifting", "Lift and rotate quickly"],
+    correctIndex: 0,
+    explanation: "Proper body mechanics reduce back injury risk."
+  },
+  {
+    id: 132, level: "EMT", category: "EMS Operations",
+    text: "The safest method to back an ambulance is to:",
+    options: ["Use a spotter when available", "Back quickly to save time", "Rely only on mirrors", "Turn off backup alarm"],
+    correctIndex: 0,
+    explanation: "Spotters reduce backing collisions and injuries."
+  },
+  {
+    id: 133, level: "EMT", category: "EMS Operations",
+    text: "At intersections, an ambulance operating with lights/siren should:",
+    options: ["Proceed without slowing", "Assume other drivers will stop", "Come to a complete stop and proceed when clear", "Turn off headlights"],
+    correctIndex: 2,
+    explanation: "Due regard is required; intersections are high-risk."
+  },
+  {
+    id: 134, level: "EMT", category: "EMS Operations",
+    text: "A DNR order means EMS should:",
+    options: ["Only provide CPR without defibrillation", "Withhold all care", "Follow local protocol and verify the document before withholding resuscitation", "Ignore it always"],
+    correctIndex: 2,
+    explanation: "DNR affects resuscitation, not comfort care; verify validity and follow protocol."
+  },
+  {
+    id: 135, level: "EMT", category: "EMS Operations",
+    text: "A patient is a minor but is married and living independently. This is an example of:",
+    options: ["Implied consent only", "Emancipated minor (can consent)", "Involuntary commitment", "Abandonment"],
+    correctIndex: 1,
+    explanation: "Emancipated minors can usually consent to care."
+  },
+  {
+    id: 136, level: "EMT", category: "EMS Operations",
+    text: "Implied consent applies when a patient is:",
+    options: ["Only mildly anxious", "Unconscious or unable to make decisions in an emergency", "Asking questions", "Refusing care clearly"],
+    correctIndex: 1,
+    explanation: "In emergencies, consent is presumed to save life/limb."
+  },
+  {
+    id: 137, level: "EMT", category: "EMS Operations",
+    text: "You find evidence of elder abuse. You should:",
+    options: ["Post about it online", "Report per law/protocol and document objective findings", "Confront the suspected abuser aggressively", "Ignore it to avoid conflict"],
+    correctIndex: 1,
+    explanation: "Mandatory reporting and objective documentation are required."
+  },
+  {
+    id: 138, level: "EMT", category: "EMS Operations",
+    text: "The best example of objective documentation is:",
+    options: ["'Skin pale and diaphoretic; radial pulse 124, weak'", "'Looks fine to me'", "'Patient is faking'", "'Patient is a jerk'"],
+    correctIndex: 0,
+    explanation: "Chart measurable findings, not opinions."
+  },
+  {
+    id: 139, level: "EMT", category: "EMS Operations",
+    text: "A patient's refusal is valid only if they have:",
+    options: ["No family present", "Decision-making capacity (alert, understands risks/benefits)", "A signed insurance card", "A low pain score"],
+    correctIndex: 1,
+    explanation: "Capacity and informed understanding are essential for refusal."
+  },
+  {
+    id: 140, level: "EMT", category: "EMS Operations",
+    text: "If you make an error in a PCR, you should:",
+    options: ["Follow agency policy (single line, initial/date, no erasing)", "White-out the mistake", "Rewrite without noting change", "Delete the entire report"],
+    correctIndex: 0,
+    explanation: "Maintain integrity of the legal record; never obscure entries."
+  },
+  {
+    id: 141, level: "EMT", category: "EMS Operations",
+    text: "The primary purpose of triage in an MCI is to:",
+    options: ["Do the greatest good for the greatest number", "Guarantee everyone survives", "Treat the first patient you see", "Transport the most injured last"],
+    correctIndex: 0,
+    explanation: "Triage prioritizes resources to maximize overall survival."
+  },
+  {
+    id: 142, level: "EMT", category: "EMS Operations",
+    text: "The START triage method uses which key assessment?",
+    options: ["Temperature only", "Respirations, perfusion, and mental status", "ECG rhythm only", "Blood glucose, pupils, pain score"],
+    correctIndex: 1,
+    explanation: "START quickly categorizes based on RPM."
+  },
+  {
+    id: 143, level: "EMT", category: "EMS Operations",
+    text: "If a patient is infectious and coughing, the best mask choice for the patient is:",
+    options: ["A surgical mask on the patient (source control)", "A cloth scarf only", "No mask needed", "N95 on the patient only"],
+    correctIndex: 0,
+    explanation: "Source control reduces droplet spread; responders use appropriate PPE."
+  },
+  {
+    id: 144, level: "EMT", category: "EMS Operations",
+    text: "To reduce risk of needlestick injury, you should:",
+    options: ["Never recap needles and dispose in sharps container immediately", "Carry needles in pockets", "Break needles before disposal", "Recap needles carefully"],
+    correctIndex: 0,
+    explanation: "Use sharps safety practices to prevent exposure."
+  },
+  {
+    id: 145, level: "EMT", category: "EMS Operations",
+    text: "When lifting a stretcher with a partner, you should:",
+    options: ["Coordinate commands and lift together", "Twist while lifting", "Rush without communication", "Lift independently at different times"],
+    correctIndex: 0,
+    explanation: "Team communication prevents drops and injuries."
+  },
+  {
+    id: 146, level: "EMT", category: "EMS Operations",
+    text: "A quality patient handoff should include:",
+    options: ["A long unrelated story", "Chief complaint, pertinent findings, treatment, and response", "Only the patient's name", "No vital signs"],
+    correctIndex: 1,
+    explanation: "Concise handoff improves continuity of care."
+  },
+  {
+    id: 147, level: "EMT", category: "EMS Operations",
+    text: "If you witness a coworker diverting controlled substances, you should:",
+    options: ["Report through appropriate chain of command per policy", "Tell the patient", "Ignore it to avoid conflict", "Confront them on social media"],
+    correctIndex: 0,
+    explanation: "Diversion is serious and must be reported through proper channels."
+  },
+  {
+    id: 148, level: "EMT", category: "EMS Operations",
+    text: "When transporting a patient, the single most important safety device is:",
+    options: ["Seat belts/restraints for everyone", "Siren volume", "Extra oxygen tanks", "A larger radio"],
+    correctIndex: 0,
+    explanation: "Restraints prevent injury in crashes; use them consistently."
+  },
+  {
+    id: 149, level: "EMT", category: "EMS Operations",
+    text: "A patient's care report should be completed:",
+    options: ["As soon as possible after the call with accurate times and findings", "Only if the patient complains", "Weeks later from memory", "Only if you gave medication"],
+    correctIndex: 0,
+    explanation: "Timely documentation improves accuracy and legal defensibility."
+  },
+  {
+    id: 150, level: "EMT", category: "EMS Operations",
+    text: "Medical direction given in advance through protocols is called:",
+    options: ["Standing orders", "On-line orders only", "Abandonment", "Triage tags"],
+    correctIndex: 0,
+    explanation: "Standing orders allow treatment per written protocol when criteria are met."
   },
 
   // ================= PARAMEDIC CATEGORIES =================
-
   // 1. Clinical Judgment
   {
-    id: 201, level: "Paramedic", category: "Clinical Judgment",
-    text: "A patient with a history of CHF presents with rales and hypertension (210/110). They are hypoxic. First-line respiratory intervention is:",
-    options: ["CPAP", "Intubation", "Nebulized Albuterol", "Bag-Valve Mask"],
+    id: 151, level: "Paramedic", category: "Clinical Judgment",
+    text: "A febrile patient is hypotensive (82/48), tachycardic, and has warm flushed skin early on. Most likely shock type is:",
+    options: ["Septic (distributive) shock", "Obstructive shock from tamponade", "Cardiogenic shock", "Hypovolemic shock from hemorrhage"],
     correctIndex: 0,
-    explanation: "CPAP is the gold standard for acute pulmonary edema in conscious patients. It pushes fluid out of the alveoli and reduces preload."
+    explanation: "Early sepsis can present warm with hypotension/tachycardia; treat per sepsis protocol."
+  },
+  {
+    id: 152, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient with suspected sepsis has hypotension after fluids. Next best vasoactive support is typically:",
+    options: ["Nitroglycerin drip", "Norepinephrine infusion (per protocol)", "Furosemide bolus", "Adenosine push"],
+    correctIndex: 1,
+    explanation: "If fluid-refractory septic shock, vasopressors like norepinephrine are commonly first-line."
+  },
+  {
+    id: 153, level: "Paramedic", category: "Clinical Judgment",
+    text: "An altered patient is diaphoretic, tachycardic, and has BGL 34 mg/dL. Best immediate treatment is:",
+    options: ["Naloxone first", "IV dextrose (or IM glucagon if no IV) per protocol", "Sodium bicarbonate", "Aspirin"],
+    correctIndex: 1,
+    explanation: "Correct hypoglycemia immediately; it's rapidly reversible and life-threatening."
+  },
+  {
+    id: 154, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient has pinpoint pupils, bradycardia, bronchorrhea, and muscle fasciculations after pesticide exposure. Most likely toxidrome is:",
+    options: ["Organophosphate poisoning", "Anticholinergic toxicity", "Sympathomimetic overdose", "Opioid overdose only"],
+    correctIndex: 0,
+    explanation: "Cholinergic signs (SLUDGE/DUMBELS) suggest organophosphate exposure."
+  },
+  {
+    id: 155, level: "Paramedic", category: "Clinical Judgment",
+    text: "For organophosphate poisoning with severe bronchorrhea, first-line antidotal therapy is:",
+    options: ["Atropine (and pralidoxime if available) per protocol", "Naloxone", "Calcium chloride", "Flumazenil"],
+    correctIndex: 0,
+    explanation: "Atropine dries secretions and improves bradycardia; pralidoxime helps reverse enzyme binding."
+  },
+  {
+    id: 156, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient with TCA overdose has wide QRS and hypotension. Best targeted therapy is:",
+    options: ["Furosemide", "Sodium bicarbonate", "Magnesium sulfate", "Diltiazem"],
+    correctIndex: 1,
+    explanation: "Bicarb narrows QRS and treats sodium-channel blockade in TCA toxicity."
+  },
+  {
+    id: 157, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient with hyperkalemia shows peaked T waves and widening QRS. First action to stabilize the heart is:",
+    options: ["IV calcium (chloride or gluconate) per protocol", "Furosemide only", "Adenosine", "Insulin only without glucose"],
+    correctIndex: 0,
+    explanation: "Calcium stabilizes myocardial membrane before shifting potassium."
+  },
+  {
+    id: 158, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient with DKA is tachypneic with Kussmaul respirations and abdominal pain. The key prehospital priorities are:",
+    options: ["Immediate insulin bolus", "Fluids, airway/ventilation support, and transport", "Diuretics", "Nitroglycerin drip"],
+    correctIndex: 1,
+    explanation: "Prehospital care is supportive; insulin is hospital-based in most systems."
+  },
+  {
+    id: 159, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient with COPD is somnolent with high ETCO2. The best respiratory support is:",
+    options: ["Give furosemide", "Withhold oxygen completely", "Assist ventilation (BVM/vent) and titrate oxygen", "Hyperventilate aggressively"],
+    correctIndex: 2,
+    explanation: "Hypercapnic failure needs ventilatory support; avoid over-oxygenation but do not withhold O2."
+  },
+  {
+    id: 160, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient has severe dyspnea, wheezes, silent chest, and fatigue. This suggests:",
+    options: ["Mild asthma", "Simple anxiety only", "Impending respiratory failure in severe asthma", "Bronchitis without concern"],
+    correctIndex: 2,
+    explanation: "Silent chest with exhaustion is ominous; prepare for ventilation/intubation."
+  },
+  {
+    id: 161, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient has sudden tearing chest pain radiating to the back and unequal BP in arms. Suspect:",
+    options: ["Pericarditis only", "Gastritis", "Aortic dissection", "Stable angina"],
+    correctIndex: 2,
+    explanation: "Tearing pain + pulse/BP differential suggests dissection; avoid thrombolytics."
+  },
+  {
+    id: 162, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient has pleuritic chest pain, tachycardia, and hypoxia after long flight. Suspect:",
+    options: ["Migraine", "Pulmonary embolism", "Appendicitis", "GERD"],
+    correctIndex: 1,
+    explanation: "Risk factors + hypoxia + pleuritic pain suggest PE."
+  },
+  {
+    id: 163, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient is post-ictal after a witnessed seizure, now protecting airway and breathing adequately. Best next step is to:",
+    options: ["Force oral fluids", "Immediately intubate", "Check glucose and look for causes/injury", "Give naloxone to everyone"],
+    correctIndex: 2,
+    explanation: "After stabilization, evaluate reversible causes (e.g., hypoglycemia) and trauma."
+  },
+  {
+    id: 164, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient with suspected stroke has BP 220/120 but no signs of hemorrhage. Prehospital BP goal is generally:",
+    options: ["Avoid aggressive lowering unless per protocol (support ABCs)", "Lower BP to normal immediately", "Give nitroglycerin routinely", "Give furosemide"],
+    correctIndex: 0,
+    explanation: "Over-lowering can reduce cerebral perfusion; follow stroke protocol."
+  },
+  {
+    id: 165, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient is agitated, hyperthermic, tachycardic, and diaphoretic after stimulant use. Best initial management is:",
+    options: ["Active cooling", "Atropine", "Benzodiazepines and active cooling", "Naloxone"],
+    correctIndex: 2,
+    explanation: "Sympathomimetic toxicity responds to benzos, cooling, and supportive care."
+  },
+  {
+    id: 166, level: "Paramedic", category: "Clinical Judgment",
+    text: "A diabetic patient is very dehydrated with BGL 820 and minimal ketones (HHS). Key prehospital priority is:",
+    options: ["Aggressive fluid resuscitation and transport", "Diuretic", "Insulin bolus", "Hyperventilation"],
+    correctIndex: 0,
+    explanation: "HHS is profound dehydration; supportive fluids and rapid transport are key."
+  },
+  {
+    id: 167, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient has sudden severe headache with neck stiffness and photophobia. Concern is for:",
+    options: ["Simple sinus headache", "Asthma", "Subarachnoid hemorrhage/meningitis (treat as emergent)", "Sprained ankle"],
+    correctIndex: 2,
+    explanation: "Life-threatening neuro/infectious causes require urgent transport and monitoring."
+  },
+  {
+    id: 168, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient has crushing chest pain with ST elevation in two contiguous leads. Best destination decision is:",
+    options: ["Transport to PCI-capable facility (STEMI alert) per system", "Treat on scene for 30 minutes", "Nearest clinic always", "Delay transport for repeat vitals only"],
+    correctIndex: 0,
+    explanation: "STEMI systems prioritize rapid reperfusion; early notification improves time-to-balloon."
+  },
+  {
+    id: 169, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient is hypotensive with JVD and muffled heart sounds after stab wound. Suspect:",
+    options: ["Cardiac tamponade", "Septic shock", "Tension pneumothorax only", "Neurogenic shock"],
+    correctIndex: 0,
+    explanation: "Beck's triad suggests tamponade; rapid transport and supportive care."
+  },
+  {
+    id: 170, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient is bradycardic, hypotensive, and has dry skin after diphenhydramine overdose. Toxidrome is:",
+    options: ["Cholinergic toxicity", "Opioid overdose", "Anticholinergic toxicity", "Serotonin syndrome"],
+    correctIndex: 2,
+    explanation: "Anticholinergic: dry, hot, tachy (often), delirium; presentations vary but dryness is key."
+  },
+  {
+    id: 171, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient is on beta-blockers and is bradycardic with hypotension after overdose. Best targeted therapy is often:",
+    options: ["Naloxone", "Glucagon (per protocol)", "Adenosine", "Aspirin"],
+    correctIndex: 1,
+    explanation: "Glucagon can improve heart rate/contractility in beta-blocker toxicity."
+  },
+  {
+    id: 172, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient with suspected MI has chest pain and crackles with low BP. You should avoid:",
+    options: ["Nitroglycerin if hypotensive or RV infarct suspected", "Cardiac monitoring", "Oxygen if hypoxic", "Aspirin if no contraindication"],
+    correctIndex: 0,
+    explanation: "Nitrates can worsen hypotension, especially in RV infarct/low preload states."
+  },
+  {
+    id: 173, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient has sudden onset weakness, facial droop, and speech difficulty. The best prehospital scale to use is:",
+    options: ["FAST/Cincinnati stroke scale", "GCS only", "START triage", "Burn rule of nines"],
+    correctIndex: 0,
+    explanation: "Stroke scales quickly identify candidates for stroke pathways."
+  },
+  {
+    id: 174, level: "Paramedic", category: "Clinical Judgment",
+    text: "A patient has nausea, vomiting, diarrhea, and abdominal cramping after contaminated food, with signs of dehydration. Best management is:",
+    options: ["Supportive care and fluid resuscitation per protocol", "Immediate antibiotics in all cases", "Diuretics", "Nitroglycerin"],
+    correctIndex: 0,
+    explanation: "Most GI illnesses are supportive prehospital; treat dehydration and monitor."
+  },
+  {
+    id: 175, level: "Paramedic", category: "Clinical Judgment",
+    text: "A trauma patient is hypotensive with warm dry skin and bradycardia after spinal injury. Shock type is:",
+    options: ["Neurogenic shock", "Cardiogenic shock", "Hypovolemic shock", "Septic shock"],
+    correctIndex: 0,
+    explanation: "Neurogenic shock can cause hypotension with bradycardia and warm skin."
   },
 
   // 2. Airway
   {
-    id: 202, level: "Paramedic", category: "Airway",
-    text: "You are preparing to intubate a head-injury patient. Which induction agent helps blunt the ICP spike?",
-    options: ["Lidocaine", "Etomidate", "Succinylcholine", "Ketamine"],
+    id: 176, level: "Paramedic", category: "Airway",
+    text: "The most reliable confirmation of endotracheal tube placement in the field is:",
+    options: ["Continuous waveform capnography (ETCO2)", "Fogging in the tube", "Chest rise alone", "Auscultation alone"],
     correctIndex: 0,
-    explanation: "Lidocaine is often used in RSI premedication for head injuries to blunt the rise in Intracranial Pressure (ICP) during laryngoscopy."
+    explanation: "Waveform capnography is the most dependable confirmation and ongoing monitor."
+  },
+  {
+    id: 177, level: "Paramedic", category: "Airway",
+    text: "During RSI, the single most important step to prevent hypoxia is:",
+    options: ["Aggressive preoxygenation and apneic oxygenation", "Skipping BVM even if needed", "Cricoid pressure always", "Giving paralytic before oxygen"],
+    correctIndex: 0,
+    explanation: "Preoxygenation increases oxygen reserve; apneic oxygenation can prolong safe apnea time."
+  },
+  {
+    id: 178, level: "Paramedic", category: "Airway",
+    text: "A head-injury patient is intubated. Ventilation should aim to:",
+    options: ["Maintain normocapnia (avoid hyperventilation) unless herniation signs", "Hypoventilate to raise ETCO2", "Ignore ETCO2 monitoring", "Hyperventilate to ETCO2 20 routinely"],
+    correctIndex: 0,
+    explanation: "Hyperventilation decreases cerebral perfusion; target normal ETCO2 unless impending herniation."
+  },
+  {
+    id: 179, level: "Paramedic", category: "Airway",
+    text: "Which finding suggests impending airway obstruction in an inhalation burn?",
+    options: ["Hoarseness, stridor, and facial burns", "Isolated ankle pain", "Mild headache only", "Normal voice and no soot"],
+    correctIndex: 0,
+    explanation: "Airway edema can progress rapidly; early airway management may be needed."
+  },
+  {
+    id: 180, level: "Paramedic", category: "Airway",
+    text: "In a patient with severe asthma, ventilator strategy should prioritize:",
+    options: ["High respiratory rates", "Allowing longer exhalation time to prevent air trapping", "Zero PEEP always", "Very large tidal volumes"],
+    correctIndex: 1,
+    explanation: "Asthma causes expiratory flow limitation; avoid breath stacking."
+  },
+  {
+    id: 181, level: "Paramedic", category: "Airway",
+    text: "A patient has a difficult airway and cannot be intubated or ventilated. Definitive rescue is:",
+    options: ["Cricothyrotomy (per protocol)", "Chest compressions", "Oropharyngeal airway only", "Nasal cannula"],
+    correctIndex: 0,
+    explanation: "Can't intubate/can't ventilate requires a surgical airway per protocol."
+  },
+  {
+    id: 182, level: "Paramedic", category: "Airway",
+    text: "For rapid sequence intubation, a common induction agent with hemodynamic stability is:",
+    options: ["Etomidate (per protocol)", "Atropine for induction", "Furosemide", "Adenosine"],
+    correctIndex: 0,
+    explanation: "Etomidate is often used for RSI due to rapid onset and relative stability."
+  },
+  {
+    id: 183, level: "Paramedic", category: "Airway",
+    text: "A paralytic contraindicated in hyperkalemia, crush injury, or burns >24 hours is:",
+    options: ["Rocuronium", "Succinylcholine", "Midazolam", "Vecuronium"],
+    correctIndex: 1,
+    explanation: "Succinylcholine can worsen hyperkalemia in these states."
+  },
+  {
+    id: 184, level: "Paramedic", category: "Airway",
+    text: "After intubation, the best device to prevent gastric distention during ventilation is:",
+    options: ["Forcing air quickly", "Skipping oxygen", "Appropriate BVM technique with proper rate/volume", "Higher tidal volumes always"],
+    correctIndex: 2,
+    explanation: "Gentle ventilation at correct rate/volume reduces gastric inflation."
+  },
+  {
+    id: 185, level: "Paramedic", category: "Airway",
+    text: "An OPA is indicated when the patient:",
+    options: ["Is unresponsive and has no gag reflex", "Is awake and vomiting", "Has facial pain but is responsive", "Has intact gag and is alert"],
+    correctIndex: 0,
+    explanation: "OPAs can provoke vomiting/laryngospasm in patients with gag reflex."
+  },
+  {
+    id: 186, level: "Paramedic", category: "Airway",
+    text: "An NPA is relatively contraindicated in:",
+    options: ["Asthma", "Diabetes", "Hypertension", "Suspected basilar skull fracture"],
+    correctIndex: 3,
+    explanation: "Midface trauma/basilar skull fracture increases risk of intracranial placement."
+  },
+  {
+    id: 187, level: "Paramedic", category: "Airway",
+    text: "A patient with an advanced airway has ETCO2 suddenly drop to near zero during CPR. The first concern is:",
+    options: ["Dislodged tube or circuit problem (then consider ROSC/PE)", "Need more sedation", "Give adenosine", "Normal finding"],
+    correctIndex: 0,
+    explanation: "Sudden ETCO2 loss suggests disconnection/dislodgement; troubleshoot immediately."
+  },
+  {
+    id: 188, level: "Paramedic", category: "Airway",
+    text: "Capnography is most useful during CPR because it can:",
+    options: ["Measure blood glucose", "Reflect perfusion/CPR quality and suggest ROSC", "Replace ECG rhythm check", "Diagnose fracture"],
+    correctIndex: 1,
+    explanation: "ETCO2 correlates with cardiac output during CPR; rising ETCO2 may indicate ROSC."
+  },
+  {
+    id: 189, level: "Paramedic", category: "Airway",
+    text: "After intubation, the most appropriate way to secure the tube is:",
+    options: ["Commercial tube holder or tape with documented depth", "Tie with elastic around the neck loosely", "Leave it unsecured", "Hold it by hand only"],
+    correctIndex: 0,
+    explanation: "Securement prevents dislodgement; document depth at teeth/lips."
+  },
+  {
+    id: 190, level: "Paramedic", category: "Airway",
+    text: "A post-intubation patient becomes hypotensive. Best initial action is to:",
+    options: ["Assess for causes and consider fluid/pressor support per protocol", "Remove the tube immediately", "Give diuretics", "Hyperventilate"],
+    correctIndex: 0,
+    explanation: "Intubation/positive pressure can drop preload; treat hypotension and reassess ventilation."
+  },
+  {
+    id: 191, level: "Paramedic", category: "Airway",
+    text: "A patient with suspected opioid overdose is apneic. The best airway sequence is:",
+    options: ["BVM ventilations first, then naloxone per protocol", "Intubate without oxygenation", "CPAP immediately", "Naloxone first without ventilation"],
+    correctIndex: 0,
+    explanation: "Ventilation is immediate lifesaving action; naloxone supports recovery."
+  },
+  {
+    id: 192, level: "Paramedic", category: "Airway",
+    text: "During BVM ventilation with two rescuers, the best technique is:",
+    options: ["Two-hand seal with one provider and ventilations by the other", "Ventilate as fast as possible", "No airway positioning needed", "One-hand seal always"],
+    correctIndex: 0,
+    explanation: "Two-person BVM improves seal and tidal volumes."
+  },
+  {
+    id: 193, level: "Paramedic", category: "Airway",
+    text: "When using a supraglottic airway, ongoing confirmation should include:",
+    options: ["Blood pressure only", "Pulse oximetry only", "Waveform capnography and chest rise", "Tube fogging only"],
+    correctIndex: 2,
+    explanation: "Capnography confirms ventilation; reassess frequently."
+  },
+  {
+    id: 194, level: "Paramedic", category: "Airway",
+    text: "In pediatric patients, the most common cause of airway obstruction is:",
+    options: ["The tongue and soft tissue", "Broken ribs", "Hypertension", "A foreign body always"],
+    correctIndex: 0,
+    explanation: "Pediatric anatomy predisposes to obstruction; positioning/adjuncts matter."
+  },
+  {
+    id: 195, level: "Paramedic", category: "Airway",
+    text: "A child is unresponsive with a pulse and inadequate respirations. The correct ventilation rate is approximately:",
+    options: ["One breath every 10 seconds", "One breath every 1 second", "No breaths needed if pulse present", "One breath every 3-5 seconds (12-20/min) per guidelines"],
+    correctIndex: 3,
+    explanation: "Provide assisted ventilations at pediatric guideline rates."
+  },
+  {
+    id: 196, level: "Paramedic", category: "Airway",
+    text: "If you suspect gastric insufflation during ventilation, you should:",
+    options: ["Remove oxygen", "Slow the rate and use just enough volume for chest rise", "Stop ventilation completely", "Increase rate and volume"],
+    correctIndex: 1,
+    explanation: "Over-ventilation forces air into the stomach; ventilate gently."
+  },
+  {
+    id: 197, level: "Paramedic", category: "Airway",
+    text: "A patient has stridor and cannot speak after an allergic reaction. Best airway priority is to:",
+    options: ["Treat anaphylaxis and prepare for a difficult airway", "Insert an OPA while awake", "Force oral fluids", "Give aspirin and wait"],
+    correctIndex: 0,
+    explanation: "Upper-airway edema can progress quickly; treat and anticipate advanced airway needs."
+  },
+  {
+    id: 198, level: "Paramedic", category: "Airway",
+    text: "For preoxygenation in RSI, the best method is often:",
+    options: ["High-flow oxygen with BVM/NRB and PEEP if tolerated", "No oxygen until drugs given", "Room air only", "Low-flow nasal cannula only"],
+    correctIndex: 0,
+    explanation: "Maximizing oxygen reserve reduces desaturation during apnea."
+  },
+  {
+    id: 199, level: "Paramedic", category: "Airway",
+    text: "A ventilated patient's ETCO2 is 55 with normal waveform and patient is hypotensive. Best adjustment is to:",
+    options: ["Decrease ventilation to raise ETCO2", "Increase minute ventilation cautiously (rate) while treating underlying cause", "Give adenosine", "Stop ventilation"],
+    correctIndex: 1,
+    explanation: "ETCO2 reflects ventilation and perfusion; adjust ventilation and treat shock causes."
+  },
+  {
+    id: 200, level: "Paramedic", category: "Airway",
+    text: "A patient with suspected increased ICP shows Cushing response. If ventilation is required, ETCO2 should generally be kept:",
+    options: ["Unmonitored", "Around normal (35-45) unless directed by protocol for herniation", "Above 60 routinely", "Below 25 routinely"],
+    correctIndex: 1,
+    explanation: "Aim for normocapnia; only brief hyperventilation for impending herniation per protocol."
   },
 
   // 3. Cardiology
   {
-    id: 203, level: "Paramedic", category: "Cardiology",
-    text: "A patient is in SVT at 190 bpm and is unstable (altered mental status). You should immediately:",
-    options: ["Perform Synchronized Cardioversion", "Administer Adenosine 6mg", "Administer Diltiazem", "Perform Vagal Maneuvers"],
+    id: 201, level: "Paramedic", category: "Cardiology",
+    text: "A narrow-complex regular tachycardia at 190 with hypotension and altered mental status requires:",
+    options: ["Synchronized cardioversion", "Vagal maneuvers only", "Adenosine first", "Diltiazem infusion"],
     correctIndex: 0,
-    explanation: "Unstable patients with tachyarrhythmias require immediate electrical therapy (Synchronized Cardioversion). Drugs are for stable patients."
+    explanation: "Unstable tachyarrhythmias need immediate electrical therapy."
+  },
+  {
+    id: 202, level: "Paramedic", category: "Cardiology",
+    text: "A stable SVT patient remains in SVT after vagal maneuvers. Next medication is typically:",
+    options: ["Magnesium sulfate first", "Amiodarone infusion", "Adenosine (per protocol)", "Epinephrine push"],
+    correctIndex: 2,
+    explanation: "Adenosine is first-line for stable regular narrow-complex SVT."
+  },
+  {
+    id: 203, level: "Paramedic", category: "Cardiology",
+    text: "A patient is in atrial fibrillation with RVR (irregularly irregular) and is unstable. Best action is:",
+    options: ["Adenosine", "Vagal maneuvers only", "Synchronized cardioversion", "Defibrillation unsynchronized"],
+    correctIndex: 2,
+    explanation: "Unstable AF with RVR is treated with synchronized cardioversion."
+  },
+  {
+    id: 204, level: "Paramedic", category: "Cardiology",
+    text: "A wide-complex regular tachycardia with a pulse, unstable, should be treated with:",
+    options: ["Defibrillation (unsynchronized) immediately", "Adenosine always", "Atropine", "Synchronized cardioversion (consider sedation if time)"],
+    correctIndex: 3,
+    explanation: "Unstable monomorphic VT with pulse needs synchronized cardioversion."
+  },
+  {
+    id: 205, level: "Paramedic", category: "Cardiology",
+    text: "Pulseless VT should be treated with:",
+    options: ["Synchronized cardioversion", "Atropine", "Defibrillation and high-quality CPR", "Adenosine"],
+    correctIndex: 2,
+    explanation: "Pulseless VT is a shockable rhythm: defibrillate and resume CPR."
+  },
+  {
+    id: 206, level: "Paramedic", category: "Cardiology",
+    text: "Ventricular fibrillation management starts with:",
+    options: ["Adenosine first", "Atropine first", "Immediate defibrillation and CPR", "Synchronized cardioversion"],
+    correctIndex: 2,
+    explanation: "VF is shockable; defibrillate and perform CPR with minimal pauses."
+  },
+  {
+    id: 207, level: "Paramedic", category: "Cardiology",
+    text: "Asystole management includes:",
+    options: ["High-quality CPR and epinephrine; search for reversible causes", "Adenosine", "Defibrillation", "Synchronized cardioversion"],
+    correctIndex: 0,
+    explanation: "Asystole is not shockable; focus on CPR, epi, and H's/T's."
+  },
+  {
+    id: 208, level: "Paramedic", category: "Cardiology",
+    text: "PEA treatment priority is:",
+    options: ["High-quality CPR and treat reversible causes", "Defibrillation", "Immediate cardioversion", "Adenosine"],
+    correctIndex: 0,
+    explanation: "PEA is non-shockable; fix underlying cause while doing CPR."
+  },
+  {
+    id: 209, level: "Paramedic", category: "Cardiology",
+    text: "A symptomatic bradycardia patient is hypotensive with signs of shock. First-line medication is typically:",
+    options: ["Atropine (per protocol)", "Furosemide", "Adenosine", "Diltiazem"],
+    correctIndex: 0,
+    explanation: "Atropine is first-line for symptomatic bradycardia in many protocols."
+  },
+  {
+    id: 210, level: "Paramedic", category: "Cardiology",
+    text: "If atropine fails in unstable bradycardia, the next step is commonly:",
+    options: ["Nitroglycerin", "Adenosine", "Vagal maneuvers", "Transcutaneous pacing"],
+    correctIndex: 3,
+    explanation: "TCP is next for refractory symptomatic bradycardia per ACLS."
+  },
+  {
+    id: 211, level: "Paramedic", category: "Cardiology",
+    text: "A patient has chest pain and ST elevation in II, III, aVF. Before giving nitroglycerin, you should suspect:",
+    options: ["Hyperventilation syndrome", "Right ventricular infarct and obtain right-sided leads if possible", "Pulmonary embolism only", "Asthma attack"],
+    correctIndex: 1,
+    explanation: "Inferior MI may involve RV; nitrates can drop preload and worsen hypotension."
+  },
+  {
+    id: 212, level: "Paramedic", category: "Cardiology",
+    text: "The single most important early medication for suspected ACS (no contraindications) is:",
+    options: ["Diphenhydramine", "Aspirin", "Adenosine", "Furosemide"],
+    correctIndex: 1,
+    explanation: "Aspirin reduces clot propagation and improves outcomes in ACS."
+  },
+  {
+    id: 213, level: "Paramedic", category: "Cardiology",
+    text: "A patient has crushing chest pain and clear lungs with hypertension. After aspirin and oxygen if needed, the next typical therapy is:",
+    options: ["Nitroglycerin if not contraindicated", "Naloxone", "Activated charcoal", "Epinephrine"],
+    correctIndex: 0,
+    explanation: "Nitrates reduce preload/afterload and relieve ischemic pain when BP allows."
+  },
+  {
+    id: 214, level: "Paramedic", category: "Cardiology",
+    text: "A patient has bradycardia with peaked T waves and wide QRS. The targeted immediate treatment is:",
+    options: ["Adenosine", "IV calcium", "Furosemide", "Diltiazem"],
+    correctIndex: 1,
+    explanation: "This is hyperkalemia with ECG changes; stabilize myocardium with calcium."
+  },
+  {
+    id: 215, level: "Paramedic", category: "Cardiology",
+    text: "A patient in AF with WPW (irregular wide-complex) should NOT receive:",
+    options: ["Supportive care", "AV nodal blockers (e.g., diltiazem/verapamil) per protocol", "Procainamide (if allowed)", "Cardioversion if unstable"],
+    correctIndex: 1,
+    explanation: "AV nodal blockers can increase conduction through accessory pathway and cause VF."
+  },
+  {
+    id: 216, level: "Paramedic", category: "Cardiology",
+    text: "A patient has narrow-complex tachycardia and is stable but has a history of asthma. Vagal maneuvers are:",
+    options: ["Only for VF", "Only for bradycardia", "Appropriate first attempt", "Contraindicated always"],
+    correctIndex: 2,
+    explanation: "Vagal maneuvers are noninvasive first-line for stable SVT."
+  },
+  {
+    id: 217, level: "Paramedic", category: "Cardiology",
+    text: "In cardiogenic shock (cool, clammy, hypotensive) the best general prehospital approach is:",
+    options: ["Support airway, cautious fluids, and consider pressors per protocol", "Large fluid boluses without reassessment", "Diuretics immediately", "Nitroglycerin drip regardless of BP"],
+    correctIndex: 0,
+    explanation: "Cardiogenic shock needs support; too much fluid can worsen pulmonary edema."
+  },
+  {
+    id: 218, level: "Paramedic", category: "Cardiology",
+    text: "A patient has 3rd-degree AV block with hypotension. Best immediate therapy is:",
+    options: ["Vagal maneuvers", "Transcutaneous pacing", "Nitroglycerin", "Adenosine"],
+    correctIndex: 1,
+    explanation: "Complete heart block with instability needs pacing."
+  },
+  {
+    id: 219, level: "Paramedic", category: "Cardiology",
+    text: "A post-ROSC patient has ETCO2 45 and is hypotensive. First priorities include:",
+    options: ["Stop monitoring", "Give adenosine", "Optimize oxygenation/ventilation and support perfusion (fluids/pressors) per protocol", "Hyperventilate to ETCO2 20"],
+    correctIndex: 2,
+    explanation: "Post-ROSC care focuses on oxygenation, perfusion, and targeted temperature management where available."
+  },
+  {
+    id: 220, level: "Paramedic", category: "Cardiology",
+    text: "A patient with torsades de pointes (polymorphic VT with long QT) should receive:",
+    options: ["Naloxone", "Adenosine", "Magnesium sulfate", "Diltiazem"],
+    correctIndex: 2,
+    explanation: "Magnesium is first-line for torsades; consider defib if unstable/pulseless."
+  },
+  {
+    id: 221, level: "Paramedic", category: "Cardiology",
+    text: "In an acute pulmonary edema patient with severe hypertension, best respiratory support is:",
+    options: ["CPAP with appropriate meds per protocol", "Large fluid bolus", "Trendelenburg", "Naloxone"],
+    correctIndex: 0,
+    explanation: "CPAP improves oxygenation and reduces preload/afterload in CHF exacerbation."
+  },
+  {
+    id: 222, level: "Paramedic", category: "Cardiology",
+    text: "A patient has pericarditis-like pain that improves leaning forward. ECG may show:",
+    options: ["Diffuse ST elevation (often)", "ST elevation in only one territory", "Peaked T waves", "No ECG changes ever"],
+    correctIndex: 0,
+    explanation: "Pericarditis often presents with diffuse ST elevation and positional pain."
+  },
+  {
+    id: 223, level: "Paramedic", category: "Cardiology",
+    text: "A patient's pacemaker spikes are present but no QRS follows. This is:",
+    options: ["Failure to capture", "Ventricular fibrillation", "Failure to sense", "Normal pacing"],
+    correctIndex: 0,
+    explanation: "Spike without capture indicates the myocardium isn't depolarizing."
+  },
+  {
+    id: 224, level: "Paramedic", category: "Cardiology",
+    text: "A patient's pulse is 40 with dizziness after MI. If atropine fails, infusion options include:",
+    options: ["Furosemide drip", "Nitroglycerin infusion to raise HR", "Epinephrine or dopamine infusion per protocol", "Adenosine infusion"],
+    correctIndex: 2,
+    explanation: "Pressor infusions support HR and BP when pacing/atropine insufficient."
+  },
+  {
+    id: 225, level: "Paramedic", category: "Cardiology",
+    text: "A patient with suspected STEMI is stable. The key prehospital action besides meds is:",
+    options: ["Acquire 12-lead ECG and notify receiving facility early", "Give antibiotics", "Delay transport until pain is gone", "Do a full neurological exam first"],
+    correctIndex: 0,
+    explanation: "Early ECG/notification speeds reperfusion therapy."
   },
 
   // 4. Trauma
   {
-    id: 204, level: "Paramedic", category: "Trauma",
-    text: "A patient has a tension pneumothorax. You perform a needle decompression. The rush of air ceases, but the patient remains hypotensive. You should:",
-    options: ["Perform a second decompression or finger thoracostomy", "Switch to the other side", "Administer fluids", "Intubate immediately"],
+    id: 226, level: "Paramedic", category: "Trauma",
+    text: "A trauma patient has absent breath sounds on the right, hypotension, and JVD. Most likely cause is:",
+    options: ["Asthma attack", "Pulmonary embolism", "Tension pneumothorax", "Simple rib fracture"],
+    correctIndex: 2,
+    explanation: "Trauma + JVD + hypotension + unilateral sounds suggests tension pneumothorax."
+  },
+  {
+    id: 227, level: "Paramedic", category: "Trauma",
+    text: "The best immediate treatment for tension pneumothorax in the field is:",
+    options: ["Adenosine", "Needle decompression (per protocol) and rapid transport", "Oral glucose", "Diuretics"],
+    correctIndex: 1,
+    explanation: "Decompression relieves pressure to restore venous return and ventilation."
+  },
+  {
+    id: 228, level: "Paramedic", category: "Trauma",
+    text: "After needle decompression, the patient worsens again. Next step is:",
+    options: ["Stop monitoring", "Reassess and consider repeat decompression/alternate site per protocol", "Apply a cervical collar only", "Give aspirin"],
+    correctIndex: 1,
+    explanation: "Needles can kink/clog; reassess and re-intervene as indicated."
+  },
+  {
+    id: 229, level: "Paramedic", category: "Trauma",
+    text: "A pelvic fracture with hypotension is suspected. Best immediate action is:",
+    options: ["Have the patient stand", "Give nitroglycerin", "Rock the pelvis repeatedly", "Apply a pelvic binder/sheet and treat for shock"],
+    correctIndex: 3,
+    explanation: "Pelvic binding reduces hemorrhage by stabilizing pelvic volume."
+  },
+  {
+    id: 230, level: "Paramedic", category: "Trauma",
+    text: "A trauma patient has signs of hemorrhagic shock. The most effective intervention is:",
+    options: ["Control bleeding (tourniquet/hemostatic) and rapid transport", "Delay transport for pain score", "Give aspirin", "Give furosemide"],
     correctIndex: 0,
-    explanation: "If the first needle fails or clogs, or if the patient does not improve, you must re-attempt decompression or move to a more definitive airway/procedure depending on protocol."
+    explanation: "Stopping hemorrhage and minimizing scene time saves lives."
+  },
+  {
+    id: 231, level: "Paramedic", category: "Trauma",
+    text: "A patient with penetrating chest trauma develops muffled heart sounds and hypotension. Suspect:",
+    options: ["Heat exhaustion", "Spinal shock", "Cardiac tamponade", "Appendicitis"],
+    correctIndex: 2,
+    explanation: "Penetrating trauma can cause tamponade; rapid transport is critical."
+  },
+  {
+    id: 232, level: "Paramedic", category: "Trauma",
+    text: "In suspected traumatic brain injury, the most important early goal is to avoid:",
+    options: ["Pain control", "Hypoxia and hypotension", "Immobilization", "Normal oxygen levels"],
+    correctIndex: 1,
+    explanation: "Even one episode of hypoxia/hypotension worsens TBI outcomes."
+  },
+  {
+    id: 233, level: "Paramedic", category: "Trauma",
+    text: "A TBI patient is intubated. Ventilation target is generally:",
+    options: ["Hypoventilation to ETCO2 60", "Normocapnia (ETCO2 ~35-45) unless herniation signs", "No ETCO2 monitoring", "Routine hyperventilation to ETCO2 20"],
+    correctIndex: 1,
+    explanation: "Avoid hyperventilation except brief use for impending herniation per protocol."
+  },
+  {
+    id: 234, level: "Paramedic", category: "Trauma",
+    text: "A patient has an open femur fracture with severe bleeding. Best first action is:",
+    options: ["Remove protruding bone", "Direct pressure/hemostatic dressings and tourniquet if needed", "Traction splint before bleeding control", "Give oral fluids"],
+    correctIndex: 1,
+    explanation: "Hemorrhage control takes priority; stabilize after bleeding is controlled."
+  },
+  {
+    id: 235, level: "Paramedic", category: "Trauma",
+    text: "A trauma patient has paradoxical chest movement and hypoxia. Best management is:",
+    options: ["Provide ventilatory support and consider stabilization per protocol", "Give diuretics", "Force the patient to walk", "Give adenosine"],
+    correctIndex: 0,
+    explanation: "Flail chest can cause respiratory failure; support ventilation and rapid transport."
+  },
+  {
+    id: 236, level: "Paramedic", category: "Trauma",
+    text: "A patient has abdominal evisceration. You should:",
+    options: ["Cover with moist sterile dressings and occlusive layer", "Apply ice directly", "Leave organs exposed to air", "Push organs back in"],
+    correctIndex: 0,
+    explanation: "Keep tissues moist/warm and protect with sterile dressings."
+  },
+  {
+    id: 237, level: "Paramedic", category: "Trauma",
+    text: "A patient has a partial amputation with heavy bleeding. Best care is:",
+    options: ["Control bleeding, wrap the part in sterile moist gauze, cool it (not directly on ice), and transport", "Put the part directly on ice water", "Delay transport to clean the part", "Discard the part"],
+    correctIndex: 0,
+    explanation: "Proper preservation may allow reattachment; control hemorrhage first."
+  },
+  {
+    id: 238, level: "Paramedic", category: "Trauma",
+    text: "A patient has suspected crush injury after prolonged entrapment. The major life threat after release is:",
+    options: ["Hyperkalemia and acidosis", "Dehydration only", "Hypoglycemia", "Hypertension only"],
+    correctIndex: 0,
+    explanation: "Crush syndrome releases potassium/myoglobin; treat and monitor per protocol."
+  },
+  {
+    id: 239, level: "Paramedic", category: "Trauma",
+    text: "For crush syndrome, early prehospital management often includes:",
+    options: ["Aggressive fluids and ECG monitoring per protocol", "Diuretics immediately", "Adenosine", "Nitroglycerin"],
+    correctIndex: 0,
+    explanation: "Fluids help protect kidneys and support perfusion; monitor for hyperkalemia."
+  },
+  {
+    id: 240, level: "Paramedic", category: "Trauma",
+    text: "A patient has burns to face and neck with soot in mouth. Highest concern is:",
+    options: ["Only mild pain", "Airway edema and inhalation injury", "Dehydration only", "A broken ankle"],
+    correctIndex: 1,
+    explanation: "Inhalation injury can rapidly obstruct airway; early airway planning is key."
+  },
+  {
+    id: 241, level: "Paramedic", category: "Trauma",
+    text: "A 25% TBSA burn patient is in shock. Prehospital fluid therapy should be:",
+    options: ["No fluids ever", "Guided by protocol and perfusion signs; avoid over-resuscitation", "Large boluses without monitoring", "Diuretics"],
+    correctIndex: 1,
+    explanation: "Burn resuscitation requires careful balance; follow protocol and reassess."
+  },
+  {
+    id: 242, level: "Paramedic", category: "Trauma",
+    text: "A patient has a flaccid, warm limb with severe pain after fracture. Concern is for:",
+    options: ["Simple muscle soreness", "Bronchitis", "Compartment syndrome", "Migraine"],
+    correctIndex: 2,
+    explanation: "Pain out of proportion with neurovascular compromise suggests compartment syndrome."
+  },
+  {
+    id: 243, level: "Paramedic", category: "Trauma",
+    text: "A patient has a penetrating object impaled in the thigh. You should:",
+    options: ["Stabilize it in place and control bleeding", "Remove it immediately", "Ignore it and only splint", "Push it deeper"],
+    correctIndex: 0,
+    explanation: "Impaled objects can tamponade bleeding; stabilize and transport."
+  },
+  {
+    id: 244, level: "Paramedic", category: "Trauma",
+    text: "A patient has a suspected spinal injury and is hypotensive with bradycardia. This indicates:",
+    options: ["Neurogenic shock", "Anxiety", "Hemorrhagic shock", "Septic shock"],
+    correctIndex: 0,
+    explanation: "Loss of sympathetic tone causes hypotension with bradycardia."
+  },
+  {
+    id: 245, level: "Paramedic", category: "Trauma",
+    text: "In hemorrhagic shock, the best indicator of adequate perfusion is:",
+    options: ["Room temperature", "Mental status and pulse/skin trends (and BP/ETCO2 if available)", "Hair color", "Pain score only"],
+    correctIndex: 1,
+    explanation: "Perfusion is reflected in mentation and vital sign trends."
+  },
+  {
+    id: 246, level: "Paramedic", category: "Trauma",
+    text: "A trauma patient has unequal chest rise and severe respiratory distress. First action is to:",
+    options: ["Delay oxygen until hospital", "Seal airway/ventilation issues and treat life threats per trauma sequence", "Do a detailed history first", "Give oral glucose"],
+    correctIndex: 1,
+    explanation: "Treat immediate life threats (airway/breathing/circulation) before detailed exam."
+  },
+  {
+    id: 247, level: "Paramedic", category: "Trauma",
+    text: "A patient has severe facial trauma and cannot be ventilated with BVM. Next best airway is:",
+    options: ["Supraglottic airway or surgical airway per protocol", "Tourniquet", "Oral glucose", "Nasal cannula only"],
+    correctIndex: 0,
+    explanation: "If BVM fails, move up airway ladder per protocol."
+  },
+  {
+    id: 248, level: "Paramedic", category: "Trauma",
+    text: "A patient has traumatic amputated finger. The correct handling of the amputated part is to:",
+    options: ["Wrap in moist sterile gauze, place in a bag, then place bag on ice (not directly on ice)", "Soak in water", "Put directly on ice", "Leave at room temperature"],
+    correctIndex: 0,
+    explanation: "Indirect cooling preserves tissue without freezing damage."
+  },
+  {
+    id: 249, level: "Paramedic", category: "Trauma",
+    text: "A patient with suspected internal bleeding has worsening hypotension. Best transport decision is:",
+    options: ["Rapid transport to trauma center with early notification", "Transport to nearest urgent care", "Delay transport for pain meds first", "Stay on scene for full documentation"],
+    correctIndex: 0,
+    explanation: "Definitive care is surgical; minimize scene time and notify trauma center."
+  },
+  {
+    id: 250, level: "Paramedic", category: "Trauma",
+    text: "A tourniquet has been applied for life-threatening bleeding. You should:",
+    options: ["Document the time applied and do not remove it in the field unless protocol directs", "Loosen it every 10 minutes", "Cover it so no one can see it", "Remove it once bleeding slows"],
+    correctIndex: 0,
+    explanation: "Tourniquets stay in place; document time and reassess for bleeding control."
   },
 
   // 5. Medical & OBGYN
   {
-    id: 205, level: "Paramedic", category: "Medical & OBGYN",
-    text: "A pregnant female (34 weeks) is seizing. You have already administered Versed but she continues to seize. The drug of choice is:",
-    options: ["Magnesium Sulfate", "Calcium Chloride", "More Versed", "Phenobarbital"],
+    id: 251, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A pregnant patient at 34 weeks is seizing and hypertensive. Most likely condition is:",
+    options: ["Eclampsia", "Asthma attack", "Appendicitis", "Hypoglycemia only"],
     correctIndex: 0,
-    explanation: "Eclamptic seizures are best treated with Magnesium Sulfate (usually 4g IV), not just benzodiazepines."
+    explanation: "Seizure + pregnancy + hypertension suggests eclampsia."
   },
-  
-  // 6. EMS Operations (Paramedic)
   {
-    id: 206, level: "Paramedic", category: "EMS Operations",
-    text: "In the Incident Command System (ICS), who is the only person the Safety Officer reports to?",
-    options: ["The Incident Commander", "The Operations Section Chief", "The Liaison Officer", "The Medical Director"],
+    id: 252, level: "Paramedic", category: "Medical & OBGYN",
+    text: "First-line medication to stop eclamptic seizures (after airway support) is:",
+    options: ["Naloxone", "Magnesium sulfate (per protocol)", "Furosemide", "Adenosine"],
+    correctIndex: 1,
+    explanation: "Magnesium is first-line for eclampsia; benzos may be adjunct."
+  },
+  {
+    id: 253, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A postpartum patient has heavy vaginal bleeding and a boggy uterus. Best initial action is:",
+    options: ["Delay care until hospital", "Have the patient walk", "Fundal massage and treat for shock (per protocol)", "Give nitroglycerin"],
+    correctIndex: 2,
+    explanation: "Uterine atony causes hemorrhage; fundal massage helps contract the uterus."
+  },
+  {
+    id: 254, level: "Paramedic", category: "Medical & OBGYN",
+    text: "During delivery, the baby's head delivers but shoulders do not (turtle sign). This is:",
+    options: ["Placenta previa", "Shoulder dystocia", "Breech presentation", "Prolapsed cord"],
+    correctIndex: 1,
+    explanation: "Shoulder dystocia requires specific maneuvers and rapid assistance."
+  },
+  {
+    id: 255, level: "Paramedic", category: "Medical & OBGYN",
+    text: "If the umbilical cord is prolapsed and you see it at the vaginal opening, you should:",
+    options: ["Clamp and cut the cord immediately", "Relieve pressure off the cord and position mother (knee-chest) while rapid transport", "Push the cord back in", "Delay transport"],
+    correctIndex: 1,
+    explanation: "Prolapsed cord compromises fetal oxygenation; relieve compression and transport."
+  },
+  {
+    id: 256, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A newborn is term, limp, and not breathing after drying/stimulation. Next step is:",
+    options: ["Begin positive-pressure ventilation", "Give naloxone", "Give oral glucose", "Start chest compressions immediately"],
     correctIndex: 0,
-    explanation: "The Safety Officer is part of the Command Staff and reports directly to the Incident Commander."
-  }
+    explanation: "Ventilation is the priority in neonatal resuscitation."
+  },
+  {
+    id: 257, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A newborn has HR 50 despite effective ventilation. Next step is:",
+    options: ["Start chest compressions with ventilation per NRP", "Give aspirin", "Stop ventilations", "Give adenosine"],
+    correctIndex: 0,
+    explanation: "If HR <60 after ventilation, start compressions and continue ventilation."
+  },
+  {
+    id: 258, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A child has drooling, high fever, and tripod positioning. You should suspect:",
+    options: ["Epiglottitis and avoid agitating the airway", "Anaphylaxis", "CHF", "Croup only"],
+    correctIndex: 0,
+    explanation: "Epiglottitis threatens airway; keep child calm and prepare for advanced airway."
+  },
+  {
+    id: 259, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A child has barking cough and stridor that improves with cool night air. This is most consistent with:",
+    options: ["Croup", "Epiglottitis", "CHF", "Anaphylaxis"],
+    correctIndex: 0,
+    explanation: "Croup causes upper-airway swelling with barking cough; keep calm and support."
+  },
+  {
+    id: 260, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient has severe allergic reaction with hypotension and wheezing. Best medication is:",
+    options: ["Diphenhydramine only", "Epinephrine IM (per protocol)", "Aspirin", "Furosemide"],
+    correctIndex: 1,
+    explanation: "Epinephrine treats airway edema/bronchospasm and raises BP; antihistamines are adjunct."
+  },
+  {
+    id: 261, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient has status epilepticus (continuous seizures). First-line medication is typically:",
+    options: ["Benzodiazepines (e.g., midazolam/lorazepam) per protocol", "Furosemide", "Nitroglycerin", "Adenosine"],
+    correctIndex: 0,
+    explanation: "Benzos stop active seizures; then treat cause and protect airway."
+  },
+  {
+    id: 262, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A suspected opioid overdose patient is apneic. After ventilations, the medication is:",
+    options: ["Aspirin", "Diltiazem", "Naloxone (per protocol)", "Magnesium sulfate"],
+    correctIndex: 2,
+    explanation: "Naloxone reverses opioid effects but does not replace ventilation."
+  },
+  {
+    id: 263, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient has hypoglycemia and no IV access, but is unresponsive with a pulse. Best option is:",
+    options: ["IM glucagon (per protocol) and ventilatory support if needed", "Oral glucose", "Furosemide", "Aspirin"],
+    correctIndex: 0,
+    explanation: "Oral glucose is unsafe without gag; glucagon can raise glucose when IV not available."
+  },
+  {
+    id: 264, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient with suspected GI bleed is pale with coffee-ground emesis and hypotension. Prehospital priority is:",
+    options: ["Induce vomiting", "Give aspirin", "Treat for shock and rapid transport", "Give nitroglycerin"],
+    correctIndex: 2,
+    explanation: "GI bleeding can be life-threatening; support perfusion and transport."
+  },
+  {
+    id: 265, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient with severe COPD exacerbation has wheezing and fatigue. The best medication set is often:",
+    options: ["Activated charcoal", "Bronchodilators, steroids, and oxygen/ventilation support per protocol", "Diuretics only", "Adenosine"],
+    correctIndex: 1,
+    explanation: "COPD exacerbations need bronchodilation and support; follow local protocol."
+  },
+  {
+    id: 266, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient has acute pulmonary edema with severe respiratory distress. First-line respiratory intervention is:",
+    options: ["Oral fluids", "CPAP if conscious and not contraindicated", "Trendelenburg", "High-dose opioids"],
+    correctIndex: 1,
+    explanation: "CPAP improves oxygenation and reduces work of breathing in CHF exacerbation."
+  },
+  {
+    id: 267, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient is hypoventilating after benzodiazepine overdose. Prehospital priority is:",
+    options: ["Airway and ventilatory support", "Flumazenil routinely", "Aspirin", "Nitroglycerin"],
+    correctIndex: 0,
+    explanation: "Support ventilation; flumazenil is not routine due to seizure risk in mixed overdoses."
+  },
+  {
+    id: 268, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient has diabetic ketoacidosis signs and vomiting. Best transport position is:",
+    options: ["Trendelenburg", "Position of comfort with airway protection and monitoring", "Prone without support", "Supine flat regardless of vomiting"],
+    correctIndex: 1,
+    explanation: "Protect airway, prevent aspiration, and monitor closely."
+  },
+  {
+    id: 269, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient has suspected meningitis with fever, rash, and altered mental status. Best action is to:",
+    options: ["Delay care to get full history", "Use PPE, support ABCs, and transport rapidly", "Induce vomiting", "Give aspirin"],
+    correctIndex: 1,
+    explanation: "Severe infection requires rapid evaluation; protect crew with appropriate precautions."
+  },
+  {
+    id: 270, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient has severe abdominal pain and a pulsatile mass. Suspect:",
+    options: ["Abdominal aortic aneurysm", "Asthma", "Kidney stone only", "Appendicitis"],
+    correctIndex: 0,
+    explanation: "Pulsatile abdominal mass with pain suggests AAA; rapid transport."
+  },
+  {
+    id: 271, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient with renal failure missed dialysis and has weakness. ECG shows peaked T waves. Best first medication is:",
+    options: ["IV calcium (per protocol)", "Adenosine", "Furosemide", "Diltiazem"],
+    correctIndex: 0,
+    explanation: "Treat life-threatening hyperkalemia effects on the heart first."
+  },
+  {
+    id: 272, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient is vomiting, has pinpoint pupils, and bradycardia after opioid use. If naloxone is given, the goal is:",
+    options: ["Restore adequate breathing, not full arousal", "Treat pain completely", "Make the patient fully awake immediately", "Lower blood pressure"],
+    correctIndex: 0,
+    explanation: "Titrate to adequate ventilation to avoid violent withdrawal and vomiting."
+  },
+  {
+    id: 273, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient with asthma receives albuterol but is still tight with poor air movement. Next step may include:",
+    options: ["Add ipratropium and consider epinephrine/advanced airway per protocol", "Stop oxygen", "Give aspirin", "Give furosemide"],
+    correctIndex: 0,
+    explanation: "Severe bronchospasm may require escalation; follow protocol."
+  },
+  {
+    id: 274, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient has severe vomiting/diarrhea and signs of dehydration. Best fluid choice is often:",
+    options: ["Nitroglycerin drip", "Isotonic crystalloid bolus (per protocol)", "Hypertonic saline routinely", "Dextrose only"],
+    correctIndex: 1,
+    explanation: "Volume depletion responds to isotonic fluids; reassess frequently."
+  },
+  {
+    id: 275, level: "Paramedic", category: "Medical & OBGYN",
+    text: "A patient with sickle cell crisis has severe pain and hypoxia. Best management includes:",
+    options: ["Adenosine", "Oxygen if hypoxic, analgesia per protocol, and transport", "Tourniquet application", "Diuretics"],
+    correctIndex: 1,
+    explanation: "Treat hypoxia and pain; definitive care is hospital-based."
+  },
+
+  // 6. EMS Operations
+  {
+    id: 276, level: "Paramedic", category: "EMS Operations",
+    text: "In Incident Command System (ICS), the Safety Officer reports directly to the:",
+    options: ["Public Information Officer", "Incident Commander", "Planning Section Chief", "Operations Section Chief"],
+    correctIndex: 1,
+    explanation: "Safety is Command Staff and reports to the IC."
+  },
+  {
+    id: 277, level: "Paramedic", category: "EMS Operations",
+    text: "The primary purpose of medical direction is to:",
+    options: ["Eliminate documentation", "Provide clinical oversight through protocols and on-line consultation", "Allow treatment outside scope without approval", "Replace local laws"],
+    correctIndex: 1,
+    explanation: "Medical direction guides care within scope and protocol."
+  },
+  {
+    id: 278, level: "Paramedic", category: "EMS Operations",
+    text: "A paramedic makes a medication error. The best immediate action is to:",
+    options: ["Assess the patient, treat adverse effects, and notify medical control/supervisor per policy", "Wait until end of shift to mention it", "Hide the error", "Blame the patient"],
+    correctIndex: 0,
+    explanation: "Patient safety first; report per policy and document objectively."
+  },
+  {
+    id: 279, level: "Paramedic", category: "EMS Operations",
+    text: "Quality improvement (QI) in EMS is designed to:",
+    options: ["Improve patient care through review and feedback", "Avoid training", "Punish providers only", "Reduce documentation"],
+    correctIndex: 0,
+    explanation: "QI identifies system issues and supports improvement."
+  },
+  {
+    id: 280, level: "Paramedic", category: "EMS Operations",
+    text: "Standing orders are:",
+    options: ["Preapproved protocols allowing treatment without contacting a physician each time", "Only verbal orders", "Illegal without a doctor on scene", "Only for BLS providers"],
+    correctIndex: 0,
+    explanation: "Standing orders are written medical direction."
+  },
+  {
+    id: 281, level: "Paramedic", category: "EMS Operations",
+    text: "The best practice for controlled substances accountability is:",
+    options: ["Strict count, secure storage, and documented chain of custody", "Leaving narcotics unlocked", "Sharing vials between crews", "Documenting only if asked"],
+    correctIndex: 0,
+    explanation: "Controlled substances require secure handling and accurate logs."
+  },
+  {
+    id: 282, level: "Paramedic", category: "EMS Operations",
+    text: "When giving a patient report to the ED, the most useful format is:",
+    options: ["A long story with opinions", "A concise structured handoff (e.g., SBAR/MIST) with key times", "Only demographics", "Only the ECG strip"],
+    correctIndex: 1,
+    explanation: "Structured handoffs reduce omissions and errors."
+  },
+  {
+    id: 283, level: "Paramedic", category: "EMS Operations",
+    text: "In an MCI, the Treatment Unit Leader is typically within the:",
+    options: ["Planning Section only", "Command Staff", "Operations Section", "Finance Section"],
+    correctIndex: 2,
+    explanation: "Triage/treatment/transport are Operations functions."
+  },
+  {
+    id: 284, level: "Paramedic", category: "EMS Operations",
+    text: "JumpSTART triage is designed for:",
+    options: ["HazMat identification", "Stroke assessment", "Pediatric mass-casualty triage", "Burn assessment"],
+    correctIndex: 2,
+    explanation: "JumpSTART adapts triage to pediatric physiology."
+  },
+  {
+    id: 285, level: "Paramedic", category: "EMS Operations",
+    text: "In START triage, a patient who is not breathing after airway opening is tagged:",
+    options: ["Minor (green)", "Immediate (red)", "Deceased/expectant (black) per START", "Delayed (yellow)"],
+    correctIndex: 2,
+    explanation: "If not breathing after airway repositioning, START tags as deceased."
+  },
+  {
+    id: 286, level: "Paramedic", category: "EMS Operations",
+    text: "A key element of crew resource management (CRM) is:",
+    options: ["Closed-loop communication and task delegation", "Silence to avoid conflict", "One-person decision making always", "Ignoring checklists"],
+    correctIndex: 0,
+    explanation: "CRM reduces errors through communication and teamwork."
+  },
+  {
+    id: 287, level: "Paramedic", category: "EMS Operations",
+    text: "If you suspect your partner is impaired on duty, you should:",
+    options: ["Ignore it", "Follow agency policy and remove them from patient care", "Let them 'sleep it off' during calls", "Post about it online"],
+    correctIndex: 1,
+    explanation: "Impairment risks patient safety; follow reporting procedures."
+  },
+  {
+    id: 288, level: "Paramedic", category: "EMS Operations",
+    text: "The most defensible documentation is:",
+    options: ["Accurate, objective, timely, and complete", "Short and vague", "Based on memory days later", "Filled with opinions"],
+    correctIndex: 0,
+    explanation: "Objective facts and times improve legal defensibility."
+  },
+  {
+    id: 289, level: "Paramedic", category: "EMS Operations",
+    text: "A patient is incompetent and needs lifesaving care. Consent is:",
+    options: ["Required in writing", "Implied by emergency doctrine", "Never allowed", "Only allowed if family is present"],
+    correctIndex: 1,
+    explanation: "Emergent care is allowed when patient can't consent."
+  },
+  {
+    id: 290, level: "Paramedic", category: "EMS Operations",
+    text: "A paramedic should practice within:",
+    options: ["Any procedure seen online", "Only what the patient requests", "Scope of practice and local protocols", "Only what is easiest"],
+    correctIndex: 2,
+    explanation: "Scope and protocols define legal practice boundaries."
+  },
+  {
+    id: 291, level: "Paramedic", category: "EMS Operations",
+    text: "Medical oversight provided retrospectively through chart review is called:",
+    options: ["ICS", "Off-line medical direction", "On-line medical direction", "Abandonment"],
+    correctIndex: 1,
+    explanation: "Off-line includes protocols, training, QA/QI, and case review."
+  },
+  {
+    id: 292, level: "Paramedic", category: "EMS Operations",
+    text: "If a patient refuses care, the most important assessment is:",
+    options: ["Decision-making capacity", "Body temperature only", "Insurance status", "Pain score"],
+    correctIndex: 0,
+    explanation: "Capacity determines validity of refusal and informs next steps."
+  },
+  {
+    id: 293, level: "Paramedic", category: "EMS Operations",
+    text: "A patient is combative and poses danger. The safest approach is to:",
+    options: ["Use de-escalation and request law enforcement assistance; restrain per protocol if needed", "Ignore crew safety", "Fight the patient alone", "Immediately sedate without assessment"],
+    correctIndex: 0,
+    explanation: "Safety first; use de-escalation, assistance, and protocol-based restraint."
+  },
+  {
+    id: 294, level: "Paramedic", category: "EMS Operations",
+    text: "When documenting use of restraints, you must include:",
+    options: ["Reason, type, monitoring, and patient response", "Only that you used them", "Nothing if it was quick", "No vitals required"],
+    correctIndex: 0,
+    explanation: "Restraint documentation must show medical necessity and monitoring."
+  },
+  {
+    id: 295, level: "Paramedic", category: "EMS Operations",
+    text: "Termination of resuscitation decisions should be:",
+    options: ["Based on provider fatigue", "Based on local protocol and medical control when required", "Based on family preference only", "Never allowed prehospital"],
+    correctIndex: 1,
+    explanation: "Follow TOR protocols and consult medical control as required."
+  },
+  {
+    id: 296, level: "Paramedic", category: "EMS Operations",
+    text: "When transporting a STEMI patient, your best system action is to:",
+    options: ["Transmit/notify early to activate cath lab", "Wait until arrival to tell the ED", "Stop for nonessential procedures", "Delay transport for more vitals"],
+    correctIndex: 0,
+    explanation: "Early activation reduces time to reperfusion."
+  },
+  {
+    id: 297, level: "Paramedic", category: "EMS Operations",
+    text: "A medication order is unclear. The safest action is to:",
+    options: ["Ask the patient to decide", "Clarify with medical control before administration", "Guess based on experience", "Skip documentation"],
+    correctIndex: 1,
+    explanation: "Never administer unclear orders; clarify first."
+  },
+  {
+    id: 298, level: "Paramedic", category: "EMS Operations",
+    text: "The best way to reduce ambulance crash risk is to:",
+    options: ["Drive with due regard, slow at intersections, and use seat belts", "Turn off lights at night", "Use sirens at maximum always", "Drive faster to reduce time"],
+    correctIndex: 0,
+    explanation: "Most serious crashes occur at intersections; due regard saves lives."
+  },
+  {
+    id: 299, level: "Paramedic", category: "EMS Operations",
+    text: "A paramedic witnesses a colleague falsifying a PCR. Best action is to:",
+    options: ["Edit their chart for them", "Report through appropriate chain and preserve integrity of records", "Ignore it", "Post about it"],
+    correctIndex: 1,
+    explanation: "Falsification is serious and must be reported per policy."
+  },
+  {
+    id: 300, level: "Paramedic", category: "EMS Operations",
+    text: "The purpose of protocols for high-risk/low-frequency procedures is to:",
+    options: ["Standardize care and reduce errors under stress", "Allow improvisation", "Replace training", "Slow down all calls unnecessarily"],
+    correctIndex: 0,
+    explanation: "Standardization improves safety and outcomes."
+  },
 ];
