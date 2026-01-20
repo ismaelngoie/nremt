@@ -14,7 +14,7 @@ type PricingTier = {
   strike: number | null;
   badge?: string;
   subtitle: string;
-  title: string; // Added strictly for the display name change
+  title: string;
 };
 
 // --- Config ---
@@ -385,7 +385,7 @@ function PaywallContent() {
           </div>
         </motion.div>
 
-        {/* Missed Question Hook */}
+        {/* Missed Question Hook (FIXED) */}
         {missed && (
           <div className="mb-6 rounded-2xl bg-slate-900/45 border border-white/10 p-5 relative overflow-hidden">
             <div className="flex items-center justify-between">
@@ -393,15 +393,17 @@ function PaywallContent() {
               <span className="text-[11px] font-mono text-slate-400">rationale inside</span>
             </div>
             <div className="mt-4 relative">
-              <div className="absolute inset-0 bg-black/35 backdrop-blur-[2px] z-10 flex items-center justify-center">
+              {/* ✅ FIXED: Button allows wrap + text-center for small screens */}
+              <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px] z-10 flex items-center justify-center">
                 <button
                   onClick={startCheckout}
-                  className="px-5 py-3 rounded-full bg-white/10 border border-white/15 text-xs font-black tracking-widest uppercase hover:bg-white/20 transition-all shadow-lg backdrop-blur-md flex items-center gap-2 whitespace-nowrap"
+                  className="w-full max-w-[90%] px-3 py-3 rounded-full bg-white/10 border border-white/15 text-[10px] md:text-xs font-black tracking-widest uppercase hover:bg-white/20 transition-all shadow-lg backdrop-blur-md flex items-center justify-center gap-2 text-center whitespace-normal leading-tight"
                 >
                   🔒 Unlock Answer & 6,000+ Practice Tests • {fmt(PRICING[selectedPlan].price)}
                 </button>
               </div>
-              <div className="relative opacity-40">
+              {/* ✅ FIXED: Removed opacity-40 so text is clearer behind blur */}
+              <div className="relative">
                 <div className="text-sm font-extrabold text-white leading-relaxed">{missed.text}</div>
                 <div className="mt-3 space-y-2">
                   {missed.options.map((opt, i) => (
@@ -549,9 +551,7 @@ function PaywallContent() {
               </motion.button>
               <div className="mt-3 flex flex-wrap items-center justify-center gap-2 opacity-95">
                 <TrustChip icon={<ShieldIcon />} text="Secure checkout" />
-                <TrustChip icon={<BoltIcon />} text="Instant access" />
-                <TrustChip icon={<CheckIcon />} text="Guarantee eligible" />
-                <TrustChip icon={<PayIcon />} text="Apple Pay • Card" />
+                <TrustChip icon={<BoltIcon />} text="12,000+ NREMTs Passed" />
               </div>
               <div className="h-[env(safe-area-inset-bottom)]" />
             </div>
