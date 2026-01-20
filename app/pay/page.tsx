@@ -14,7 +14,7 @@ type PricingTier = {
   strike: number | null;
   badge?: string;
   subtitle: string;
-  title: string;
+  title: string; // Used for the button text now
 };
 
 // --- Config ---
@@ -54,13 +54,6 @@ type DiagnosticAnswer = {
   text: string;
   options: string[];
   explanation: string;
-};
-
-type DomainRow = {
-  category: string;
-  correct: number;
-  total: number;
-  accuracy: number;
 };
 
 // --- Stripe Helper ---
@@ -110,6 +103,7 @@ function PaywallContent() {
   const [restoreEmail, setRestoreEmail] = useState("");
   const [restoreLoading, setRestoreLoading] = useState(false);
   const [restoreMsg, setRestoreMsg] = useState<string | null>(null);
+  const [showRestore, setShowRestore] = useState(false);
 
   // Personalization
   const [userLevel, setUserLevel] = useState("EMT");
@@ -385,7 +379,7 @@ function PaywallContent() {
           </div>
         </motion.div>
 
-        {/* Missed Question Hook (FIXED) */}
+        {/* Missed Question Hook */}
         {missed && (
           <div className="mb-6 rounded-2xl bg-slate-900/45 border border-white/10 p-5 relative overflow-hidden">
             <div className="flex items-center justify-between">
@@ -393,7 +387,6 @@ function PaywallContent() {
               <span className="text-[11px] font-mono text-slate-400">rationale inside</span>
             </div>
             <div className="mt-4 relative">
-              {/* ✅ FIXED: Button allows wrap + text-center for small screens */}
               <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px] z-10 flex items-center justify-center">
                 <button
                   onClick={startCheckout}
@@ -402,7 +395,6 @@ function PaywallContent() {
                   🔒 Unlock Answer & 6,000+ Practice Tests • {fmt(PRICING[selectedPlan].price)}
                 </button>
               </div>
-              {/* ✅ FIXED: Removed opacity-40 so text is clearer behind blur */}
               <div className="relative">
                 <div className="text-sm font-extrabold text-white leading-relaxed">{missed.text}</div>
                 <div className="mt-3 space-y-2">
@@ -489,41 +481,28 @@ function PaywallContent() {
           </div>
         </div>
 
-        {/* Restore Box */}
-        <div className="mb-4 rounded-2xl bg-slate-900/45 border border-white/10 p-5">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xs font-black text-slate-300 uppercase tracking-widest">Premium user?</h3>
-            <span className="text-[11px] font-mono text-slate-400">Restore access</span>
+        {/* FAQs */}
+        <div className="mb-6 rounded-2xl bg-slate-900/40 border border-white/10 p-5">
+          <h3 className="text-xs font-black text-slate-300 uppercase tracking-widest">Questions</h3>
+          <div className="mt-3 space-y-2">
+            <FAQItem q="Is this updated for 2026?" a="Yes. We strictly follow the latest NREMT & AHA guidelines." />
+            <FAQItem q="What if I fail?" a="If you complete the plan and don't pass, email us for a 100% refund." />
+            <FAQItem q="Can I use it on my phone?" a="Yes. It works perfectly on iPhone, Android, and tablets." />
           </div>
-          <p className="mt-2 text-sm text-slate-300 leading-relaxed">
-            Type the <b>same email</b> you paid with in the box.
-          </p>
-          <div className="mt-3 flex gap-2">
-            <input
-              value={restoreEmail}
-              onChange={(e) => setRestoreEmail(e.target.value)}
-              placeholder="you@email.com"
-              className="flex-1 bg-black/30 border border-white/10 rounded-xl px-3 py-3 text-sm text-white outline-none focus:border-white/20"
-            />
-            <button
-              onClick={handleRestore}
-              disabled={restoreLoading}
-              className="px-4 py-3 rounded-xl font-black text-sm bg-white/10 border border-white/10 hover:bg-white/15 disabled:opacity-60"
-            >
-              {restoreLoading ? "..." : "RESTORE"}
-            </button>
-          </div>
-          <AnimatePresence initial={false}>
-            {restoreMsg && (
-              <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} className="mt-3 text-sm text-slate-200">
-                {restoreMsg}
-              </motion.div>
-            )}
-          </AnimatePresence>
+        </div>
+
+        {/* ✅ Simple Restore Link */}
+        <div className="mt-6 mb-8 text-left pl-2">
+          <button
+            onClick={() => setShowRestore(true)}
+            className="text-xs font-bold text-slate-500 hover:text-slate-300 underline underline-offset-4 transition-colors"
+          >
+            Already paid? Restore access
+          </button>
         </div>
       </div>
 
-      {/* STICKY BOTTOM CHECKOUT (CDL Style) */}
+      {/* STICKY BOTTOM CHECKOUT */}
       {!checkoutOpen && (
         <div className="fixed bottom-0 left-0 right-0 z-20">
           <div className="mx-auto w-full max-w-sm px-4 pb-4">
@@ -545,12 +524,12 @@ function PaywallContent() {
                 onClick={startCheckout}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
-                className={`w-full py-4 rounded-xl font-black text-lg text-white border border-white/10 bg-gradient-to-r ${theme.ctaGrad} shadow-lg hover:shadow-white/10 transition-all`}
+                className={`w-full py-4 rounded-xl font-black text-lg text-white border border-white/10 bg-gradient-to-r ${theme.ctaGrad} shadow-lg hover:shadow-white/10 transition-all uppercase`}
               >
-                UNLOCK MY PLAN
+                {PRICING[selectedPlan].title.toUpperCase()}
               </motion.button>
               {/* ✅ Single Line Trust Badge */}
-              <div className="mt-2 flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono uppercase tracking-widest">
+              <div className="mt-2 flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono uppercase tracking-widest whitespace-nowrap">
                 <span>🔒 Secure checkout</span>
                 <span className="text-white/20">•</span>
                 <span>12,000+ NREMTs Passed</span>
@@ -580,6 +559,57 @@ function PaywallContent() {
           </div>
         </div>
       )}
+
+      {/* ✅ RESTORE POPUP MODAL */}
+      <AnimatePresence>
+        {showRestore && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+            {/* Click outside to close */}
+            <div className="absolute inset-0" onClick={() => setShowRestore(false)} />
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative w-full max-w-sm rounded-3xl border border-white/10 bg-[#0F172A] p-6 shadow-2xl"
+            >
+              <button
+                onClick={() => setShowRestore(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-white font-bold"
+              >
+                ✕
+              </button>
+
+              <div className="text-sm font-black text-white uppercase tracking-widest">Restore Access</div>
+              <p className="mt-2 text-xs text-slate-400 leading-relaxed">
+                Enter the exact email you used during checkout.
+              </p>
+
+              <div className="mt-4 flex gap-2">
+                <input
+                  value={restoreEmail}
+                  onChange={(e) => setRestoreEmail(e.target.value)}
+                  placeholder="you@email.com"
+                  className="flex-1 bg-black/30 border border-white/10 rounded-xl px-3 py-3 text-sm text-white outline-none focus:border-white/30"
+                />
+                <button
+                  onClick={handleRestore}
+                  disabled={restoreLoading}
+                  className="px-4 py-3 rounded-xl font-black text-xs bg-white/10 border border-white/10 hover:bg-white/15 disabled:opacity-50 text-white"
+                >
+                  {restoreLoading ? "..." : "GO"}
+                </button>
+              </div>
+
+              {restoreMsg && (
+                <div className="mt-3 text-xs text-center text-amber-300 font-semibold">
+                  {restoreMsg}
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
