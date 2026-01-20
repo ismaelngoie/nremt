@@ -1,128 +1,91 @@
-// functions/api/login.ts
-// Cloudflare Pages Function: POST /api/login
+export {};
 
-type StripeList<T> = { object: "list"; data: T[]; has_more: boolean };
-
-type StripeCustomer = { id: string; email?: string | null };
-type StripeSubscription = { id: string; status: string };
-type StripeCheckoutSession = {
-  id: string;
-  mode: "payment" | "subscription" | string;
-  payment_status?: "paid" | "unpaid" | "no_payment_required" | string;
-  status?: "complete" | "open" | "expired" | string;
+type Env = {
+  STRIPE_SECRET_KEY?: string;
 };
 
-async function stripeGET<T>(path: string, stripeKey: string): Promise<T> {
-  const url = `https://api.stripe.com${path}`;
-  const res = await fetch(url, {
+const STRIPE_API = "https://api.stripe.com";
+
+function cors(req: Request) {
+  const origin = req.headers.get("Origin") || "*";
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
+  };
+}
+
+function json(req: Request, body: any, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...cors(req) },
+  });
+}
+
+async function stripeGET(path: string, key: string) {
+  const res = await fetch(`${STRIPE_API}${path}`, {
     method: "GET",
-    headers: { Authorization: `Bearer ${stripeKey}` },
+    headers: { Authorization: `Bearer ${key}` },
   });
 
-  const json: any = await res.json();
+  const text = await res.text();
+  const data = text ? JSON.parse(text) : null;
 
   if (!res.ok) {
-    const msg = json?.error?.message || `Stripe error (${res.status})`;
+    const msg = data?.error?.message || `Stripe request failed (${res.status})`;
     throw new Error(msg);
   }
-
-  return json as T;
+  return data;
 }
 
-function isActiveSubStatus(status: string) {
-  return status === "active" || status === "trialing" || status === "past_due";
-}
+export const onRequestOptions = async ({ request }: any) => {
+  return new Response(null, { status: 204, headers: cors(request) });
+};
 
-async function hasActiveSubscription(customerId: string, stripeKey: string) {
-  const subs = await stripeGET<StripeList<StripeSubscription>>(
-    `/v1/subscriptions?customer=${encodeURIComponent(customerId)}&status=all&limit=20`,
-    stripeKey
-  );
+export const onRequestPost = async ({ request, env }: { request: Request; env: Env }) => {
+  const key = (env?.STRIPE_SECRET_KEY || "").trim();
+  if (!key) return json(request, { ok: false, error: "Missing STRIPE_SECRET_KEY" }, 500);
 
-  return Array.isArray(subs.data) && subs.data.some((s) => isActiveSubStatus(String(s.status)));
-}
+  const body = (await request.json().catch(() => null)) as any;
+  const email = String(body?.email || "").trim().toLowerCase();
+  if (!email || !email.includes("@")) return json(request, { ok: false, error: "Valid email required" }, 400);
 
-async function hasPaidLifetimeSession(customerId: string, stripeKey: string) {
-  // Any paid one-time checkout session counts as "lifetime"
-  let startingAfter: string | null = null;
-
-  for (let page = 0; page < 3; page++) {
-    const base: string = `/v1/checkout/sessions?customer=${encodeURIComponent(customerId)}&limit=25`;
-    const qs: string = startingAfter
-      ? `${base}&starting_after=${encodeURIComponent(startingAfter)}`
-      : base;
-
-    const sessions = await stripeGET<StripeList<StripeCheckoutSession>>(qs, stripeKey);
-
-    const found =
-      Array.isArray(sessions.data) &&
-      sessions.data.some((s) => s.mode === "payment" && s.payment_status === "paid" && s.status === "complete");
-
-    if (found) return true;
-
-    if (!sessions.has_more || !sessions.data?.length) break;
-    startingAfter = sessions.data[sessions.data.length - 1].id;
-  }
-
-  return false;
-}
-
-export async function onRequestPost({ request, env }: { request: Request; env: Record<string, string> }) {
   try {
-    const stripeKey = env.STRIPE_SECRET_KEY;
-    if (!stripeKey) {
-      return new Response(JSON.stringify({ ok: false, error: "Missing STRIPE_SECRET_KEY" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
-      });
-    }
-
-    const body = (await request.json().catch(() => null)) as { email?: string } | null;
-    const email = String(body?.email || "").trim().toLowerCase();
-
-    if (!email || !email.includes("@")) {
-      return new Response(JSON.stringify({ ok: false, error: "Email required" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
-      });
-    }
-
-    // 1) Find customer by email
-    const customers = await stripeGET<StripeList<StripeCustomer>>(
+    // 1) Find customer
+    const customers = await stripeGET(
       `/v1/customers?email=${encodeURIComponent(email)}&limit=1`,
-      stripeKey
+      key
     );
 
     const customer = customers?.data?.[0];
-    if (!customer?.id) {
-      return new Response(JSON.stringify({ ok: false }), {
-        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
-      });
-    }
+    if (!customer?.id) return json(request, { ok: true, access: "none" }, 200);
 
-    // 2) Subscription check
-    const subOk = await hasActiveSubscription(customer.id, stripeKey);
-    if (subOk) {
-      return new Response(JSON.stringify({ ok: true, access: "subscription" }), {
-        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
-      });
-    }
+    const customerId = String(customer.id);
 
-    // 3) Lifetime check
-    const lifeOk = await hasPaidLifetimeSession(customer.id, stripeKey);
-    if (lifeOk) {
-      return new Response(JSON.stringify({ ok: true, access: "lifetime" }), {
-        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
-      });
-    }
+    // 2) Check subscriptions
+    const subs = await stripeGET(
+      `/v1/subscriptions?customer=${encodeURIComponent(customerId)}&status=all&limit=100`,
+      key
+    );
 
-    return new Response(JSON.stringify({ ok: false }), {
-      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
-    });
-  } catch (err: any) {
-    return new Response(JSON.stringify({ ok: false, error: err?.message || "Server error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
-    });
+    const hasSub = Array.isArray(subs?.data)
+      ? subs.data.some((s: any) => s?.status === "active" || s?.status === "trialing")
+      : false;
+
+    // 3) Check lifetime payments
+    const sessions = await stripeGET(
+      `/v1/checkout/sessions?customer=${encodeURIComponent(customerId)}&limit=100`,
+      key
+    );
+
+    const hasLifetime = Array.isArray(sessions?.data)
+      ? sessions.data.some((s: any) => s?.mode === "payment" && s?.payment_status === "paid")
+      : false;
+
+    const access = hasLifetime ? "lifetime" : hasSub ? "subscription" : "none";
+    return json(request, { ok: true, access }, 200);
+  } catch (e: any) {
+    return json(request, { ok: false, error: e?.message || "Login check failed" }, 500);
   }
-}
+};
