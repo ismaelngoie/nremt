@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { questions } from "@/lib/questions";
 import { useRouter } from "next/navigation";
 
 type Level = "EMT" | "Paramedic";
-type Stage = "quiz" | "analyzing" | "preview";
+type Stage = "quiz" | "analyzing"; // Removed 'preview'
 
 type Q = (typeof questions)[number];
 
@@ -42,10 +42,6 @@ function shuffle<T>(arr: T[]) {
   return a;
 }
 
-/**
- * Pick 5 questions with category diversity if possible.
- * This makes the “weakest domain” feel real and premium.
- */
 function pickDiagnosticQuestions(pool: Q[], count = 5) {
   const byCat = new Map<string, Q[]>();
   for (const q of pool) {
@@ -56,7 +52,6 @@ function pickDiagnosticQuestions(pool: Q[], count = 5) {
 
   const categories = shuffle(Array.from(byCat.keys()));
 
-  // Pick 1 from each category first
   const picked: Q[] = [];
   for (const cat of categories) {
     const list = byCat.get(cat)!;
@@ -67,16 +62,11 @@ function pickDiagnosticQuestions(pool: Q[], count = 5) {
 
   if (picked.length >= count) return picked.slice(0, count);
 
-  // Fill remaining with randoms not already picked
   const pickedIds = new Set(picked.map((q) => q.id));
   const remaining = shuffle(pool.filter((q) => !pickedIds.has(q.id)));
   return [...picked, ...remaining.slice(0, count - picked.length)];
 }
 
-/**
- * Wilson score interval (approx CI for a proportion).
- * Great for premium-feeling “confidence interval”.
- */
 function wilsonCI(correct: number, n: number, z = 1.96) {
   if (n <= 0) return { low: 0, high: 100 };
   const p = correct / n;
@@ -93,15 +83,8 @@ function wilsonCI(correct: number, n: number, z = 1.96) {
   };
 }
 
-/**
- * Converts small-sample diagnostic to a “readiness” score
- * that feels stable (not whiplash).
- */
 function readinessScore(correct: number, n: number) {
-  // Posterior mean of Beta(correct+1, wrong+1)
-  const passProb = (correct + 1) / (n + 2); // 0..1
-  // Map to readiness range with a strong floor/ceiling:
-  // 0% -> ~35, 100% -> ~95
+  const passProb = (correct + 1) / (n + 2);
   const score = Math.round(35 + passProb * 60);
   return clamp(score, 35, 95);
 }
@@ -122,7 +105,6 @@ function computeDomainBreakdown(ans: AnswerRecord[]): DomainRow[] {
     accuracy: v.total ? Math.round((v.correct / v.total) * 100) : 0,
   }));
 
-  // Sort worst to best (more “insight”)
   rows.sort((a, b) => a.accuracy - b.accuracy);
   return rows;
 }
@@ -147,7 +129,6 @@ export default function SimulatorPage() {
   const [analysisText, setAnalysisText] = useState("INITIATING STOP PROTOCOL...");
   const [analysisPct, setAnalysisPct] = useState(0);
 
-  // Premium-feeling diagnostic timer (shorter than “real exam”, still pressure)
   const [timeLeft, setTimeLeft] = useState(420);
 
   const question = activeQuestions[currentQIndex];
@@ -177,8 +158,22 @@ export default function SimulatorPage() {
     };
   }, [userLevel]);
 
-  // INIT: level + pick 5 diverse questions for that level
+  // INIT: level + pick questions + TRAP LOGIC
   useEffect(() => {
+    // 1. Check Paid
+    const isPro = localStorage.getItem("pro") === "true";
+    if (isPro) {
+      router.replace("/dashboard");
+      return;
+    }
+
+    // 2. Check Taken
+    const isDone = localStorage.getItem("diagnosticCompletedAt");
+    if (isDone) {
+      router.replace("/pay");
+      return;
+    }
+
     const lvl = (localStorage.getItem("userLevel") as Level) || "EMT";
     const normalized: Level = lvl === "Paramedic" ? "Paramedic" : "EMT";
     setUserLevel(normalized);
@@ -186,16 +181,16 @@ export default function SimulatorPage() {
     const pool = questions.filter((q) => q.level === normalized);
     const picked = pickDiagnosticQuestions(pool.length ? pool : questions, 5);
     setActiveQuestions(picked);
-  }, []);
+  }, [router]);
 
-  // TIMER (only during quiz)
+  // TIMER
   useEffect(() => {
     if (stage !== "quiz") return;
     const t = setInterval(() => setTimeLeft((p) => clamp(p - 1, 0, 999999)), 1000);
     return () => clearInterval(t);
   }, [stage]);
 
-  // Timeout → analyze with what we have
+  // Timeout
   useEffect(() => {
     if (stage !== "quiz") return;
     if (timeLeft <= 0) {
@@ -269,6 +264,7 @@ export default function SimulatorPage() {
     });
 
     setTimeout(() => {
+      // CALCULATE SCORE
       const total = finalAnswers.length || 1;
       const correct = finalAnswers.filter((a) => a.isCorrect).length;
 
@@ -282,14 +278,13 @@ export default function SimulatorPage() {
       const passProb = Math.round(((correct + 1) / (total + 2)) * 100);
       const ci = wilsonCI(correct, total);
 
-      // Persist for paywall personalization
+      // SAVE EVERYTHING TO STORAGE
       localStorage.setItem("readinessScore", String(readiness));
       localStorage.setItem("weakestDomain", weakest.category);
       localStorage.setItem("weakestDomainPct", String(weakest.accuracy));
       localStorage.setItem("daysToExam", String(14));
       localStorage.setItem("diagnosticCompletedAt", String(Date.now()));
 
-      // Persist richer data for future upgrades
       localStorage.setItem("diagnosticAnswers", JSON.stringify(finalAnswers));
       localStorage.setItem("domainBreakdown", JSON.stringify(domains));
       localStorage.setItem("passProbability", String(passProb));
@@ -297,38 +292,9 @@ export default function SimulatorPage() {
       localStorage.setItem("confidenceHigh", String(ci.high));
       localStorage.setItem("statusLabel", status.label);
 
-      setStage("preview");
+      // 🚨 REDIRECT TO PAYWALL INSTANTLY (No Preview)
+      router.replace("/pay");
     }, 5700);
-  };
-
-  // PREVIEW computed from answers (live)
-  const preview = useMemo(() => {
-    const total = answers.length || 1;
-    const correct = answers.filter((a) => a.isCorrect).length;
-
-    const readiness = readinessScore(correct, total);
-    const status = statusFromReadiness(readiness);
-    const domains = computeDomainBreakdown(answers);
-    const weakest = domains[0] || { category: "General", accuracy: 50, correct: 0, total: 0 };
-
-    const passProb = Math.round(((correct + 1) / (total + 2)) * 100);
-    const ci = wilsonCI(correct, total);
-
-    const missed = answers.find((a) => !a.isCorrect) || null;
-
-    return { readiness, ...status, domains, weakest, passProb, ci, missed, correct, total };
-  }, [answers]);
-
-  const retake = () => {
-    analysisRunningRef.current = false;
-    setAnswers([]);
-    setCurrentQIndex(0);
-    setSelectedOption(null);
-    setTimeLeft(420);
-
-    const pool = questions.filter((q) => q.level === userLevel);
-    setActiveQuestions(pickDiagnosticQuestions(pool.length ? pool : questions, 5));
-    setStage("quiz");
   };
 
   /* -------------------- ANALYZING -------------------- */
@@ -376,186 +342,6 @@ export default function SimulatorPage() {
             </div>
           </div>
         </motion.div>
-      </div>
-    );
-  }
-
-  /* -------------------- PREVIEW (LOCKED REPORT + MISSED QUESTION BLUR) -------------------- */
-  if (stage === "preview") {
-    return (
-      <div className="min-h-screen bg-[#0F172A] text-white flex items-center justify-center p-4">
-        <div className="w-full max-w-sm">
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-              <span className="text-[11px] font-black tracking-widest uppercase text-slate-300">REPORT GENERATED</span>
-              <span className={`text-[11px] font-mono ${theme.accent}`}>{userLevel} calibrated</span>
-            </div>
-
-            {/* Score Card */}
-            <div className="mt-4 rounded-2xl bg-slate-900/45 border border-white/10 p-5">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <div className="text-xs font-black tracking-widest uppercase text-slate-300">Readiness</div>
-                  <div className="mt-1 text-4xl font-black tracking-tight">
-                    <span className={theme.accent}>{preview.readiness}%</span>{" "}
-                    <span className={`text-sm font-black ${preview.tone}`}>({preview.label})</span>
-                  </div>
-                </div>
-
-                <div className={`px-3 py-2 rounded-xl border ${theme.chip}`}>
-                  <div className={`text-[10px] font-black uppercase tracking-widest ${theme.chipText}`}>
-                    Pass Probability
-                  </div>
-                  <div className="text-xl font-black text-white">{preview.passProb}%</div>
-                </div>
-              </div>
-
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="rounded-xl bg-white/5 border border-white/10 p-3">
-                  <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Confidence</div>
-                  <div className="mt-1 text-sm font-extrabold text-white">
-                    {preview.ci.low}%–{preview.ci.high}%
-                  </div>
-                  <div className="mt-1 text-[10px] text-slate-400 font-semibold">interval estimate</div>
-                </div>
-
-                <div className="rounded-xl bg-white/5 border border-white/10 p-3">
-                  <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Accuracy</div>
-                  <div className="mt-1 text-sm font-extrabold text-white">
-                    {preview.correct}/{preview.total}
-                  </div>
-                  <div className="mt-1 text-[10px] text-slate-400 font-semibold">diagnostic items</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Locked Domain Breakdown */}
-            <div className="mt-4 rounded-2xl bg-slate-900/45 border border-white/10 p-5 relative overflow-hidden">
-              <div className="flex items-center justify-between mb-3">
-                <div className="text-xs font-black tracking-widest uppercase text-slate-300">
-                  Weakness Breakdown
-                </div>
-                <div className={`text-[11px] font-mono ${theme.accent}`}>
-                  weakest: {preview.weakest.category}
-                </div>
-              </div>
-
-              <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-                <div
-                  className={`h-full ${theme.isP ? "bg-rose-500" : "bg-cyan-400"}`}
-                  style={{ width: `${preview.weakest.accuracy}%` }}
-                />
-              </div>
-
-              <div className="mt-2 text-[11px] text-slate-300 font-semibold">
-                Domain accuracy: <span className="text-white font-black">{preview.weakest.accuracy}%</span> • Fix plan generated
-              </div>
-
-              {/* Premium blurred list */}
-              <div className="mt-4 space-y-2 relative">
-                <div className="absolute inset-0 bg-black/35 backdrop-blur-[2px]" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-[11px] font-black tracking-widest uppercase">
-                    🔒 Full breakdown locked
-                  </div>
-                </div>
-
-                <div className="relative opacity-40">
-                  {preview.domains.slice(0, 5).map((d) => (
-                    <div key={d.category} className="rounded-xl bg-white/5 border border-white/10 p-3">
-                      <div className="flex items-center justify-between">
-                        <div className="text-sm font-extrabold text-slate-100">{d.category}</div>
-                        <div className="text-sm font-black text-white">{d.accuracy}%</div>
-                      </div>
-                      <div className="mt-2 w-full bg-white/10 h-2 rounded-full overflow-hidden">
-                        <div
-                          className={`h-full ${theme.isP ? "bg-rose-500" : "bg-cyan-400"}`}
-                          style={{ width: `${d.accuracy}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Billion-dollar conversion block: Missed question blurred */}
-            <div className="mt-4 rounded-2xl bg-slate-900/45 border border-white/10 p-5 relative overflow-hidden">
-              <div className="flex items-center justify-between mb-3">
-                <div className="text-xs font-black tracking-widest uppercase text-slate-300">Missed Question Example</div>
-                <div className="text-[11px] text-slate-400 font-mono">rationale inside</div>
-              </div>
-
-              {preview.missed ? (
-                <div className="relative">
-                  <div className="absolute inset-0 bg-black/35 backdrop-blur-[2px]" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-[11px] font-black tracking-widest uppercase">
-                      🔒 Unlock to reveal the rationale
-                    </div>
-                  </div>
-
-                  <div className="relative opacity-40">
-                    <div className="text-sm font-extrabold text-white leading-relaxed">
-                      {preview.missed.text}
-                    </div>
-
-                    <div className="mt-3 space-y-2">
-                      {preview.missed.options.map((opt, i) => {
-                        const isCorrect = i === preview.missed!.correctIndex;
-                        const isPicked = i === preview.missed!.selectedIndex;
-                        return (
-                          <div
-                            key={i}
-                            className="rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm text-slate-200 flex items-center justify-between"
-                          >
-                            <div className="flex items-center gap-2">
-                              <span className="text-slate-400 font-mono">{String.fromCharCode(65 + i)}.</span>
-                              <span className="font-semibold">{opt}</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
-                              {isPicked && <span className="text-yellow-300">your pick</span>}
-                              {isCorrect && <span className="text-emerald-300">correct</span>}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <div className="mt-3 rounded-xl bg-white/5 border border-white/10 p-3">
-                      <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Rationale</div>
-                      <div className="mt-1 text-sm text-slate-200 leading-relaxed">
-                        {preview.missed.explanation}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="text-sm text-slate-300">
-                  You didn’t miss a question in this diagnostic. Unlock to see the full plan anyway.
-                </div>
-              )}
-            </div>
-
-            {/* CTA */}
-            <motion.button
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              onClick={() => router.push("/pay")}
-              className={`mt-5 w-full py-4 rounded-xl font-black text-lg text-white border border-white/10 ${theme.btn} shadow-lg`}
-            >
-              UNLOCK FULL REPORT →
-            </motion.button>
-
-            <div className="mt-2 text-center text-[11px] text-slate-400 font-semibold">
-              Unlock the fix plan + unlimited full sims + full rationales
-            </div>
-
-            <div className="mt-4 text-center text-[10px] uppercase tracking-widest text-white/25">
-              Instant unlock • Designed to convert pressure into passing
-            </div>
-          </motion.div>
-        </div>
       </div>
     );
   }
