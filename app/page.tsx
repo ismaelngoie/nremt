@@ -18,13 +18,6 @@ export default function Home() {
       return;
     }
 
-    // 2. Check if Test Taken -> Paywall (Lockout)
-    const isDone = localStorage.getItem("diagnosticCompletedAt");
-    if (isDone) {
-      router.replace("/pay");
-      return;
-    }
-
     // 3. Load Level preference
     const saved = localStorage.getItem("userLevel") as Level | null;
     if (saved === "EMT" || saved === "Paramedic") setLevel(saved);
