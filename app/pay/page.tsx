@@ -279,7 +279,7 @@ function PaywallContent() {
 
     return (
       <div className="bg-[#0B1022] border border-white/10 rounded-2xl p-5 mb-4 shadow-xl">
-        <div className="text-[10px] font-black uppercase tracking-widest text-amber-400 mb-2">
+        <div className={`text-[10px] font-black uppercase tracking-widest ${theme.accentText} mb-2`}>
           YOU MISSED THIS • {item.category.toUpperCase()}
         </div>
         
@@ -298,17 +298,28 @@ function PaywallContent() {
           </div>
         </div>
 
+        {/* LOCKED ANSWER BUTTON WITH TRANSPARENT TEXT EFFECT */}
         <button 
           onClick={startCheckout}
-          className="w-full relative bg-white/5 border border-white/10 rounded-xl py-3 px-4 flex items-center justify-center gap-3 overflow-hidden group hover:bg-white/10 transition-colors"
+          className="w-full relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-0 text-left transition-all hover:border-white/20 group"
         >
-          <div className="relative z-10 flex items-center gap-2">
-            <span className="text-lg">🔒</span>
-            <div className="text-left">
-              <div className="text-[10px] font-black uppercase tracking-widest text-white">SEE FULL ANSWERS + WHY</div>
-              <div className="text-[9px] text-slate-400">Get unlimited NREMT practice tests</div>
-            </div>
-          </div>
+           {/* Faint text in background to simulate "showing the answer" */}
+           <div className="absolute inset-0 p-4 text-[10px] text-slate-500 opacity-60 blur-[2px] select-none leading-relaxed">
+              The correct answer is {correctLetter} because {item.explanation.slice(0, 100)}... this is the hidden rationale content that you are paying to see...
+           </div>
+
+           {/* The foreground content */}
+           <div className="relative z-10 flex h-14 items-center justify-center gap-3 bg-black/30 backdrop-blur-[1px]">
+              <span className="text-lg">🔒</span>
+              <div className="text-left">
+                 <div className="text-[10px] font-black uppercase tracking-widest text-white drop-shadow-md">
+                    SEE FULL ANSWERS + WHY
+                 </div>
+                 <div className="text-[9px] text-slate-300 font-medium">
+                    Get unlimited NREMT practice tests
+                 </div>
+              </div>
+           </div>
         </button>
       </div>
     );
@@ -421,7 +432,7 @@ function PaywallContent() {
           </div>
         </motion.div>
 
-        {/* ✅ WHAT YOU MISSED SECTION (Replaces old generic blurred card) */}
+        {/* ✅ WHAT YOU MISSED SECTION */}
         {missedList.length > 0 && (
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4 px-1">
