@@ -6,7 +6,7 @@ import { questions } from "@/lib/questions";
 import { useRouter } from "next/navigation";
 
 type Level = "EMT" | "Paramedic";
-type Stage = "quiz" | "analyzing"; // Removed 'preview'
+type Stage = "quiz" | "analyzing"; 
 
 type Q = (typeof questions)[number];
 
@@ -126,7 +126,8 @@ export default function SimulatorPage() {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
   const [answers, setAnswers] = useState<AnswerRecord[]>([]);
-  const [analysisText, setAnalysisText] = useState("INITIATING STOP PROTOCOL...");
+  // Changed initial text to be less scary
+  const [analysisText, setAnalysisText] = useState("Checking answers..."); 
   const [analysisPct, setAnalysisPct] = useState(0);
 
   const [timeLeft, setTimeLeft] = useState(420);
@@ -246,14 +247,15 @@ export default function SimulatorPage() {
     setStage("analyzing");
     setAnalysisPct(0);
 
+    // ✅ FRIENDLIER, CLEARER STEPS
     const steps: Array<{ t: number; pct: number; text: string }> = [
-      { t: 650, pct: 14, text: "ACQUIRING RESPONSE MATRIX..." },
-      { t: 1400, pct: 30, text: "CALIBRATING ITEM DIFFICULTY..." },
-      { t: 2200, pct: 46, text: "SCORING CLINICAL DECISIONS..." },
-      { t: 3000, pct: 62, text: "MAPPING DOMAIN WEAKNESSES..." },
-      { t: 3850, pct: 78, text: "GENERATING READINESS REPORT..." },
-      { t: 4700, pct: 92, text: "COMPILING FIX PLAN..." },
-      { t: 5450, pct: 100, text: "REPORT READY • LOCK APPLIED" },
+      { t: 650, pct: 14, text: "CHECKING YOUR ANSWERS..." },
+      { t: 1400, pct: 30, text: "COMPARING TO NREMT STANDARDS..." },
+      { t: 2200, pct: 46, text: "ANALYZING CLINICAL REASONING..." },
+      { t: 3000, pct: 62, text: "IDENTIFYING WEAK TOPICS..." },
+      { t: 3850, pct: 78, text: "CALCULATING READINESS SCORE..." },
+      { t: 4700, pct: 92, text: "BUILDING CUSTOM STUDY PLAN..." },
+      { t: 5450, pct: 100, text: "RESULTS READY" },
     ];
 
     steps.forEach((s) => {
@@ -300,48 +302,61 @@ export default function SimulatorPage() {
   /* -------------------- ANALYZING -------------------- */
   if (stage === "analyzing") {
     return (
-      <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center p-6 text-center font-mono relative overflow-hidden">
-        <div className={`absolute inset-0 pointer-events-none opacity-20 ${theme.scan} bg-[length:100%_4px]`} />
-
+      <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center p-6 text-center font-sans relative overflow-hidden">
+        {/* Subtle background pulse */}
         <motion.div
-          animate={{ top: ["0%", "100%"] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-          className={`absolute left-0 right-0 h-1 ${theme.isP ? "bg-rose-500/50" : "bg-cyan-400/50"} blur-sm z-0`}
+          animate={{ opacity: [0.1, 0.3, 0.1] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className={`absolute inset-0 bg-gradient-to-b from-transparent ${theme.isP ? "via-rose-900/10" : "via-cyan-900/10"} to-transparent pointer-events-none`}
         />
 
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="z-10 w-full max-w-sm">
-          <div className={`w-24 h-24 border-4 ${theme.spinner} border-t-transparent rounded-full animate-spin mx-auto mb-8 shadow-[0_0_30px_rgba(255,255,255,0.12)]`} />
+        <div className="z-10 w-full max-w-sm">
+          {/* Replaced scary spinner with smooth progress ring */}
+          <div className="relative w-24 h-24 mx-auto mb-8">
+             <svg className="w-full h-full transform -rotate-90">
+               <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-slate-800" />
+               <motion.circle 
+                 initial={{ strokeDasharray: "0 251" }}
+                 animate={{ strokeDasharray: `${(analysisPct / 100) * 251} 251` }}
+                 cx="48" cy="48" r="40" 
+                 stroke="currentColor" 
+                 strokeWidth="6" 
+                 fill="transparent" 
+                 strokeLinecap="round"
+                 className={theme.accent}
+               />
+             </svg>
+             <div className="absolute inset-0 flex items-center justify-center font-bold text-lg text-white">
+               {analysisPct}%
+             </div>
+          </div>
 
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-5 tracking-tighter drop-shadow-lg">
-            EXAM STOPPED
+          <h1 className="text-2xl md:text-3xl font-black text-white mb-2 tracking-tight">
+            ANALYZING PERFORMANCE
           </h1>
+          <p className="text-slate-400 text-sm mb-8">
+            Please wait while we grade your simulation...
+          </p>
 
-          <div className={`bg-black/35 border ${theme.border} p-5 rounded-2xl backdrop-blur-sm`}>
-            <div className="flex items-center justify-between mb-3">
-              <div className={`text-xs font-black tracking-widest uppercase ${theme.accent}`}>
-                STOP PROTOCOL
-              </div>
-              <div className="text-xs text-slate-400 font-bold">{analysisPct}%</div>
+          <div className={`bg-black/30 border ${theme.border} p-5 rounded-2xl backdrop-blur-sm`}>
+            <div className="flex items-center gap-3">
+               {/* Small pulsing dot */}
+               <div className={`w-2 h-2 rounded-full ${theme.isP ? "bg-rose-500" : "bg-cyan-400"} animate-pulse`} />
+               <p className="text-slate-200 font-bold text-sm tracking-wide text-left">
+                 {analysisText}
+               </p>
             </div>
 
-            <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${analysisPct}%` }}
-                transition={{ duration: 0.35 }}
-                className={`h-full ${theme.progress}`}
-              />
-            </div>
-
-            <p className="mt-4 text-slate-200 font-bold text-sm md:text-base tracking-wide">
-              &gt; <span className={theme.accentSoft}>{analysisText}</span>
-            </p>
-
-            <div className="mt-3 text-[11px] text-slate-400 font-semibold">
-              Readiness score • weakest domain • fix plan
+            <div className="mt-4 pt-4 border-t border-white/5 flex justify-between text-[10px] text-slate-500 font-mono uppercase tracking-widest">
+               <span>Mode: {userLevel}</span>
+               <span>Status: Processing</span>
             </div>
           </div>
-        </motion.div>
+
+          <div className="mt-8 text-xs text-slate-500 font-medium">
+            ⚠️ Do not close this tab or your results will be lost.
+          </div>
+        </div>
       </div>
     );
   }
