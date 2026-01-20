@@ -523,7 +523,7 @@ function PaywallContent() {
         </div>
       </div>
 
-      {/* STICKY BOTTOM CHECKOUT */}
+      {/* STICKY BOTTOM CHECKOUT (CDL Style) */}
       {!checkoutOpen && (
         <div className="fixed bottom-0 left-0 right-0 z-20">
           <div className="mx-auto w-full max-w-sm px-4 pb-4">
@@ -549,9 +549,11 @@ function PaywallContent() {
               >
                 UNLOCK MY PLAN
               </motion.button>
-              <div className="mt-3 flex flex-wrap items-center justify-center gap-2 opacity-95">
-                <TrustChip icon={<ShieldIcon />} text="Secure checkout" />
-                <TrustChip icon={<BoltIcon />} text="12,000+ NREMTs Passed" />
+              {/* ✅ Single Line Trust Badge */}
+              <div className="mt-2 flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono uppercase tracking-widest">
+                <span>🔒 Secure checkout</span>
+                <span className="text-white/20">•</span>
+                <span>12,000+ NREMTs Passed</span>
               </div>
               <div className="h-[env(safe-area-inset-bottom)]" />
             </div>
