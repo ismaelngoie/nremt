@@ -480,7 +480,7 @@ function PaywallContent() {
           </div>
           <div className="mt-4 space-y-3">
             <FeatureRow icon="🧪" text="CAT-style full simulations (70–120Q) + timers" />
-            <FeatureRow icon="📚" text="3,000+ question bank + rapid drills" />
+            <FeatureRow icon="📚" text="4,000+ question bank + rapid drills" />
             <FeatureRow icon="🧠" text="Rationales that explain *why* (not just the answer)" />
             <FeatureRow icon="🎯" text="Personalized weakness fix plan (auto-generated)" />
             <FeatureRow icon={isP ? "⚡️" : "🚑"} text="EMT + Paramedic modes (switch anytime)" />
