@@ -97,7 +97,7 @@ function PaywallContent() {
   const searchParams = useSearchParams();
   const paid = searchParams.get("success") === "true";
 
-  const [selectedPlan, setSelectedPlan] = useState<PlanKey>("annual");
+  const [selectedPlan, setSelectedPlan] = useState<PlanKey>("monthly");
 
   // Restore
   const [restoreEmail, setRestoreEmail] = useState("");
