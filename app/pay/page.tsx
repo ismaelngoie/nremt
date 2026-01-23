@@ -27,7 +27,7 @@ const PRICING: Record<PlanKey, PricingTier> = {
     title: "Start Monthly Access",
   },
   lifetime: {
-    price: 24.95,
+    price: 19.95,
     cadence: " once",
     strike: 69.00,
     badge: "Best Value",
