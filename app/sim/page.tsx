@@ -45,7 +45,14 @@ export default function SimulatorPage() {
       return;
     }
 
-    // 2. Load Level & Questions
+    // 2. Check if already took the demo (PREVENT RETAKE)
+    const hasTaken = localStorage.getItem("diagnosticCompletedAt");
+    if (hasTaken) {
+      router.replace("/pay");
+      return;
+    }
+
+    // 3. Load Level & Questions
     const lvl = (localStorage.getItem("userLevel") as Level) || "EMT";
     const normalized: Level = lvl === "Paramedic" ? "Paramedic" : "EMT";
     setUserLevel(normalized);
