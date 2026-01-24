@@ -60,13 +60,6 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col items-center text-center"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
-            <span className="text-[11px] font-black tracking-[0.22em] text-slate-200 uppercase">
-              Adaptive Diagnostic
-            </span>
-            <span className="text-[11px] font-mono text-slate-400">5 questions • ~60 sec</span>
-          </div>
-
           <h1 className="mt-6 text-4xl md:text-6xl font-black tracking-tighter leading-[1.0] text-white">
             NREMT PRACTICE TEST 2026: <br />
             <span className={`text-transparent bg-clip-text bg-gradient-to-r ${accent.grad}`}>
@@ -156,7 +149,7 @@ export default function Home() {
               className={`mt-5 w-full py-5 rounded-xl font-black text-lg text-white border border-white/10
                           bg-gradient-to-r ${accent.btn} shadow-lg hover:shadow-cyan-500/20 transition-all uppercase tracking-widest`}
             >
-              Start Diagnostic Now →
+              Start Practice Now →
             </motion.button>
 
             {/* Trust chips */}
@@ -167,7 +160,7 @@ export default function Home() {
           </div>
 
           <p className="mt-6 text-center text-white/25 text-[10px] uppercase tracking-widest">
-            Trusted by 10,000+ Medics • Fast & Secure
+            Trusted by 12,000+ Medics • Fast & Secure
           </p>
         </motion.div>
       </div>
