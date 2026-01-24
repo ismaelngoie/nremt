@@ -23,15 +23,15 @@ const PRICING: Record<PlanKey, PricingTier> = {
     price: 6.95,
     cadence: "/mo",
     strike: 19.95,
-    subtitle: "Cancel anytime",
-    title: "Start Monthly Access",
+    subtitle: "$6.95 / month", // UPDATED: Price explicit
+    title: "Unlock Full Access", // UPDATED: Stronger verb
   },
   lifetime: {
-    price: 19.95,
+    price: 24.95,
     cadence: " once",
     strike: 69.00,
     badge: "Best Value",
-    subtitle: "One-time payment. Own it forever",
+    subtitle: "One-time payment",
     title: "Get Lifetime Access",
   },
 };
@@ -100,16 +100,6 @@ function PaywallContent() {
 
   // Personalization
   const [userLevel, setUserLevel] = useState("EMT");
-  const [userName, setUserName] = useState("FUTURE MEDIC");
-  const [readiness, setReadiness] = useState(68);
-  const [weakDomain, setWeakDomain] = useState("Cardiology");
-  const [weakPct, setWeakPct] = useState(42);
-  const [daysToExam, setDaysToExam] = useState(14);
-
-  // Diagnostic patches
-  const [passProb, setPassProb] = useState<number | null>(null);
-  const [ciLow, setCiLow] = useState<number | null>(null);
-  const [ciHigh, setCiHigh] = useState<number | null>(null);
   const [missedList, setMissedList] = useState<DiagnosticAnswer[]>([]);
   const [isPerfectScore, setIsPerfectScore] = useState(false);
 
@@ -120,27 +110,8 @@ function PaywallContent() {
   const embeddedRef = useRef<any>(null);
 
   useEffect(() => {
-    // Level + name
+    // Level
     setUserLevel(localStorage.getItem("userLevel") || "EMT");
-    setUserName(localStorage.getItem("userName") || "FUTURE MEDIC");
-
-    const rs = Number(localStorage.getItem("readinessScore"));
-    const wd = localStorage.getItem("weakestDomain");
-    const wp = Number(localStorage.getItem("weakestDomainPct"));
-    const dte = Number(localStorage.getItem("daysToExam"));
-
-    if (Number.isFinite(rs)) setReadiness(Math.round(rs));
-    if (wd) setWeakDomain(wd);
-    if (Number.isFinite(wp)) setWeakPct(Math.round(wp));
-    if (Number.isFinite(dte)) setDaysToExam(Math.round(dte));
-
-    const pp = Number(localStorage.getItem("passProbability"));
-    const cl = Number(localStorage.getItem("confidenceLow"));
-    const ch = Number(localStorage.getItem("confidenceHigh"));
-
-    if (Number.isFinite(pp)) setPassProb(Math.round(pp));
-    if (Number.isFinite(cl)) setCiLow(Math.round(cl));
-    if (Number.isFinite(ch)) setCiHigh(Math.round(ch));
 
     // Missed question (Load all wrong answers OR fallback to sample)
     try {
@@ -184,19 +155,7 @@ function PaywallContent() {
     };
   }, [isP]);
 
-  const status = useMemo(() => {
-    if (readiness >= 80) return { label: "ON TRACK", tone: "text-emerald-300" };
-    if (readiness >= 65) return { label: "BORDERLINE", tone: "text-yellow-300" };
-    return { label: "AT RISK", tone: "text-red-300" };
-  }, [readiness]);
-
-  const dateString = useMemo(() => {
-    const validDate = new Date();
-    validDate.setFullYear(validDate.getFullYear() + 2);
-    return validDate.toLocaleDateString("en-US", { month: "2-digit", year: "numeric" });
-  }, []);
-
-  const bottomSafePadding = "pb-[340px]";
+  const bottomSafePadding = "pb-[200px]";
 
   // --- Embedded Checkout Logic ---
   const startCheckout = async () => {
@@ -212,11 +171,9 @@ function PaywallContent() {
       const stripe = window.Stripe?.(stripePk);
       if (!stripe) throw new Error("Stripe failed to load");
 
-      // Attempt to capture email if entered in restore box (or empty)
       const e = restoreEmail.includes("@") ? restoreEmail : undefined;
       const clientSecret = await createCheckoutClientSecret(selectedPlan, e);
 
-      // Clean up old
       if (embeddedRef.current) {
         embeddedRef.current.destroy();
       }
@@ -279,7 +236,6 @@ function PaywallContent() {
 
     return (
       <div className="bg-[#0B1022] border border-white/10 rounded-2xl p-5 mb-4 shadow-xl">
-        {/* Dynamic Header: "ANALYSIS LOCKED" if perfect, "YOU MISSED THIS" if wrong */}
         <div className={`text-[10px] font-black uppercase tracking-widest mb-2 ${isCorrect ? "text-emerald-400" : theme.accentText}`}>
           {isCorrect ? `ANALYSIS LOCKED • ${item.category.toUpperCase()}` : `YOU MISSED THIS • ${item.category.toUpperCase()}`}
         </div>
@@ -293,24 +249,20 @@ function PaywallContent() {
             <div className="text-[9px] font-black uppercase tracking-widest text-emerald-400 mb-1">CORRECT</div>
             <div className="text-2xl font-black text-emerald-300">{correctLetter}</div>
           </div>
-          {/* Dynamic User Box: Green if correct, Red if wrong */}
           <div className={`${isCorrect ? "bg-emerald-900/20 border-emerald-500/20" : "bg-red-900/20 border-red-500/20"} border rounded-xl p-3`}>
             <div className={`text-[9px] font-black uppercase tracking-widest ${isCorrect ? "text-emerald-400" : "text-red-400"} mb-1`}>YOU PICKED</div>
             <div className={`text-2xl font-black ${isCorrect ? "text-emerald-300" : "text-red-300"}`}>{userLetter}</div>
           </div>
         </div>
 
-        {/* LOCKED ANSWER BUTTON WITH TRANSPARENT TEXT EFFECT */}
         <button 
           onClick={startCheckout}
           className="w-full relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-0 text-left transition-all hover:border-white/20 group"
         >
-           {/* Faint text in background to simulate "showing the answer" */}
            <div className="absolute inset-0 p-4 text-[10px] text-slate-500 opacity-60 blur-[2px] select-none leading-relaxed">
               The correct answer is {correctLetter} because {item.explanation.slice(0, 100)}... this is the hidden rationale content that you are paying to see...
            </div>
 
-           {/* The foreground content */}
            <div className="relative z-10 flex h-14 items-center justify-center gap-3 bg-black/30 backdrop-blur-[1px]">
               <span className="text-lg">🔒</span>
               <div className="text-left">
@@ -347,94 +299,45 @@ function PaywallContent() {
           </div>
         )}
 
-        {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="mb-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-            <span className="text-[11px] font-black tracking-widest text-slate-300 uppercase">REPORT LOCKED</span>
-            <span className="text-[11px] font-mono text-slate-400">T-{daysToExam} days</span>
+        {/* HEADER SECTION (Simplified & Centered) */}
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="mb-8 text-center">
+          
+          {/* Pulse Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-[10px] font-mono tracking-widest uppercase mb-6">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+            </span>
+            Used by 12,000+ Candidates • 2026 Edition
           </div>
-          <h1 className="mt-3 text-3xl font-black tracking-tight leading-[1.05]">
-            Unlock 4,000+ Questions, Practice Tests & <span className={theme.accentText}>Full Simulator</span>
+
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.05] mb-2 text-white">
+            Unlock 4,000+ Real Exam Questions and Answers
           </h1>
-          <p className="mt-2 text-slate-300 text-sm leading-relaxed">
-            Your readiness is <span className="font-black text-white">{readiness}%</span>{" "}
-            <span className={`font-black ${status.tone}`}>({status.label})</span>. Biggest risk:
-            <span className="font-black text-white"> {weakDomain}</span>{" "}
-            <span className="font-black text-red-300">({weakPct}%)</span>.
+          <p className="text-slate-400 text-sm leading-relaxed max-w-[280px] mx-auto">
+            Stop guessing. Get instant rationales, performance tracking, and the full simulator.
           </p>
-          {(passProb !== null || (ciLow !== null && ciHigh !== null)) && (
-            <div className="mt-2 flex flex-wrap gap-2">
-              {passProb !== null && (
-                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border ${theme.chipBg}`}>
-                  <span className={`text-[10px] font-black uppercase tracking-widest ${theme.chipText}`}>Pass probability</span>
-                  <span className="text-sm font-black text-white">{passProb}%</span>
-                </div>
-              )}
-              {ciLow !== null && ciHigh !== null && (
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-300">Confidence</span>
-                  <span className="text-sm font-black text-white">{ciLow}%–{ciHigh}%</span>
-                </div>
-              )}
-            </div>
-          )}
         </motion.div>
 
         {/* Social Proof */}
-        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="mb-5">
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="mb-8">
           <div className="rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 flex items-center justify-between gap-3 backdrop-blur-md">
             <div className="flex items-center gap-2">
               <Stars />
-              <div className="leading-tight">
+              <div className="leading-tight text-left">
                 <div className="text-sm font-extrabold">4.8/5</div>
-                <div className="text-[11px] text-slate-400 font-semibold">Avg. candidate rating</div>
+                <div className="text-[11px] text-slate-400 font-semibold">Candidate rating</div>
               </div>
             </div>
             <div className="h-9 w-px bg-white/10" />
             <div className="leading-tight text-right">
               <div className="text-sm font-extrabold">12,000+</div>
-              <div className="text-[11px] text-slate-400 font-semibold">Simulations this month</div>
+              <div className="text-[11px] text-slate-400 font-semibold">Passed in 2025</div>
             </div>
           </div>
         </motion.div>
 
-        {/* ID Card */}
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-          <div className={`bg-white rounded-2xl p-6 shadow-2xl shadow-blue-900/50 relative overflow-hidden text-black transform rotate-1 border-t-4 ${isP ? "border-rose-500" : "border-cyan-500"}`}>
-            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/35 to-transparent opacity-60 pointer-events-none" />
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">Operator Credential</p>
-                <div className="h-1 w-12 bg-blue-600 mt-1" />
-              </div>
-              <span className="text-xl font-black text-gray-200">2026</span>
-            </div>
-            <div className="flex items-center gap-4 mb-6">
-              <div className={`w-16 h-16 rounded-lg flex items-center justify-center border-2 text-3xl ${isP ? "bg-rose-50 border-rose-100 text-rose-600" : "bg-blue-50 border-blue-100 text-blue-600"}`}>
-                {theme.icon}
-              </div>
-              <div>
-                <p className={`text-xs font-black uppercase mb-0.5 ${isP ? "text-rose-600" : "text-blue-600"}`}>{userLevel} MODE</p>
-                <h2 className="text-2xl font-black tracking-tight leading-none">{userName}</h2>
-                <p className="text-[10px] font-mono text-gray-500 mt-1">VALID THROUGH: {dateString}</p>
-              </div>
-            </div>
-            <div className="flex justify-between items-end">
-              <div className="flex gap-2">
-                <div className="px-2 py-1 bg-gray-100 rounded text-[9px] font-black text-gray-600">FULL SIMS</div>
-                <div className="px-2 py-1 bg-gray-100 rounded text-[9px] font-black text-gray-600">FIX PLAN</div>
-              </div>
-              <div
-                className="h-6 w-24 bg-black opacity-80"
-                style={{
-                  clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%, 10% 90%, 20% 90%, 25% 100%, 30% 100%, 35% 80%, 40% 100%)",
-                }}
-              />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* ✅ WHAT YOU MISSED SECTION (FIXED: Visible for 100% scores too) */}
+        {/* MISSED QUESTIONS (Value Hook) */}
         {missedList.length > 0 && (
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4 px-1">
@@ -454,9 +357,6 @@ function PaywallContent() {
             >
               SEE FULL ANSWERS + EXPLANATIONS <span className="text-lg">→</span>
             </button>
-            <div className="mt-3 text-center text-[9px] font-black uppercase tracking-widest text-slate-500">
-              Unlimited NREMT Practice Tests • All Categories • Works Offline • 12,000+ NREMTs Passed
-            </div>
           </div>
         )}
 
@@ -482,7 +382,7 @@ function PaywallContent() {
             selected={selectedPlan === "monthly"}
             onClick={() => setSelectedPlan("monthly")}
             title={PRICING.monthly.title}
-            subtitle="Cancel anytime."
+            subtitle={PRICING.monthly.subtitle}
             rightTop={PRICING.monthly.strike ? fmt(PRICING.monthly.strike) : null}
             rightMain={`${fmt(PRICING.monthly.price)}${PRICING.monthly.cadence}`}
             accent={isP ? "rose" : "blue"}
@@ -492,7 +392,7 @@ function PaywallContent() {
             selected={selectedPlan === "lifetime"}
             onClick={() => setSelectedPlan("lifetime")}
             title={PRICING.lifetime.title}
-            subtitle="One-time payment. Own it forever."
+            subtitle={PRICING.lifetime.subtitle}
             rightTop={PRICING.lifetime.strike ? fmt(PRICING.lifetime.strike) : null}
             rightMain={`${fmt(PRICING.lifetime.price)}${PRICING.lifetime.cadence}`}
             badge={PRICING.lifetime.badge}
@@ -521,7 +421,7 @@ function PaywallContent() {
           </div>
         </div>
 
-        {/* ✅ Simple Restore Link */}
+        {/* Restore Link */}
         <div className="mt-6 mb-8 text-left pl-2">
           <button
             onClick={() => setShowRestore(true)}
@@ -532,23 +432,12 @@ function PaywallContent() {
         </div>
       </div>
 
-      {/* STICKY BOTTOM CHECKOUT */}
+      {/* STICKY BOTTOM CHECKOUT (Simplified) */}
       {!checkoutOpen && (
         <div className="fixed bottom-0 left-0 right-0 z-20">
           <div className="mx-auto w-full max-w-sm px-4 pb-4">
             <div className="rounded-2xl bg-black/35 backdrop-blur-xl border border-white/10 p-3 shadow-[0_-15px_40px_-20px_rgba(0,0,0,0.8)]">
-              <div className="flex items-center justify-between px-1 pb-2">
-                <div className="text-xs text-slate-300 font-semibold">
-                  Selected:{" "}
-                  <span className="font-black text-white">
-                    {PRICING[selectedPlan].title}
-                  </span>
-                </div>
-                <div className="text-xs text-slate-400 font-mono">
-                  {selectedPlan === "monthly" && <>Cancel anytime</>}
-                  {selectedPlan === "lifetime" && <>Pay once</>}
-                </div>
-              </div>
+              {/* Removed the 'Selected:' text row as requested */}
               <motion.button
                 onClick={startCheckout}
                 whileHover={{ scale: 1.01 }}
@@ -557,7 +446,7 @@ function PaywallContent() {
               >
                 {PRICING[selectedPlan].title.toUpperCase()}
               </motion.button>
-              {/* ✅ Single Line Trust Badge */}
+              {/* Trust Badge */}
               <div className="mt-2 flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono uppercase tracking-widest whitespace-nowrap">
                 <span>🔒 Secure checkout</span>
                 <span className="text-white/20">•</span>
@@ -589,11 +478,10 @@ function PaywallContent() {
         </div>
       )}
 
-      {/* ✅ RESTORE POPUP MODAL */}
+      {/* RESTORE POPUP MODAL */}
       <AnimatePresence>
         {showRestore && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            {/* Click outside to close */}
             <div className="absolute inset-0" onClick={() => setShowRestore(false)} />
             
             <motion.div
