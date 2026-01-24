@@ -153,7 +153,7 @@ function PaywallContent() {
       chipBg: isP ? "bg-rose-500/10 border-rose-500/20" : "bg-cyan-500/10 border-cyan-500/20",
       chipText: isP ? "text-rose-200" : "text-cyan-200",
       ctaGrad: isP ? "from-rose-600 to-red-500" : "from-blue-600 to-cyan-500",
-      badgeGrad: isP ? "from-rose-500 to-red-500" : "from-cyan-400 to-blue-500", // FIXED: Added this missing property
+      badgeGrad: isP ? "from-rose-500 to-red-500" : "from-cyan-400 to-blue-500",
       subtleBg: isP ? "bg-[#0B1022]" : "bg-[#0F172A]",
       dangerBg: "bg-red-500/10 border-red-500/30 text-red-400",
       pulseBg: isP ? "bg-rose-400" : "bg-cyan-400",
@@ -315,14 +315,17 @@ function PaywallContent() {
           </h1>
 
         </motion.div>
-        {/* Pulse Badge (UPDATED: Matches User Level Color) */}
-          <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border ${theme.chipBg} ${theme.chipText} text-[10px] font-mono tracking-widest uppercase mb-4`}>
+
+        {/* Pulse Badge (UPDATED: Matches User Level Color + Centered) */}
+        <div className="flex justify-center mb-6">
+          <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border ${theme.chipBg} ${theme.chipText} text-[10px] font-mono tracking-widest uppercase`}>
             <span className="relative flex h-2 w-2">
               <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${theme.pulseBg}`}></span>
               <span className={`relative inline-flex rounded-full h-2 w-2 ${theme.pulseCore}`}></span>
             </span>
             Used by 12,000+ Candidates • 2026 Edition
           </div>
+        </div>
 
         {/* Features (Renamed Header) */}
         <div className="mb-6 rounded-2xl bg-slate-900/45 border border-white/10 p-5">
