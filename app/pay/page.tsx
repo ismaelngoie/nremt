@@ -153,6 +153,7 @@ function PaywallContent() {
       chipBg: isP ? "bg-rose-500/10 border-rose-500/20" : "bg-cyan-500/10 border-cyan-500/20",
       chipText: isP ? "text-rose-200" : "text-cyan-200",
       ctaGrad: isP ? "from-rose-600 to-red-500" : "from-blue-600 to-cyan-500",
+      badgeGrad: isP ? "from-rose-500 to-red-500" : "from-cyan-400 to-blue-500", // FIXED: Added this missing property
       subtleBg: isP ? "bg-[#0B1022]" : "bg-[#0F172A]",
       dangerBg: "bg-red-500/10 border-red-500/30 text-red-400",
       pulseBg: isP ? "bg-rose-400" : "bg-cyan-400",
@@ -376,7 +377,6 @@ function PaywallContent() {
         {/* Features (Renamed Header) */}
         <div className="mb-6 rounded-2xl bg-slate-900/45 border border-white/10 p-5">
           <div className="flex items-center justify-between">
-            {/* UPDATED HEADER: More direct */}
             <h3 className="text-xs font-black text-slate-300 uppercase tracking-widest">What&apos;s Included</h3>
             <span className="text-[11px] font-mono text-slate-400">Instant unlock</span>
           </div>
@@ -385,7 +385,6 @@ function PaywallContent() {
             <FeatureRow icon="📚" text="4,000+ questions and answers" />
             <FeatureRow icon="🎯" text="Personalized weakness fix plan (auto-generated)" />
             <FeatureRow icon={isP ? "⚡️" : "🚑"} text="EMT + Paramedic modes (switch anytime)" />
-            {/* UPDATED: Pass Guarantee is now normal white text */}
             <FeatureRow icon="🛡️" text="Pass Guarantee (refund if you complete plan + don’t pass)" />
           </div>
         </div>
@@ -451,7 +450,6 @@ function PaywallContent() {
         <div className="fixed bottom-0 left-0 right-0 z-50">
           <div className="mx-auto w-full max-w-sm px-4 pb-4">
             <div className="rounded-2xl bg-black/80 backdrop-blur-xl border border-white/10 p-3 shadow-[0_-15px_40px_-20px_rgba(0,0,0,0.8)]">
-              {/* Removed the 'Selected:' text row as requested */}
               <motion.button
                 onClick={startCheckout}
                 whileHover={{ scale: 1.01 }}
@@ -554,7 +552,6 @@ export default function PaywallPage() {
 }
 
 // --- Icons & UI ---
-// Removed highlight prop logic to keep everything consistent white/slate
 function FeatureRow({ icon, text }: { icon: string; text: string }) {
   return (
     <div className="flex items-start gap-3">
