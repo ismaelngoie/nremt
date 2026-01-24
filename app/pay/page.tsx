@@ -314,9 +314,6 @@ function PaywallContent() {
           <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.05] mb-2 text-white">
             Unlock 4,000+ Real Exam Questions and Answers
           </h1>
-          <p className="text-slate-400 text-sm leading-relaxed max-w-[280px] mx-auto">
-            Stop guessing. Get instant rationales, performance tracking, and the full simulator.
-          </p>
         </motion.div>
 
         {/* Social Proof */}
