@@ -306,14 +306,14 @@ export default function SimulatorPage() {
                     </div>
 
                     <div className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">
-                      Explanation
+                      Rationale
                     </div>
                   </div>
 
                   {/* Rationale Content */}
                   <div className="bg-white/5 rounded-xl p-5 border border-white/5">
                     <p className="text-slate-200 text-sm leading-relaxed">
-                      <span className="text-white font-bold">Why: </span>
+                      <span className="text-white font-bold">Rationale: </span>
                       {question.explanation}
                     </p>
                   </div>
