@@ -331,8 +331,7 @@ function PaywallContent() {
             <span className="text-[11px] font-mono text-slate-400">Instant unlock</span>
           </div>
           <div className="mt-4 space-y-3">
-            <FeatureRow icon="🧪" text="NREMT Practice Test CAT-style" />
-            <FeatureRow icon="📚" text="4,000+ questions and answers" />
+            <FeatureRow icon="🧪" text="4,000+ Practice Test CAT-style" />
             <FeatureRow icon="🎯" text="Personalized weakness fix plan (auto-generated)" />
             <FeatureRow icon={isP ? "⚡️" : "🚑"} text="EMT + Paramedic modes (switch anytime)" />
             <FeatureRow icon="🛡️" text="Pass Guarantee (refund if you complete plan + don’t pass)" />
