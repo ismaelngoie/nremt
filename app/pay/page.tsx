@@ -309,15 +309,6 @@ function PaywallContent() {
         {/* HEADER SECTION (Simplified & Centered) */}
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="mb-8 text-center">
           
-          {/* Pulse Badge (UPDATED: Matches User Level Color) */}
-          <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border ${theme.chipBg} ${theme.chipText} text-[10px] font-mono tracking-widest uppercase mb-4`}>
-            <span className="relative flex h-2 w-2">
-              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${theme.pulseBg}`}></span>
-              <span className={`relative inline-flex rounded-full h-2 w-2 ${theme.pulseCore}`}></span>
-            </span>
-            Used by 12,000+ Candidates • 2026 Edition
-          </div>
-
           {/* UPDATED TITLE (CAPS + GRADIENT) */}
           <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.05] mb-2 text-white uppercase">
             Unlock 4,000+ <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.accentGrad}`}>Real Exam Questions</span>
@@ -325,54 +316,20 @@ function PaywallContent() {
           
           {/* NEW SCORE WARNING BANNER */}
           <div className={`mt-3 inline-flex flex-col sm:flex-row items-center gap-2 px-4 py-3 rounded-2xl border ${theme.dangerBg} shadow-lg backdrop-blur-md`}>
-            <span className="text-lg">⚠️</span>
             <div className="text-[11px] font-black uppercase tracking-widest leading-tight text-center sm:text-left">
-              You are {failGap}% away from passing • Target is {PASSING_SCORE}% • {userState}
+              ⚠️ You are {failGap}% away from passing • Target is {PASSING_SCORE}% • {userState}
             </div>
           </div>
 
         </motion.div>
-
-        {/* Social Proof */}
-        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="mb-8">
-          <div className="rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 flex items-center justify-between gap-3 backdrop-blur-md">
-            <div className="flex items-center gap-2">
-              <Stars />
-              <div className="leading-tight text-left">
-                <div className="text-sm font-extrabold">4.8/5</div>
-                <div className="text-[11px] text-slate-400 font-semibold">Candidate rating</div>
-              </div>
-            </div>
-            <div className="h-9 w-px bg-white/10" />
-            <div className="leading-tight text-right">
-              <div className="text-sm font-extrabold">12,000+</div>
-              <div className="text-[11px] text-slate-400 font-semibold">Passed in 2025</div>
-            </div>
+        {/* Pulse Badge (UPDATED: Matches User Level Color) */}
+          <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border ${theme.chipBg} ${theme.chipText} text-[10px] font-mono tracking-widest uppercase mb-4`}>
+            <span className="relative flex h-2 w-2">
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${theme.pulseBg}`}></span>
+              <span className={`relative inline-flex rounded-full h-2 w-2 ${theme.pulseCore}`}></span>
+            </span>
+            Used by 12,000+ Candidates • 2026 Edition
           </div>
-        </motion.div>
-
-        {/* MISSED QUESTIONS (Value Hook) */}
-        {missedList.length > 0 && (
-          <div className="mb-8">
-            <div className="flex justify-between items-center mb-4 px-1">
-              <div className="text-xs font-black uppercase tracking-widest text-white">
-                {isPerfectScore ? "FULL EXAM ANALYSIS" : "What You Missed"}
-              </div>
-              <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">TAP TO UNLOCK</div>
-            </div>
-            
-            {missedList.map((missed) => (
-              <MissedCard key={missed.id} item={missed} />
-            ))}
-
-            <button 
-              onClick={startCheckout}
-              className="w-full py-4 rounded-xl bg-white text-black font-black text-sm uppercase tracking-widest hover:bg-slate-200 transition-colors flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(255,255,255,0.15)]"
-            >
-              SEE FULL ANSWERS + EXPLANATIONS <span className="text-lg">→</span>
-            </button>
-          </div>
-        )}
 
         {/* Features (Renamed Header) */}
         <div className="mb-6 rounded-2xl bg-slate-900/45 border border-white/10 p-5">
